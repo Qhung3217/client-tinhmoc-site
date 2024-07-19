@@ -10,7 +10,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Main } from './main';
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
-import { Footer, HomeFooter } from './footer';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
 import { navData as mainNavData } from '../config-nav-main';
@@ -82,13 +81,13 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
         /** **************************************
          * Footer
          *************************************** */
-        footerSection={homePage ? <HomeFooter /> : <Footer layoutQuery={layoutQuery} />}
+        // footerSection={homePage ? <HomeFooter /> : <Footer layoutQuery={layoutQuery} />}
         /** **************************************
          * Style
          *************************************** */
         sx={sx}
       >
-        <Main>{children}</Main>
+        <Main sx={{ backgroundColor: 'black' }}>{children}</Main>
       </LayoutSection>
     </>
   );
