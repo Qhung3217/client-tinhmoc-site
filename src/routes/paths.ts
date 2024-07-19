@@ -12,21 +12,30 @@ const ROOTS = {
   AUTH: '/auth',
   AUTH_DEMO: '/auth-demo',
   DASHBOARD: '/dashboard',
+  LANDING: '/',
 };
 
 // ----------------------------------------------------------------------
 
 export const paths = {
+  /* ------------------ MY APP ------------------ */
+  landing: {
+    product: {
+      root: '/san-pham',
+      view: (id: string | number) => `${ROOTS.LANDING}san-pham/${id}`,
+    },
+  },
   comingSoon: '/coming-soon',
   maintenance: '/maintenance',
+  page403: '/error/403',
+  page404: '/error/404',
+  page500: '/error/500',
+  /* ---------------- END MY APP ---------------- */
   pricing: '/pricing',
   payment: '/payment',
   about: '/about-us',
   contact: '/contact-us',
   faqs: '/faqs',
-  page403: '/error/403',
-  page404: '/error/404',
-  page500: '/error/500',
   components: '/components',
   docs: 'https://docs.minimals.cc',
   changelog: 'https://docs.minimals.cc/changelog',
