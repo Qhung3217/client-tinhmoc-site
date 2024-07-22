@@ -74,3 +74,29 @@ export type IProductItem = {
     content: string;
   };
 };
+
+export type IProductTableItem = {
+  id: string;
+  slug: string;
+  title: string;
+  normalizeTitle: string;
+  content: string;
+  thumbnail: string;
+  categoryId: string;
+  createId: string;
+  updateId: string;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+  images: string[];
+  category: {
+    id: string;
+    name: string;
+  };
+  createBy: {
+    email: string;
+  };
+  updateBy: {
+    email: string;
+  };
+};

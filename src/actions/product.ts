@@ -1,4 +1,4 @@
-import type { IProductItem } from 'src/types/product';
+import type { IProductItem, IProductTableItem } from 'src/types/product';
 
 import useSWR from 'swr';
 import { useMemo } from 'react';
@@ -85,6 +85,35 @@ export function useSearchProducts(query: string) {
       searchEmpty: !isLoading && !data?.results.length,
     }),
     [data?.results, error, isLoading, isValidating]
+  );
+
+  return memoizedValue;
+}
+
+// ----------------------------------------------------------------------
+
+type ProductsTableData = {
+  products: IProductTableItem[];
+};
+
+export function useGetProductsTable() {
+  const url = endpoints.product.list;
+
+  const { data, isLoading, error, isValidating } = useSWR<ProductsTableData>(
+    url,
+    fetcher,
+    swrOptions
+  );
+
+  const memoizedValue = useMemo(
+    () => ({
+      products: data?.products || [],
+      productsLoading: isLoading,
+      productsError: error,
+      productsValidating: isValidating,
+      productsEmpty: !isLoading && !data?.products.length,
+    }),
+    [data?.products, error, isLoading, isValidating]
   );
 
   return memoizedValue;

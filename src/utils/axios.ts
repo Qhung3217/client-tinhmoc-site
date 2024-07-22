@@ -53,7 +53,7 @@ export const endpoints = {
     search: '/api/post/search',
   },
   product: {
-    list: '/api/product',
+    list: 'http://localhost:3000/api/product',
     details: '/api/product',
     search: '/api/product',
   },

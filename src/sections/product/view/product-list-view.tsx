@@ -43,10 +43,9 @@ import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { ProductTableToolbar } from '../product-table-toolbar';
 import { ProductTableFiltersResult } from '../product-table-filters-result';
 import {
-  RenderCellStock,
-  RenderCellPrice,
-  RenderCellPublish,
+  RenderCellSlug,
   RenderCellProduct,
+  RenderCellCreateBy,
   RenderCellCreatedAt,
 } from '../product-table-row';
 
@@ -142,10 +141,16 @@ export function ProductListView() {
   const columns: GridColDef[] = [
     { field: 'category', headerName: 'Category', filterable: false },
     {
+      field: 'id',
+      headerName: 'ID',
+      width: 160,
+      renderCell: (params) => <RenderCellSlug params={params} />,
+    },
+    {
       field: 'name',
       headerName: 'Product',
       flex: 1,
-      minWidth: 360,
+      minWidth: 160,
       hideable: false,
       renderCell: (params) => (
         <RenderCellProduct params={params} onViewRow={() => handleViewRow(params.row.id)} />
@@ -157,29 +162,18 @@ export function ProductListView() {
       width: 160,
       renderCell: (params) => <RenderCellCreatedAt params={params} />,
     },
+    // {
+    //   field: 'price',
+    //   headerName: 'Price',
+    //   width: 140,
+    //   editable: true,
+    //   renderCell: (params) => <RenderCellPrice params={params} />,
+    // },
     {
-      field: 'inventoryType',
-      headerName: 'Stock',
-      width: 160,
-      type: 'singleSelect',
-      valueOptions: PRODUCT_STOCK_OPTIONS,
-      renderCell: (params) => <RenderCellStock params={params} />,
-    },
-    {
-      field: 'price',
-      headerName: 'Price',
-      width: 140,
-      editable: true,
-      renderCell: (params) => <RenderCellPrice params={params} />,
-    },
-    {
-      field: 'publish',
-      headerName: 'Publish',
+      field: 'createBy',
+      headerName: 'Tạo bởi',
       width: 110,
-      type: 'singleSelect',
-      editable: true,
-      valueOptions: PUBLISH_OPTIONS,
-      renderCell: (params) => <RenderCellPublish params={params} />,
+      renderCell: (params) => <RenderCellCreateBy params={params} />,
     },
     {
       type: 'actions',
