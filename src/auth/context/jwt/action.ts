@@ -1,7 +1,7 @@
 import axios, { endpoints } from 'src/utils/axios';
 
 import { setSession } from './utils';
-import { STORAGE_KEY } from './constant';
+import { STORAGE_KEY, STORAGE_KEY_USER } from './constant';
 
 // ----------------------------------------------------------------------
 
@@ -25,14 +25,14 @@ export const signInWithPassword = async ({ email, password }: SignInParams): Pro
     const params = { email, password };
 
     const res = await axios.post(endpoints.auth.signIn, params);
-
-    const { accessToken } = res.data;
+    const { accessToken, user } = res.data;
 
     if (!accessToken) {
       throw new Error('Access token not found in response');
     }
 
     setSession(accessToken);
+    sessionStorage.setItem(STORAGE_KEY_USER, JSON.stringify(user));
   } catch (error) {
     console.error('Error during sign in:', error);
     throw error;

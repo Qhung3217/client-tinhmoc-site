@@ -2,12 +2,8 @@ import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
-import { RouterLink } from 'src/routes/components';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha, bgGradient } from 'src/theme/styles';
@@ -33,8 +29,8 @@ export function Section({
   layoutQuery,
   methods,
   title = 'Manage the job',
-  imgUrl = `${CONFIG.site.basePath}/assets/illustrations/illustration-dashboard.webp`,
-  subtitle = 'More effectively with optimized workflows.',
+  imgUrl = `${CONFIG.site.basePath}/logo/logo-single.svg`,
+  subtitle = '',
   ...other
 }: SectionProps) {
   const theme = useTheme();
@@ -49,7 +45,7 @@ export function Section({
         px: 3,
         pb: 3,
         width: 1,
-        maxWidth: 480,
+        maxWidth: '50%',
         display: 'none',
         position: 'relative',
         pt: 'var(--layout-header-desktop-height)',
@@ -66,7 +62,7 @@ export function Section({
     >
       <div>
         <Typography variant="h3" sx={{ textAlign: 'center' }}>
-          {title}
+          {/* {title} */}
         </Typography>
 
         {subtitle && (
@@ -80,10 +76,10 @@ export function Section({
         component="img"
         alt="Dashboard illustration"
         src={imgUrl}
-        sx={{ width: 1, aspectRatio: '4/3', objectFit: 'cover' }}
+        sx={{ width: 432, height: 324 }}
       />
 
-      {!!methods?.length && method && (
+      {/* {!!methods?.length && method && (
         <Box component="ul" gap={2} display="flex">
           {methods.map((option) => {
             const selected = method === option.label.toLowerCase();
@@ -119,7 +115,7 @@ export function Section({
             );
           })}
         </Box>
-      )}
+      )} */}
     </Box>
   );
 }

@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
@@ -50,8 +49,8 @@ export function JwtSignInView() {
   const password = useBoolean();
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: '@demo1',
+    email: 'admin@gmail.com',
+    password: '123456',
   };
 
   const methods = useForm<SignInSchemaType>({
@@ -78,9 +77,9 @@ export function JwtSignInView() {
 
   const renderHead = (
     <Stack spacing={1.5} sx={{ mb: 5 }}>
-      <Typography variant="h5">Sign in to your account</Typography>
+      <Typography variant="h5">Đăng nhập bằng tài khoản</Typography>
 
-      <Stack direction="row" spacing={0.5}>
+      {/* <Stack direction="row" spacing={0.5}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {`Don't have an account?`}
         </Typography>
@@ -88,13 +87,13 @@ export function JwtSignInView() {
         <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
           Get started
         </Link>
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 
   const renderForm = (
     <Stack spacing={3}>
-      <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
+      <Field.Text name="email" label="Email" InputLabelProps={{ shrink: true }} />
 
       <Stack spacing={1.5}>
         <Link
@@ -104,12 +103,12 @@ export function JwtSignInView() {
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
         >
-          Forgot password?
+          Quên mật khẩu?
         </Link>
 
         <Field.Text
           name="password"
-          label="Password"
+          label="Mật khẩu"
           placeholder="6+ characters"
           type={password.value ? 'text' : 'password'}
           InputLabelProps={{ shrink: true }}
@@ -134,7 +133,7 @@ export function JwtSignInView() {
         loading={isSubmitting}
         loadingIndicator="Sign in..."
       >
-        Sign in
+        Đăng nhập
       </LoadingButton>
     </Stack>
   );
@@ -143,11 +142,11 @@ export function JwtSignInView() {
     <>
       {renderHead}
 
-      <Alert severity="info" sx={{ mb: 3 }}>
+      {/* <Alert severity="info" sx={{ mb: 3 }}>
         Use <strong>{defaultValues.email}</strong>
         {' with password '}
         <strong>{defaultValues.password}</strong>
-      </Alert>
+      </Alert> */}
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>

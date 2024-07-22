@@ -57,7 +57,7 @@ export function Auth0SignInView() {
   return (
     <>
       <Typography variant="h5" sx={{ mb: 5, textAlign: 'center' }}>
-        Sign in to your account
+        Đăng nhập bằng tài khoản
       </Typography>
 
       <Stack spacing={2}>

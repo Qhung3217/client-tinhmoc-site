@@ -24,7 +24,7 @@ const authJwt = {
       path: 'sign-in',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Hi, Welcome back' }}>
+          <AuthSplitLayout section={{ title: 'Tinh Mộc' }}>
             <Jwt.SignInPage />
           </AuthSplitLayout>
         </GuestGuard>
@@ -61,7 +61,7 @@ const authAmplify = {
       path: 'sign-in',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Hi, Welcome back' }}>
+          <AuthSplitLayout section={{ title: 'Tinh Mộc' }}>
             <Amplify.SignInPage />
           </AuthSplitLayout>
         </GuestGuard>
@@ -121,7 +121,7 @@ const authFirebase = {
       path: 'sign-in',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Hi, Welcome back' }}>
+          <AuthSplitLayout section={{ title: 'Tinh Mộc' }}>
             <Firebase.SignInPage />
           </AuthSplitLayout>
         </GuestGuard>
@@ -171,7 +171,7 @@ const authAuth0 = {
       path: 'sign-in',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Hi, Welcome back' }}>
+          <AuthSplitLayout section={{ title: 'Tinh Mộc' }}>
             <Auth0.SignInPage />
           </AuthSplitLayout>
         </GuestGuard>
@@ -206,7 +206,7 @@ const authSupabase = {
       path: 'sign-in',
       element: (
         <GuestGuard>
-          <AuthSplitLayout section={{ title: 'Hi, Welcome back' }}>
+          <AuthSplitLayout section={{ title: 'Tinh Mộc' }}>
             <Supabase.SignInPage />
           </AuthSplitLayout>
         </GuestGuard>
