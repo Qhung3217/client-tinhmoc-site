@@ -8,6 +8,7 @@ import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Main } from './main';
+import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
 import { HeaderBase } from '../core/header-base';
@@ -42,53 +43,62 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
   return (
     <>
       <NavMobile data={navData} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
-
-      <LayoutSection
-        /** **************************************
-         * Header
-         *************************************** */
-        headerSection={
-          <HeaderBase
-            layoutQuery={layoutQuery}
-            onOpenNav={mobileNavOpen.onTrue}
-            slotsDisplay={{
-              account: false,
-              helpLink: false,
-              contacts: false,
-              searchbar: false,
-              workspaces: false,
-              localization: false,
-              notifications: false,
-            }}
-            slots={{
-              topArea: (
-                <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
-                  This is an info Alert.
-                </Alert>
-              ),
-              rightAreaStart: (
-                <NavDesktop
-                  data={navData}
-                  sx={{
-                    display: 'none',
-                    [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
-                  }}
-                />
-              ),
-            }}
-          />
-        }
-        /** **************************************
-         * Footer
-         *************************************** */
-        // footerSection={homePage ? <HomeFooter /> : <Footer layoutQuery={layoutQuery} />}
-        /** **************************************
-         * Style
-         *************************************** */
-        sx={sx}
+      <div
+        style={{
+          backgroundColor: '#1a1a1a',
+        }}
       >
-        <Main sx={{ backgroundColor: 'black' }}>{children}</Main>
-      </LayoutSection>
+        <LayoutSection
+          /** **************************************
+           * Header
+           *************************************** */
+          headerSection={
+            <HeaderBase
+              layoutQuery={layoutQuery}
+              onOpenNav={mobileNavOpen.onTrue}
+              slotsDisplay={{
+                account: false,
+                helpLink: false,
+                contacts: false,
+                searchbar: false,
+                workspaces: false,
+                localization: false,
+                notifications: false,
+              }}
+              sx={{
+                // backgroundColor: '#1a1a1a',
+                backgroundColor: 'transparent',
+              }}
+              slots={{
+                topArea: (
+                  <Alert severity="info" sx={{ display: 'none', borderRadius: 0 }}>
+                    This is an info Alert.
+                  </Alert>
+                ),
+                rightAreaStart: (
+                  <NavDesktop
+                    data={navData}
+                    sx={{
+                      display: 'none',
+                      [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
+                    }}
+                  />
+                ),
+              }}
+            />
+          }
+          /** **************************************
+           * Footer
+           *************************************** */
+          footerSection={<HomeFooter />}
+          /** **************************************
+           * Style
+           *************************************** */
+          sx={sx}
+        >
+          <Main sx={{ backgroundColor: 'black' }}>{children}</Main>
+        </LayoutSection>
+      </div>
     </>
   );
 }
