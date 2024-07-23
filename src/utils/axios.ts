@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { CONFIG } from 'src/config-global';
 
+const API_URL = 'http://localhost:3000/api';
+
 // ----------------------------------------------------------------------
 
 const axiosInstance = axios.create({ baseURL: CONFIG.site.serverUrl });
@@ -38,7 +40,7 @@ export const endpoints = {
   calendar: '/api/calendar',
   auth: {
     me: '/api/auth/me',
-    signIn: 'http://localhost:3000/api/auth/login',
+    signIn: `${API_URL}/auth/login`,
     signUp: '/api/auth/sign-up',
   },
   mail: {
@@ -53,8 +55,12 @@ export const endpoints = {
     search: '/api/post/search',
   },
   product: {
-    list: 'http://localhost:3000/api/product',
+    list: `${API_URL}/product`,
     details: '/api/product',
     search: '/api/product',
   },
+  category: {
+    list: `${API_URL}/category`,
+  },
+  file: `${API_URL}/upload`,
 };

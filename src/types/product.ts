@@ -11,8 +11,8 @@ export type IProductFilters = {
 };
 
 export type IProductTableFilters = {
-  stock: string[];
-  publish: string[];
+  title: string[];
+  createBy: string[];
 };
 
 export type IProductReviewNewForm = {
@@ -36,47 +36,6 @@ export type IProductReview = {
 
 export type IProductItem = {
   id: string;
-  sku: string;
-  name: string;
-  code: string;
-  price: number;
-  taxes: number;
-  tags: string[];
-  sizes: string[];
-  publish: string;
-  gender: string[];
-  coverUrl: string;
-  images: string[];
-  colors: string[];
-  quantity: number;
-  category: string;
-  available: number;
-  totalSold: number;
-  description: string;
-  totalRatings: number;
-  totalReviews: number;
-  createdAt: IDateValue;
-  inventoryType: string;
-  subDescription: string;
-  priceSale: number | null;
-  reviews: IProductReview[];
-  ratings: {
-    name: string;
-    starCount: number;
-    reviewCount: number;
-  }[];
-  saleLabel: {
-    enabled: boolean;
-    content: string;
-  };
-  newLabel: {
-    enabled: boolean;
-    content: string;
-  };
-};
-
-export type IProductTableItem = {
-  id: string;
   slug: string;
   title: string;
   normalizeTitle: string;
@@ -99,4 +58,25 @@ export type IProductTableItem = {
   updateBy: {
     email: string;
   };
+};
+
+export type ICategoryItem = {
+  id: string;
+  name: string;
+  parentId?: string;
+  isDeleted: boolean;
+  createId: string;
+  updateId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  categories: {
+    id: string;
+    name: string;
+    parentId: string;
+    isDeleted: boolean;
+    createId: string;
+    updateId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
 };

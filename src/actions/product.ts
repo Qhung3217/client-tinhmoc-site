@@ -1,9 +1,9 @@
-import type { IProductItem, IProductTableItem } from 'src/types/product';
+import type { IProductItem } from 'src/types/product';
 
 import useSWR from 'swr';
 import { useMemo } from 'react';
 
-import { fetcher, endpoints } from 'src/utils/axios';
+import axiosInstance, { fetcher, endpoints } from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -12,31 +12,6 @@ const swrOptions = {
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };
-
-// ----------------------------------------------------------------------
-
-type ProductsData = {
-  products: IProductItem[];
-};
-
-export function useGetProducts() {
-  const url = endpoints.product.list;
-
-  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(url, fetcher, swrOptions);
-
-  const memoizedValue = useMemo(
-    () => ({
-      products: data?.products || [],
-      productsLoading: isLoading,
-      productsError: error,
-      productsValidating: isValidating,
-      productsEmpty: !isLoading && !data?.products.length,
-    }),
-    [data?.products, error, isLoading, isValidating]
-  );
-
-  return memoizedValue;
-}
 
 // ----------------------------------------------------------------------
 
@@ -92,18 +67,14 @@ export function useSearchProducts(query: string) {
 
 // ----------------------------------------------------------------------
 
-type ProductsTableData = {
-  products: IProductTableItem[];
+type ProductsData = {
+  products: IProductItem[];
 };
 
-export function useGetProductsTable() {
+export function useGetProducts() {
   const url = endpoints.product.list;
 
-  const { data, isLoading, error, isValidating } = useSWR<ProductsTableData>(
-    url,
-    fetcher,
-    swrOptions
-  );
+  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(url, fetcher, swrOptions);
 
   const memoizedValue = useMemo(
     () => ({
@@ -118,3 +89,17 @@ export function useGetProductsTable() {
 
   return memoizedValue;
 }
+
+//------------------------------------------------------------------------
+
+export const addProduct = async (data: any) => {
+  const url = endpoints.product.list;
+
+  const response = await axiosInstance.post(url, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};

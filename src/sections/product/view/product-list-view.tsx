@@ -30,7 +30,6 @@ import { RouterLink } from 'src/routes/components';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
-import { PRODUCT_STOCK_OPTIONS } from 'src/_mock';
 import { useGetProducts } from 'src/actions/product';
 import { DashboardContent } from 'src/layouts/dashboard';
 
@@ -40,7 +39,6 @@ import { EmptyContent } from 'src/components/empty-content';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { ProductTableToolbar } from '../product-table-toolbar';
 import { ProductTableFiltersResult } from '../product-table-filters-result';
 import {
   RenderCellSlug,
@@ -69,7 +67,7 @@ export function ProductListView() {
 
   const { products, productsLoading } = useGetProducts();
 
-  const filters = useSetState<IProductTableFilters>({ publish: [], stock: [] });
+  const filters = useSetState<IProductTableFilters>({ title: [], createBy: [] });
 
   const [tableData, setTableData] = useState<IProductItem[]>([]);
 
@@ -86,7 +84,7 @@ export function ProductListView() {
     }
   }, [products]);
 
-  const canReset = filters.state.publish.length > 0 || filters.state.stock.length > 0;
+  const canReset = filters.state.title.length > 0 || filters.state.createBy.length > 0;
 
   const dataFiltered = applyFilter({ inputData: tableData, filters: filters.state });
 
@@ -148,7 +146,7 @@ export function ProductListView() {
     },
     {
       field: 'name',
-      headerName: 'Product',
+      headerName: 'Sản phẩm',
       flex: 1,
       minWidth: 160,
       hideable: false,
@@ -158,7 +156,7 @@ export function ProductListView() {
     },
     {
       field: 'createdAt',
-      headerName: 'Create at',
+      headerName: 'Ngày tạo',
       width: 160,
       renderCell: (params) => <RenderCellCreatedAt params={params} />,
     },
@@ -220,11 +218,11 @@ export function ProductListView() {
     <>
       <DashboardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         <CustomBreadcrumbs
-          heading="List"
+          heading="Danh sách"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
-            { name: 'Product', href: paths.dashboard.product.root },
-            { name: 'List' },
+            { name: 'Sản phẩm', href: paths.dashboard.product.root },
+            { name: 'Danh sách' },
           ]}
           action={
             <Button
@@ -233,7 +231,7 @@ export function ProductListView() {
               variant="contained"
               startIcon={<Iconify icon="mingcute:add-line" />}
             >
-              New product
+              Thêm sản phẩm
             </Button>
           }
           sx={{ mb: { xs: 3, md: 5 } }}
@@ -280,7 +278,7 @@ export function ProductListView() {
         title="Delete"
         content={
           <>
-            Are you sure want to delete <strong> {selectedRowIds.length} </strong> items?
+            Bạn chắc chắn muốn xóa <strong> {selectedRowIds.length} </strong> sản phẩm?
           </>
         }
         action={
@@ -292,7 +290,7 @@ export function ProductListView() {
               confirmRows.onFalse();
             }}
           >
-            Delete
+            Xóa
           </Button>
         }
       />
@@ -322,10 +320,10 @@ function CustomToolbar({
   return (
     <>
       <GridToolbarContainer>
-        <ProductTableToolbar
+        {/* <ProductTableToolbar
           filters={filters}
           options={{ stocks: PRODUCT_STOCK_OPTIONS, publishs: PUBLISH_OPTIONS }}
-        />
+        /> */}
 
         <GridToolbarQuickFilter />
 
@@ -343,7 +341,7 @@ function CustomToolbar({
               startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
               onClick={onOpenConfirmDeleteRows}
             >
-              Delete ({selectedRowIds.length})
+              Xóa ({selectedRowIds.length})
             </Button>
           )}
 
@@ -372,14 +370,14 @@ type ApplyFilterProps = {
 };
 
 function applyFilter({ inputData, filters }: ApplyFilterProps) {
-  const { stock, publish } = filters;
+  const { title, createBy } = filters;
 
-  if (stock.length) {
-    inputData = inputData.filter((product) => stock.includes(product.inventoryType));
+  if (title.length) {
+    inputData = inputData.filter((product) => title.includes(product.title));
   }
 
-  if (publish.length) {
-    inputData = inputData.filter((product) => publish.includes(product.publish));
+  if (createBy.length) {
+    inputData = inputData.filter((product) => createBy.includes(product.createBy.email));
   }
 
   return inputData;
