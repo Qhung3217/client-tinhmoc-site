@@ -5,9 +5,9 @@ import { Box, Modal, IconButton } from '@mui/material';
 import { Iconify } from '../iconify';
 
 type Props = ModalProps;
-export default function CustomModal({ children, sx, ...rest }: Props) {
+export default function CustomModal({ children, sx, onClose, ...rest }: Props) {
   return (
-    <Modal disableAutoFocus {...rest}>
+    <Modal disableAutoFocus onClose={onClose} {...rest}>
       <Box
         sx={{
           position: 'absolute',
@@ -30,6 +30,7 @@ export default function CustomModal({ children, sx, ...rest }: Props) {
               color: 'white',
             },
           }}
+          onClick={onClose}
         >
           <Iconify icon="rivet-icons:close" />
         </IconButton>
