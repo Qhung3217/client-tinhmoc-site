@@ -1,10 +1,12 @@
 import { m, useAnimationControls } from 'framer-motion';
 
-import { Box, ButtonBase, Typography } from '@mui/material';
+import { Box, ButtonBase } from '@mui/material';
 
 import { Image } from 'src/components/image';
 import { SvgColor } from 'src/components/svg-color';
 import { Carousel, useCarousel } from 'src/components/carousel';
+
+import { SubTitle, SectionTitle } from '../_common/section-title';
 
 const slides = [
   '/assets/landing/about/company-1.jpg',
@@ -47,35 +49,28 @@ export default function HomeAbout() {
         sx={{
           pt: 15.625,
           px: '10px',
+          textAlign: 'center',
         }}
       >
-        <Typography
-          color="primary.main"
+        <SectionTitle
           sx={{
-            mx: 'auto',
-            textAlign: 'center',
-            textTransform: 'uppercase',
-            fontSize: 30,
-            fontWeight: 600,
-            lineHeight: '54px',
             width: { xs: 1, md: 850 },
             borderBottom: '1px solid #49a3d375',
           }}
         >
           Tinh Mộc Doors
-        </Typography>
-        <Typography
-          color="#d7ad5d"
+        </SectionTitle>
+        <SubTitle
           sx={{
-            textAlign: 'center',
-            fontSize: 18,
             fontWeight: 500,
-            letterSpacing: 2,
-            lineHeight: '27px',
+            color: '#d7ad5d',
+            mt: '5px',
+            pt: '2px',
+            pb: '5px',
           }}
         >
           Thành lập năm 2009
-        </Typography>
+        </SubTitle>
       </Box>
       <Box
         sx={{
@@ -165,16 +160,7 @@ export default function HomeAbout() {
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          textAlign: 'center',
-          color: '#868686',
-
-          fontSize: 18,
-          letterSpacing: 2,
-          lineHeight: '27px',
-        }}
-      >
+      <SubTitle>
         Giá trị của sản phẩm Tinh Mộc được tạo thành
         <br />
         từ vật liệu gỗ tự nhiên có chất lượng cao,
@@ -182,7 +168,7 @@ export default function HomeAbout() {
         công nghệ hiện đại, qui trình sản xuất khép kín
         <br />
         và đội ngũ chuyên viên kỹ thuật.
-      </Box>
+      </SubTitle>
     </Box>
   );
 }

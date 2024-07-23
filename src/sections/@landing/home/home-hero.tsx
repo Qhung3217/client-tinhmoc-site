@@ -3,12 +3,14 @@ import './style.css';
 import { m } from 'framer-motion';
 import { Snowfall } from 'react-snowfall';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
 import { Image } from 'src/components/image';
+
+import { SubTitle, SectionTitle } from '../_common/section-title';
 
 const variants = {
   visible: {
@@ -24,7 +26,7 @@ export default function HomeHero() {
   const { offsetTop } = useScrollOffSetTop();
 
   return (
-    <Box sx={{ position: 'relative', width: 1, height: '100vh', backgroundColor: '#1a1a1a' }}>
+    <Box sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5 }}>
       <Box width={1} textAlign="center">
         <Logo disableLink width={70} height={80} />
       </Box>
@@ -58,7 +60,6 @@ export default function HomeHero() {
       <Box
         width={1}
         textAlign="center"
-        sx={{ mb: 12.5 }}
         component={m.div}
         variants={variants}
         initial="hidden"
@@ -71,28 +72,8 @@ export default function HomeHero() {
           delay: 0.2,
         }}
       >
-        <Typography
-          sx={{
-            fontSize: 18,
-            fontWeight: 200,
-            letterSpacing: 2,
-            lineHeight: 1.5,
-            color: '#868686',
-          }}
-        >
-          Chào mừng quý khách đến với chúng tôi
-        </Typography>
-        <Typography
-          sx={{
-            color: 'primary.main',
-            fontSize: 24,
-            fontWeight: 600,
-            letterSpacing: 2,
-            lineHeight: 1.8,
-          }}
-        >
-          TINH MỘC DOORS
-        </Typography>
+        <SubTitle>Chào mừng quý khách đến với chúng tôi</SubTitle>
+        <SectionTitle>TINH MỘC DOORS</SectionTitle>
       </Box>
       <Snowfall snowflakeCount={30} color="#caa87d" radius={[0.5, 1.3]} />
     </Box>

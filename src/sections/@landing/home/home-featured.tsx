@@ -1,10 +1,12 @@
 import { m, useAnimationControls } from 'framer-motion';
 
-import { Box, Stack, ButtonBase, Typography } from '@mui/material';
+import { Box, Stack, ButtonBase } from '@mui/material';
 
 import { Image } from 'src/components/image';
 import { SvgColor } from 'src/components/svg-color';
 import { Carousel, useCarousel } from 'src/components/carousel';
+
+import { SubTitle, SectionTitle } from '../_common/section-title';
 
 const slides = [
   '/assets/landing/hero/slides/slider-01.jpg',
@@ -73,25 +75,16 @@ export default function HomeFeatured() {
             mx: 'auto',
           }}
         >
-          <Typography
-            color="primary.main"
+          <SectionTitle
             sx={{
-              fontSize: 30,
-              fontWeight: 600,
-              lineHeight: '54px',
-              textTransform: 'uppercase',
               width: '50%',
               display: 'inline-block',
             }}
           >
             Về sản phẩm của chúng tôi
-          </Typography>
-          <Typography
+          </SectionTitle>
+          <SubTitle
             sx={{
-              color: '#868686',
-              fontSize: 18,
-              lineHeight: 1.5,
-              letterSpacing: 2,
               width: '50%',
               display: 'inline-block',
               textAlign: 'right',
@@ -99,7 +92,7 @@ export default function HomeFeatured() {
           >
             Mỗi cánh cửa sẽ mở ra một không gian mới,
             <br /> mang lại niềm vui, hạnh phúc và sự an lành.
-          </Typography>
+          </SubTitle>
         </Box>
         <m.div
           animate={buttonNextControl}
