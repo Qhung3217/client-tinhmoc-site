@@ -5,6 +5,7 @@ import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll
 
 import HomeHero from '../home-hero';
 import HomeAbout from '../home-about';
+import HomeDoors from '../home-doors';
 import HomeDetail from '../home-detail';
 import HomeFeatured from '../home-featured';
 
@@ -29,6 +30,7 @@ export function HomeView() {
         <HomeFeatured />
         <HomeAbout />
         <HomeDetail />
+        <HomeDoors />
       </Stack>
     </>
   );
