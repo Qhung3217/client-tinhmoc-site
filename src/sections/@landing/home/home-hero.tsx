@@ -1,10 +1,12 @@
 import './style.css';
 
+import { useRef } from 'react';
 import { m } from 'framer-motion';
 import { Snowfall } from 'react-snowfall';
 
 import { Box, Container } from '@mui/material';
 
+import { useClientRect } from 'src/hooks/use-client-rect';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
@@ -24,16 +26,17 @@ const variants = {
 };
 export default function HomeHero() {
   const { offsetTop } = useScrollOffSetTop();
-
+  const ref = useRef<any>();
+  const { width } = useClientRect(ref);
   return (
     <Box
       sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5 }}
       component="section"
     >
-      <Box width={1} textAlign="center">
+      <Box width={1} textAlign="center" sx={{ ml: { xs: 0, sm: -1, md: -1 } }}>
         <Logo disableLink width={70} height={80} />
       </Box>
-      <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }}>
+      <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
         <Box
           width={1}
           display={{
@@ -49,13 +52,18 @@ export default function HomeHero() {
           // initial="close"
           // animate={offsetTop ? 'open' : 'close'}
           // animate={controls}
+          display={{
+            sm: 'block',
+            xs: 'none',
+          }}
           width={1}
           sx={{
             backgroundImage: 'url(/assets/landing/hero/firstVideo.png)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: '0% 0px',
+
             backgroundSize: 'cover',
-            height: 675,
+            height: width * 0.55 > 675 ? 675 : width * 0.55,
           }}
           className={offsetTop ? 'videoOnOpen' : 'videoOnClose'}
         />

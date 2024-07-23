@@ -77,8 +77,13 @@ export default function HomeAbout() {
         sx={{
           position: 'relative',
 
-          width: 850,
-          height: 850,
+          width: {
+            xs: '90%',
+            sm: 500,
+            md: 850,
+          },
+
+          height: { sm: 500, md: 850 },
           mx: 'auto',
         }}
       >
@@ -89,6 +94,10 @@ export default function HomeAbout() {
             transform: 'translateY(-50%)',
             left: -68,
             zIndex: 1,
+            display: {
+              lg: 'block',
+              xs: 'none',
+            },
           }}
         >
           <m.div
@@ -134,6 +143,10 @@ export default function HomeAbout() {
             transform: 'translateY(-50%)',
             right: -68,
             zIndex: 1,
+            display: {
+              lg: 'block',
+              xs: 'none',
+            },
           }}
         >
           <m.div
