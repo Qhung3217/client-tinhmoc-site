@@ -69,6 +69,8 @@ export default function HomeFeatured() {
           alignItems="center"
           sx={{
             px: 14,
+            maxWidth: 1200,
+            mx: 'auto',
           }}
         >
           <Typography
