@@ -58,6 +58,7 @@ export const Image = forwardRef<HTMLSpanElement, ImageProps>(
       //
       slotProps,
       sx,
+      useMap,
       ...other
     },
     ref
@@ -90,6 +91,7 @@ export const Image = forwardRef<HTMLSpanElement, ImageProps>(
           verticalAlign: 'bottom',
           aspectRatio: ratio,
         }}
+        useMap={useMap}
       />
     );
 
