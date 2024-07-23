@@ -26,7 +26,10 @@ export default function HomeHero() {
   const { offsetTop } = useScrollOffSetTop();
 
   return (
-    <Box sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5 }}>
+    <Box
+      sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5 }}
+      component="section"
+    >
       <Box width={1} textAlign="center">
         <Logo disableLink width={70} height={80} />
       </Box>

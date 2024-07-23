@@ -34,7 +34,7 @@ export default function HomeFeatured() {
     x: [0, -10, -20, -10, 0],
   };
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box sx={{ position: 'relative' }} component="section">
       <Carousel carousel={carousel}>
         {slides.map((slide) => (
           <Box sx={{ position: 'relative' }}>

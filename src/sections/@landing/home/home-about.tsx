@@ -38,6 +38,7 @@ export default function HomeAbout() {
   };
   return (
     <Box
+      component="section"
       sx={{
         backgroundImage: 'url(/assets/landing/about/bg-intro-2.jpg)',
         backgroundRepeat: 'no-repeat',
