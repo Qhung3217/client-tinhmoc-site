@@ -8,6 +8,7 @@ import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Logo } from 'src/components/logo';
+import { NavBasicDesktop } from 'src/components/nav-basic';
 
 import { Main } from './main';
 import { HomeFooter } from './footer';
@@ -15,7 +16,7 @@ import { NavMobile } from './nav/mobile';
 import { NavDesktop } from './nav/desktop';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
-import { navData as mainNavData } from '../config-nav-main';
+import { NAV_ITEMS, navData as mainNavData } from '../config-nav-main';
 
 import type { NavMainProps } from './nav/types';
 
@@ -84,6 +85,34 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                       sx={{
                         display: 'none',
                         [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
+                      }}
+                    />
+                    <NavBasicDesktop
+                      data={NAV_ITEMS}
+                      cssVars={{
+                        '--nav-item-gap': '16px',
+                      }}
+                      slotProps={{
+                        rootItem: {
+                          sx: {},
+                          icon: {},
+                          texts: {},
+                          title: {
+                            // typography: 'subtitle1',
+                            // fontFamily: (theme) => theme.typography.fontSecondaryFamily,
+                          },
+                          caption: {},
+                          arrow: {},
+                        },
+                        subItem: {
+                          sx: {},
+                          icon: {},
+                          texts: {},
+                          title: {},
+                          caption: {},
+                          arrow: {},
+                        },
+                        paper: {},
                       }}
                     />
                     <Logo
