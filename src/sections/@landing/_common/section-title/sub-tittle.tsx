@@ -7,7 +7,7 @@ export default function SubTitle({ children, sx, ...other }: TypographyProps) {
     <Typography
       sx={{
         color: '#868686',
-        fontSize: 18,
+        fontSize: { xs: 14, md: 18 },
         lineHeight: 1.5,
         letterSpacing: 2,
         width: 1,

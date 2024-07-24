@@ -86,13 +86,16 @@ export default function HomeDetail() {
   } | null>(null);
 
   return (
-    <Box component="section" sx={{ pt: 20, backgroundColor: '#1a1a1a', pb: 14.375 }}>
+    <Box
+      component="section"
+      sx={{ pt: 20, backgroundColor: { xs: 'black', md: '#1a1a1a' }, pb: 14.375 }}
+    >
       <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
         <Box
           width={1}
           display={{
             xs: 'block',
-            sm: 'none',
+            md: 'none',
           }}
         >
           <Image src="/assets/landing/detail/second-door-mobile.jpg" alt="door" />
@@ -100,7 +103,7 @@ export default function HomeDetail() {
         <Box
           width={1}
           display={{
-            sm: 'block',
+            md: 'block',
             xs: 'none',
           }}
           sx={{

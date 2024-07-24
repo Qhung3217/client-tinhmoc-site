@@ -10,9 +10,13 @@ export default function SectionTitle({ children, sx, ...other }: TypographyProps
         mx: 'auto',
         textAlign: 'center',
         textTransform: 'uppercase',
-        fontSize: 30,
+        fontSize: {
+          xs: 24,
+          md: 30,
+        },
         fontWeight: 600,
         lineHeight: 1.8,
+
         ...sx,
       }}
       {...other}

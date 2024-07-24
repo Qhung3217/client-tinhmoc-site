@@ -7,6 +7,8 @@ import { usePathname } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { Logo } from 'src/components/logo';
+
 import { Main } from './main';
 import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
@@ -76,13 +78,21 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                   </Alert>
                 ),
                 rightAreaStart: (
-                  <NavDesktop
-                    data={navData}
-                    sx={{
-                      display: 'none',
-                      [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
-                    }}
-                  />
+                  <>
+                    <NavDesktop
+                      data={navData}
+                      sx={{
+                        display: 'none',
+                        [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
+                      }}
+                    />
+                    <Logo
+                      data-slot="logo"
+                      sx={{
+                        [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+                      }}
+                    />
+                  </>
                 ),
               }}
             />

@@ -73,11 +73,15 @@ export default function HomeFeatured() {
             px: 14,
             maxWidth: 1200,
             mx: 'auto',
+            flexDirection: {
+              md: 'row',
+              xs: 'column',
+            },
           }}
         >
           <SectionTitle
             sx={{
-              width: '50%',
+              width: { xs: 1, md: '50%' },
               display: 'inline-block',
             }}
           >
@@ -85,9 +89,9 @@ export default function HomeFeatured() {
           </SectionTitle>
           <SubTitle
             sx={{
-              width: '50%',
+              width: { xs: 1, md: '50%' },
               display: 'inline-block',
-              textAlign: 'right',
+              textAlign: { xs: 'center', md: 'right' },
             }}
           >
             Mỗi cánh cửa sẽ mở ra một không gian mới,

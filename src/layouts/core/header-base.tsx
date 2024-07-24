@@ -110,14 +110,6 @@ export function HeaderBase({
       slots={{
         ...slots,
         leftAreaStart: slots?.leftAreaStart,
-        centerArea: (
-          <Logo
-            data-slot="logo"
-            sx={{
-              [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
-            }}
-          />
-        ),
         leftArea: (
           <>
             {slots?.leftAreaStart}

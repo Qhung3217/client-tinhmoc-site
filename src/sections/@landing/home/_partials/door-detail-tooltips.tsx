@@ -2,12 +2,15 @@ import type { TooltipProps } from '@mui/material';
 
 import { Box, Tooltip } from '@mui/material';
 
+import { useResponsive } from 'src/hooks/use-responsive';
+
 export default function DoorDetailTooltips() {
   const style = {
     width: 16,
     height: 16,
     borderRadius: 99999,
   };
+  const mdUp = useResponsive('up', 990);
   return (
     <Box
       sx={{
@@ -47,27 +50,27 @@ export default function DoorDetailTooltips() {
         </CTooltip>
         <CTooltip
           title="Mặt khoá"
-          offset={[0, 10]}
+          offset={[0, mdUp ? 10 : -20]}
           sx={{
-            width: 320,
+            width: mdUp ? 320 : 290,
           }}
         >
           <Box sx={{ position: 'absolute', top: '55.5%', left: '37.5%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Ngạch cửa. Nẹp"
-          offset={[0, 95]}
+          offset={[0, mdUp ? 95 : 40]}
           sx={{
-            width: 400,
+            width: mdUp ? 400 : 350,
           }}
         >
           <Box sx={{ position: 'absolute', bottom: '9%', left: '44.5%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Thanh ngạch cửa"
-          offset={[0, 100]}
+          offset={[0, mdUp ? 100 : 65]}
           sx={{
-            width: 413,
+            width: mdUp ? 413 : 380,
           }}
         >
           <Box sx={{ position: 'absolute', bottom: '4%', left: '45%', ...style }} />
@@ -79,7 +82,7 @@ export default function DoorDetailTooltips() {
           position="right"
           offset={[0, -25]}
           sx={{
-            width: 460,
+            width: mdUp ? 460 : 390,
           }}
         >
           <Box sx={{ position: 'absolute', bottom: '43%', right: '49.3%', ...style }} />
@@ -89,7 +92,7 @@ export default function DoorDetailTooltips() {
           position="right"
           offset={[0, -25]}
           sx={{
-            width: 410,
+            width: mdUp ? 410 : 350,
           }}
         >
           <Box sx={{ position: 'absolute', bottom: '37%', right: '45.3%', ...style }} />
@@ -99,7 +102,7 @@ export default function DoorDetailTooltips() {
           position="right"
           offset={[0, -25]}
           sx={{
-            width: 375,
+            width: mdUp ? 375 : 330,
           }}
         >
           <Box sx={{ position: 'absolute', bottom: '48.5%', right: '41.8%', ...style }} />
@@ -109,7 +112,7 @@ export default function DoorDetailTooltips() {
           position="right"
           offset={[0, -25]}
           sx={{
-            width: 290,
+            width: mdUp ? 290 : 260,
           }}
         >
           <Box sx={{ position: 'absolute', bottom: '54%', right: '35%', ...style }} />
@@ -141,25 +144,25 @@ export default function DoorDetailTooltips() {
           position="right"
           offset={[0, -25]}
           sx={{
-            width: 486,
+            width: mdUp ? 486 : 400,
           }}
         >
           <Box sx={{ position: 'absolute', top: '4.3%', right: '50.7%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Khung bao. Thanh ngang"
-          offset={[0, 90]}
+          offset={[0, mdUp ? 90 : 40]}
           sx={{
-            width: 400,
+            width: mdUp ? 400 : 350,
           }}
         >
           <Box sx={{ position: 'absolute', top: '6%', right: '54.1%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Nẹp T ngang"
-          offset={[0, 90]}
+          offset={[0, mdUp ? 90 : 40]}
           sx={{
-            width: 400,
+            width: mdUp ? 400 : 350,
           }}
         >
           <Box sx={{ position: 'absolute', top: '13%', right: '54.1%', ...style }} />

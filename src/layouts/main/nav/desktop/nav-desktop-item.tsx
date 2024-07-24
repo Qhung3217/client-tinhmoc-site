@@ -66,7 +66,7 @@ const StyledNavItem = styled(ButtonBase, {
       content: '""',
       borderRadius: '50%',
       position: 'absolute',
-      backgroundColor: theme.vars.palette.text.disabled,
+      backgroundColor: theme.vars.palette.primary.light,
       ...(active && { opacity: 1, backgroundColor: theme.vars.palette.primary.main }),
     },
   };
@@ -79,6 +79,7 @@ const StyledNavItem = styled(ButtonBase, {
       ...baseStyles.item,
       height: '100%',
       '&:hover': { opacity: 0.64, '&::before': baseStyles.dot },
+      color: theme.vars.palette.primary.dark,
       ...(active && {
         color: theme.vars.palette.primary.main,
         fontWeight: theme.typography.fontWeightSemiBold,
