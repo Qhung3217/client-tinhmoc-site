@@ -6,14 +6,14 @@ import { useTheme } from '@mui/material/styles';
 import { usePathname } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
-import { NavBasicDesktop } from 'src/components/nav-basic';
+import { NavSectionHorizontal } from 'src/components/nav-section';
 
 import { Main } from './main';
 import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
-import { NavDesktop } from './nav/desktop';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
 import { NAV_ITEMS, navData as mainNavData } from '../config-nav-main';
@@ -32,6 +32,7 @@ export type MainLayoutProps = {
 
 export function MainLayout({ sx, data, children }: MainLayoutProps) {
   const theme = useTheme();
+  const { offsetTop } = useScrollOffSetTop(200);
 
   const pathname = usePathname();
 
@@ -46,6 +47,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
   return (
     <>
       <NavMobile data={navData} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
+
       <div
         style={{
           backgroundColor: '#1a1a1a',
@@ -61,12 +63,17 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
               onOpenNav={mobileNavOpen.onTrue}
               slotsDisplay={{
                 account: false,
-                helpLink: false,
                 contacts: false,
                 searchbar: false,
                 workspaces: false,
-                localization: false,
-                notifications: false,
+              }}
+              logoProps={{
+                size: 60,
+              }}
+              slotProps={{
+                container: {
+                  sx: {},
+                },
               }}
               sx={{
                 // backgroundColor: '#1a1a1a',
@@ -80,43 +87,83 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                 ),
                 rightAreaStart: (
                   <>
-                    <NavDesktop
+                    {/* <NavDesktop
                       data={navData}
                       sx={{
                         display: 'none',
                         [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
                       }}
-                    />
-                    <NavBasicDesktop
+                    /> */}
+                    <NavSectionHorizontal
                       data={NAV_ITEMS}
                       cssVars={{
-                        '--nav-item-gap': '16px',
+                        '--nav-item-gap': '4px',
+                        '--nav-item-radius': '2px',
+                        '--nav-item-color': offsetTop ? '#ddd' : theme.vars.palette.text.secondary,
+                        '--nav-item-hover-bg': theme.vars.palette.primary.light,
+
+                        '--nav-item-root-active-color': offsetTop
+                          ? theme.vars.palette.primary.lighter
+                          : theme.vars.palette.primary.main,
+                        // '--nav-item-root-active-bg': offsetTop
+                        //   ? theme.vars.palette.primary.darker
+                        //   : theme.vars.palette.primary.dark,
+
+                        '--nav-item-root-open-bg': theme.vars.palette.primary.light,
+                        '--nav-item-root-open-color': 'white',
+
+                        '--nav-item-sub-open-color': 'white',
+                        '--nav-item-sub-open-bg': theme.vars.palette.primary.light,
+                      }}
+                      sx={{
+                        display: 'none',
+                        [theme.breakpoints.up(layoutQuery)]: { display: 'flex' },
+                        '& .mnl__nav__ul': {
+                          height: 1,
+                        },
+                        '& .mnl__nav__item': {
+                          height: 1,
+                        },
+                        '& .mnl__nav__item.state--active .mnl__nav__item__title': {
+                          fontWeight: '800',
+                        },
                       }}
                       slotProps={{
+                        paper: { borderRadius: '2px' },
                         rootItem: {
-                          sx: {},
+                          sx: {
+                            typography: 'subtitle1',
+                            textTransform: 'uppercase',
+                            fontFamily: (th) => th.typography.fontSecondaryFamily,
+                          },
                           icon: {},
-                          texts: {},
                           title: {
-                            // typography: 'subtitle1',
-                            // fontFamily: (theme) => theme.typography.fontSecondaryFamily,
+                            fontWeight: 600,
                           },
                           caption: {},
+                          info: {},
                           arrow: {},
                         },
                         subItem: {
-                          sx: {},
+                          sx: {
+                            '&:first-letter': {
+                              textTransform: 'uppercase',
+                            },
+                            fontFamily: (th) => th.typography.fontSecondaryFamily,
+                            '&:hover': { color: 'white' },
+                          },
                           icon: {},
-                          texts: {},
                           title: {},
                           caption: {},
+                          info: {},
                           arrow: {},
                         },
-                        paper: {},
                       }}
                     />
                     <Logo
                       data-slot="logo"
+                      width={50}
+                      height={50}
                       sx={{
                         [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
                       }}

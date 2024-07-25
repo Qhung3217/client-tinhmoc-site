@@ -77,6 +77,9 @@ export type HeaderBaseProps = HeaderSectionProps & {
     localization?: boolean;
     notifications?: boolean;
   };
+  logoProps?: {
+    size?: number;
+  };
 };
 
 export function HeaderBase({
@@ -84,10 +87,10 @@ export function HeaderBase({
   data,
   slots,
   slotProps,
+  logoProps,
   onOpenNav,
   layoutQuery,
   slotsDisplay: {
-    signIn = true,
     account = true,
     helpLink = true,
     settings = true,
@@ -129,6 +132,8 @@ export function HeaderBase({
               sx={{
                 [theme.breakpoints.down(layoutQuery)]: { display: 'none' },
               }}
+              width={logoProps?.size}
+              height={logoProps?.size}
             />
 
             {/* -- Divider -- */}

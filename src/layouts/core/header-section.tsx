@@ -84,7 +84,7 @@ export function HeaderSection({
       },
     },
     offset: {
-      ...bgBlur({ color: varAlpha('44 44 44', 0.8) }),
+      ...bgBlur({ color: varAlpha(theme.vars.palette.primary.darkChannel, 1) }),
     },
   };
 
