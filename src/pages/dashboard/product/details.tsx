@@ -1,20 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 
-import { useParams } from 'src/routes/hooks';
-
 import { CONFIG } from 'src/config-global';
-import { useGetProduct } from 'src/actions/product';
-
-import { ProductDetailsView } from 'src/sections/product/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Product details | Dashboard - ${CONFIG.site.name}` };
+const metadata = { title: `Sản phẩm | Trang chủ - ${CONFIG.site.name}` };
 
 export default function Page() {
-  const { id = '' } = useParams();
+  // const { id = '' } = useParams();
 
-  const { product, productLoading, productError } = useGetProduct(id);
+  // const { product, productLoading, productError } = useGetProduct(id);
 
   return (
     <>
@@ -22,7 +17,7 @@ export default function Page() {
         <title> {metadata.title}</title>
       </Helmet>
 
-      <ProductDetailsView product={product} loading={productLoading} error={productError} />
+      {/* <ProductDetailsView product={product} loading={productLoading} error={productError} /> */}
     </>
   );
 }

@@ -3,8 +3,6 @@ import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
-import { usePathname } from 'src/routes/hooks';
-
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Main } from './main';
@@ -29,11 +27,11 @@ export type MainLayoutProps = {
 export function MainLayout({ sx, data, children }: MainLayoutProps) {
   const theme = useTheme();
 
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   const mobileNavOpen = useBoolean();
 
-  const homePage = pathname === '/';
+  // const homePage = pathname === '/';
 
   const layoutQuery: Breakpoint = 'md';
 

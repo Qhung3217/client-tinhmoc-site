@@ -77,14 +77,14 @@ export const navData = [
         ],
       },
       {
-        title: 'Product',
+        title: 'Sản Phẩm',
         path: paths.dashboard.product.root,
         icon: ICONS.product,
         children: [
-          { title: 'List', path: paths.dashboard.product.root },
-          { title: 'Details', path: paths.dashboard.product.demo.details },
-          { title: 'Create', path: paths.dashboard.product.new },
-          { title: 'Edit', path: paths.dashboard.product.demo.edit },
+          { title: 'Danh sách', path: paths.dashboard.product.root },
+          // { title: 'Chi tiết', path: paths.dashboard.product.demo.details },
+          { title: 'Tạo mới', path: paths.dashboard.product.new },
+          // { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
         ],
       },
       // {

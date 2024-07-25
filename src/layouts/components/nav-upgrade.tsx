@@ -9,12 +9,10 @@ import { alpha as hexAlpha } from '@mui/material/styles';
 import { CONFIG } from 'src/config-global';
 import { varAlpha, bgGradient } from 'src/theme/styles';
 
-import { useMockedUser } from 'src/auth/hooks';
-
 // ----------------------------------------------------------------------
 
 export function NavUpgrade({ sx, ...other }: StackProps) {
-  const { user } = useMockedUser();
+  // const { user } = useMockedUser();
 
   return (
     <Stack sx={{ px: 2, py: 5, textAlign: 'center', ...sx }} {...other}>

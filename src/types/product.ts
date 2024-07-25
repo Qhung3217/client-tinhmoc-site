@@ -60,6 +60,21 @@ export type IProductItem = {
   };
 };
 
+export type IProductListItem = {
+  id: string;
+  slug: string;
+  title: string;
+  thumbnail: string;
+  createdAt: string;
+  updatedAt: string;
+  category: {
+    name: string;
+  };
+  createBy: {
+    email: string;
+  };
+};
+
 export type ICategoryItem = {
   id: string;
   name: string;

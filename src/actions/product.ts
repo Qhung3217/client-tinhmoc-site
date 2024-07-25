@@ -1,4 +1,4 @@
-import type { IProductItem } from 'src/types/product';
+import type { IProductItem, IProductListItem } from 'src/types/product';
 
 import useSWR from 'swr';
 import { useMemo } from 'react';
@@ -19,8 +19,8 @@ type ProductData = {
   product: IProductItem;
 };
 
-export function useGetProduct(productId: string) {
-  const url = productId ? [endpoints.product.details, { params: { productId } }] : '';
+export function useGetProduct(slug: string) {
+  const url = slug ? `${endpoints.product.details}/${slug}` : '';
 
   const { data, isLoading, error, isValidating } = useSWR<ProductData>(url, fetcher, swrOptions);
 
@@ -68,13 +68,17 @@ export function useSearchProducts(query: string) {
 // ----------------------------------------------------------------------
 
 type ProductsData = {
-  products: IProductItem[];
+  products: IProductListItem[];
 };
 
 export function useGetProducts() {
   const url = endpoints.product.list;
 
-  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(url, fetcher, swrOptions);
+  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(
+    `${url}?pageSize=500`,
+    fetcher,
+    swrOptions
+  );
 
   const memoizedValue = useMemo(
     () => ({
@@ -98,6 +102,63 @@ export const addProduct = async (data: any) => {
   const response = await axiosInstance.post(url, data, {
     headers: {
       'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};
+
+//------------------------------------------------------------------------
+
+export const updateProduct = async (id: string, data: any) => {
+  const url = endpoints.product.list;
+
+  const response = await axiosInstance.put(`${url}/${id}`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};
+
+//------------------------------------------------------------------------
+
+export const uploadProductThumbnail = async (id: string, image: File | string): Promise<string> => {
+  if (typeof image === 'string') return image;
+
+  const formData = new FormData();
+  formData.append('file', image);
+  formData.append('id', id);
+
+  const response = await axiosInstance.post(endpoints.file.productThumbnail, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data;
+};
+
+//------------------------------------------------------------------------
+
+export const uploadProductImages = async (
+  id: string,
+  images: File[] | string[]
+): Promise<string> => {
+  const formData = new FormData();
+
+  formData.append('id', id);
+
+  if (Array.isArray(images)) {
+    images.forEach((image) => {
+      if (typeof image !== 'string') formData.append('files', image);
+    });
+  } else if (typeof images !== 'string') formData.append('files', images);
+
+  const response = await axiosInstance.post(endpoints.file.productImages, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
     },
   });
 

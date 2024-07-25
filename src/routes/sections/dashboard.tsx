@@ -78,7 +78,7 @@ const layoutContent = (
 
 export const dashboardRoutes = [
   {
-    path: 'dashboard',
+    path: 'admin',
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
       { element: <IndexPage />, index: true },
@@ -101,13 +101,13 @@ export const dashboardRoutes = [
         ],
       },
       {
-        path: 'product',
+        path: 'san-pham',
         children: [
           { element: <ProductListPage />, index: true },
-          { path: 'list', element: <ProductListPage /> },
+          { path: 'danh-sach', element: <ProductListPage /> },
           { path: ':id', element: <ProductDetailsPage /> },
-          { path: 'new', element: <ProductCreatePage /> },
-          { path: ':id/edit', element: <ProductEditPage /> },
+          { path: 'tao-moi', element: <ProductCreatePage /> },
+          { path: ':id/chinh-sua', element: <ProductEditPage /> },
         ],
       },
       {

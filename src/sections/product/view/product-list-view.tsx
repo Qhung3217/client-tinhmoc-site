@@ -1,5 +1,5 @@
 import type { UseSetStateReturn } from 'src/hooks/use-set-state';
-import type { IProductItem, IProductTableFilters } from 'src/types/product';
+import type { IProductListItem, IProductTableFilters } from 'src/types/product';
 import type {
   GridSlots,
   GridColDef,
@@ -12,16 +12,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import {
-  DataGrid,
-  gridClasses,
-  GridToolbarExport,
-  GridActionsCellItem,
-  GridToolbarContainer,
-  GridToolbarQuickFilter,
-  GridToolbarFilterButton,
-  GridToolbarColumnsButton,
-} from '@mui/x-data-grid';
+import { DataGrid, gridClasses, GridActionsCellItem, GridToolbarContainer } from '@mui/x-data-grid';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -49,11 +40,6 @@ import {
 
 // ----------------------------------------------------------------------
 
-const PUBLISH_OPTIONS = [
-  { value: 'published', label: 'Published' },
-  { value: 'draft', label: 'Draft' },
-];
-
 const HIDE_COLUMNS = { category: false };
 
 const HIDE_COLUMNS_TOGGLABLE = ['category', 'actions'];
@@ -69,7 +55,7 @@ export function ProductListView() {
 
   const filters = useSetState<IProductTableFilters>({ title: [], createBy: [] });
 
-  const [tableData, setTableData] = useState<IProductItem[]>([]);
+  const [tableData, setTableData] = useState<IProductListItem[]>([]);
 
   const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>([]);
 
@@ -92,7 +78,7 @@ export function ProductListView() {
     (id: string) => {
       const deleteRow = tableData.filter((row) => row.id !== id);
 
-      toast.success('Delete success!');
+      toast.success('Xóa thành công!');
 
       setTableData(deleteRow);
     },
@@ -102,14 +88,14 @@ export function ProductListView() {
   const handleDeleteRows = useCallback(() => {
     const deleteRows = tableData.filter((row) => !selectedRowIds.includes(row.id));
 
-    toast.success('Delete success!');
+    toast.success('Xóa thành công!');
 
     setTableData(deleteRows);
   }, [selectedRowIds, tableData]);
 
   const handleEditRow = useCallback(
-    (id: string) => {
-      router.push(paths.dashboard.product.edit(id));
+    (slug: string) => {
+      router.push(paths.dashboard.product.edit(slug));
     },
     [router]
   );
@@ -184,22 +170,22 @@ export function ProductListView() {
       filterable: false,
       disableColumnMenu: true,
       getActions: (params) => [
-        <GridActionsCellItem
-          showInMenu
-          icon={<Iconify icon="solar:eye-bold" />}
-          label="View"
-          onClick={() => handleViewRow(params.row.id)}
-        />,
+        // <GridActionsCellItem
+        //   showInMenu
+        //   icon={<Iconify icon="solar:eye-bold" />}
+        //   label="Xem"
+        //   onClick={() => handleViewRow(params.row.slug)}
+        // />,
         <GridActionsCellItem
           showInMenu
           icon={<Iconify icon="solar:pen-bold" />}
-          label="Edit"
-          onClick={() => handleEditRow(params.row.id)}
+          label="Sửa"
+          onClick={() => handleEditRow(params.row.slug)}
         />,
         <GridActionsCellItem
           showInMenu
           icon={<Iconify icon="solar:trash-bin-trash-bold" />}
-          label="Delete"
+          label="Xóa"
           onClick={() => {
             handleDeleteRow(params.row.id);
           }}
@@ -325,7 +311,7 @@ function CustomToolbar({
           options={{ stocks: PRODUCT_STOCK_OPTIONS, publishs: PUBLISH_OPTIONS }}
         /> */}
 
-        <GridToolbarQuickFilter />
+        {/* <GridToolbarQuickFilter /> */}
 
         <Stack
           spacing={1}
@@ -345,9 +331,9 @@ function CustomToolbar({
             </Button>
           )}
 
-          <GridToolbarColumnsButton />
-          <GridToolbarFilterButton ref={setFilterButtonEl} />
-          <GridToolbarExport />
+          {/* <GridToolbarColumnsButton /> */}
+          {/* <GridToolbarFilterButton ref={setFilterButtonEl} /> */}
+          {/* <GridToolbarExport /> */}
         </Stack>
       </GridToolbarContainer>
 
@@ -365,7 +351,7 @@ function CustomToolbar({
 // ----------------------------------------------------------------------
 
 type ApplyFilterProps = {
-  inputData: IProductItem[];
+  inputData: IProductListItem[];
   filters: IProductTableFilters;
 };
 

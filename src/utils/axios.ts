@@ -56,11 +56,15 @@ export const endpoints = {
   },
   product: {
     list: `${API_URL}/product`,
-    details: '/api/product',
-    search: '/api/product',
+    details: `${API_URL}/product`,
+    search: `${API_URL}/product`,
   },
   category: {
     list: `${API_URL}/category`,
   },
-  file: `${API_URL}/upload`,
+  file: {
+    default: `${API_URL}/upload`,
+    productThumbnail: `${API_URL}/upload/product-thumbnail`,
+    productImages: `${API_URL}/upload/product-images`,
+  },
 };
