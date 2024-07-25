@@ -30,7 +30,7 @@ export default function CustomModal({ children, sx, onClose, ...rest }: Props) {
               color: 'white',
             },
           }}
-          onClick={onClose}
+          onClick={onClose as any}
         >
           <Iconify icon="rivet-icons:close" />
         </IconButton>
