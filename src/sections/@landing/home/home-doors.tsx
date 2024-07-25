@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'react-spring';
 import Carousel from 'react-spring-3d-carousel';
 
