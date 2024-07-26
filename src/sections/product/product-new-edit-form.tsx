@@ -4,8 +4,8 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMemo, useEffect, useCallback } from 'react';
 import { LoadingIcon } from 'yet-another-react-lightbox';
-import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -59,7 +59,6 @@ type Props = {
 
 export function ProductNewEditForm({ currentProduct }: Props) {
   const router = useRouter();
-  const [isChangedImage, setIsChangedImage] = useState<boolean>(false);
   const { categories, categoriesLoading } = useGetCategories();
 
   const defaultValues = useMemo(
@@ -87,7 +86,7 @@ export function ProductNewEditForm({ currentProduct }: Props) {
 
   const defaultImagesValues = useMemo(
     () => ({
-      images: currentProduct?.images,
+      images: currentProduct?.images || [],
     }),
     [currentProduct]
   );
@@ -154,26 +153,23 @@ export function ProductNewEditForm({ currentProduct }: Props) {
     }
   }, [currentProduct, defaultValues, reset]);
 
-  useEffect(() => {
-    setIsChangedImage(true);
-  }, [valuesThumb.thumb]);
-
   const onSubmit = handleSubmit(async (data) => {
     try {
       const fileImages = valuesImages.images.filter(
         (image): image is File => image instanceof File
       );
+      const stringImages = valuesImages.images.filter(
+        (image): image is string => typeof image === 'string'
+      );
       console.log('DATA after upload', data);
       if (!currentProduct) {
         const product = await addProduct(data);
         await uploadProductThumbnail(product.id, valuesThumb.thumb);
-        await uploadProductImages(product.id, fileImages);
+        await uploadProductImages(product.id, fileImages, stringImages);
       } else {
         await updateProduct(currentProduct.id, data);
-        if (isChangedImage) {
-          await uploadProductThumbnail(currentProduct.id, valuesThumb.thumb);
-          await uploadProductImages(currentProduct.id, fileImages);
-        }
+        await uploadProductThumbnail(currentProduct.id, valuesThumb.thumb);
+        await uploadProductImages(currentProduct.id, fileImages, stringImages);
       }
       reset();
       toast.success(currentProduct ? 'Chỉnh sửa thành công!' : 'Thêm thành công!');
@@ -182,33 +178,24 @@ export function ProductNewEditForm({ currentProduct }: Props) {
       console.error(error);
     }
   });
-
-  const handleRemoveFile = useCallback(
-    (inputFile: File | string) => {
-      const filtered = valuesThumb.thumb;
-      setValueThumb('thumb', filtered);
-      setIsChangedImage(true);
-    },
-    [setValueThumb, valuesThumb.thumb]
-  );
+  const handleRemoveFile = useCallback(() => {
+    setValueThumb('thumb', '', { shouldValidate: true });
+  }, [setValueThumb]);
 
   const handleRemoveAllFiles = useCallback(() => {
     setValueThumb('thumb', '', { shouldValidate: true });
-    setIsChangedImage(true);
   }, [setValueThumb]);
 
   const handleRemoveImages = useCallback(
     (inputFile: File | string) => {
-      const filtered = valuesImages.images;
+      const filtered = valuesImages.images.filter((image) => image !== inputFile);
       setValueImages('images', filtered);
-      setIsChangedImage(true);
     },
     [setValueImages, valuesImages.images]
   );
 
   const handleRemoveAllImages = useCallback(() => {
     setValueImages('images', [], { shouldValidate: true });
-    setIsChangedImage(true);
   }, [setValueImages]);
 
   const renderDetails = (
@@ -234,14 +221,11 @@ export function ProductNewEditForm({ currentProduct }: Props) {
           <Typography variant="subtitle2">Ảnh bìa</Typography>
           <Form methods={thumbMethods}>
             <Field.Upload
-              // multiple
               thumbnail
               name="thumb"
               maxSize={3145728}
               onRemove={handleRemoveFile}
               onRemoveAll={handleRemoveAllFiles}
-              // onUpload={handleUpload}
-              maxFiles={1}
             />
           </Form>
         </Stack>
@@ -256,7 +240,6 @@ export function ProductNewEditForm({ currentProduct }: Props) {
               maxSize={3145728}
               onRemove={handleRemoveImages}
               onRemoveAll={handleRemoveAllImages}
-              // onUpload={handleUpload}
             />
           </Form>
         </Stack>

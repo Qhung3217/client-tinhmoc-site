@@ -69,26 +69,27 @@ export function useSearchProducts(query: string) {
 
 type ProductsData = {
   products: IProductListItem[];
+  paginate: {
+    totalCount: number;
+    pageCount: number;
+    currentPage: number;
+  };
 };
 
-export function useGetProducts() {
-  const url = endpoints.product.list;
+export function useGetProducts(pageSize: number, currentPage: number, search: string) {
+  const url = `${endpoints.product.list}?pageSize=${pageSize}&page=${currentPage + 1}&search=${search}`;
 
-  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(
-    `${url}?pageSize=500`,
-    fetcher,
-    swrOptions
-  );
+  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(url, fetcher, swrOptions);
 
   const memoizedValue = useMemo(
     () => ({
-      products: data?.products || [],
+      data: data || { products: [], paginate: { totalCount: 0, pageCount: 0, currentPage: 0 } },
       productsLoading: isLoading,
       productsError: error,
       productsValidating: isValidating,
       productsEmpty: !isLoading && !data?.products.length,
     }),
-    [data?.products, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating]
   );
 
   return memoizedValue;
@@ -144,7 +145,8 @@ export const uploadProductThumbnail = async (id: string, image: File | string): 
 
 export const uploadProductImages = async (
   id: string,
-  images: File[] | string[]
+  images: File[],
+  oldUrl: string[]
 ): Promise<string> => {
   const formData = new FormData();
 
@@ -152,9 +154,15 @@ export const uploadProductImages = async (
 
   if (Array.isArray(images)) {
     images.forEach((image) => {
-      if (typeof image !== 'string') formData.append('files', image);
+      formData.append('files', image);
     });
-  } else if (typeof images !== 'string') formData.append('files', images);
+  } else formData.append('files', images);
+
+  if (Array.isArray(oldUrl)) {
+    oldUrl.forEach((url) => {
+      formData.append('oldUrl', url);
+    });
+  } else formData.append('oldUrl', oldUrl);
 
   const response = await axiosInstance.post(endpoints.file.productImages, formData, {
     headers: {

@@ -6,7 +6,7 @@ import { ProductCreateView } from 'src/sections/product/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sản phẩm | Trang chủ - ${CONFIG.site.name}` };
+const metadata = { title: `Sản phẩm | ${CONFIG.site.name}` };
 
 export default function Page() {
   return (

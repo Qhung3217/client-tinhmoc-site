@@ -4,7 +4,7 @@ import { CONFIG } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Sản phẩm | Trang chủ - ${CONFIG.site.name}` };
+const metadata = { title: `Sản phẩm | ${CONFIG.site.name}` };
 
 export default function Page() {
   // const { id = '' } = useParams();

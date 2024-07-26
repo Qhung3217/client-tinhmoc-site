@@ -1,5 +1,5 @@
-import type { UseSetStateReturn } from 'src/hooks/use-set-state';
-import type { IProductListItem, IProductTableFilters } from 'src/types/product';
+import type { ChangeEvent } from 'react';
+import type { IProductListItem } from 'src/types/product';
 import type {
   GridSlots,
   GridColDef,
@@ -7,19 +7,24 @@ import type {
   GridColumnVisibilityModel,
 } from '@mui/x-data-grid';
 
-import { useState, useEffect, useCallback } from 'react';
+import _ from 'lodash';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { DataGrid, gridClasses, GridActionsCellItem, GridToolbarContainer } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  gridClasses,
+  GridActionsCellItem,
+  GridToolbarContainer,
+  GridToolbarQuickFilter,
+} from '@mui/x-data-grid';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
-import { useSetState } from 'src/hooks/use-set-state';
 
 import { useGetProducts } from 'src/actions/product';
 import { DashboardContent } from 'src/layouts/dashboard';
@@ -30,7 +35,6 @@ import { EmptyContent } from 'src/components/empty-content';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { ProductTableFiltersResult } from '../product-table-filters-result';
 import {
   RenderCellSlug,
   RenderCellProduct,
@@ -51,9 +55,31 @@ export function ProductListView() {
 
   const router = useRouter();
 
-  const { products, productsLoading } = useGetProducts();
+  const [pageSize, setPageSize] = useState(10);
 
-  const filters = useSetState<IProductTableFilters>({ title: [], createBy: [] });
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const [search, setSearch] = useState('');
+
+  const { data, productsLoading } = useGetProducts(pageSize, currentPage, search);
+
+  const { products, paginate } = data;
+
+  useEffect(() => {
+    setPageSize(pageSize);
+    setCurrentPage(currentPage);
+  }, [pageSize, currentPage]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSearchChange = (event: any) => {
+    setSearch(event.target.value);
+    setCurrentPage(0);
+  };
+
+  const CustomToolbarMemoized = useCallback(
+    () => <CustomToolbar handleSearchChange={handleSearchChange} search={search} />,
+    [handleSearchChange, search]
+  );
 
   const [tableData, setTableData] = useState<IProductListItem[]>([]);
 
@@ -69,10 +95,6 @@ export function ProductListView() {
       setTableData(products);
     }
   }, [products]);
-
-  const canReset = filters.state.title.length > 0 || filters.state.createBy.length > 0;
-
-  const dataFiltered = applyFilter({ inputData: tableData, filters: filters.state });
 
   const handleDeleteRow = useCallback(
     (id: string) => {
@@ -105,21 +127,6 @@ export function ProductListView() {
       router.push(paths.dashboard.product.details(id));
     },
     [router]
-  );
-
-  const CustomToolbarCallback = useCallback(
-    () => (
-      <CustomToolbar
-        filters={filters}
-        canReset={canReset}
-        selectedRowIds={selectedRowIds}
-        setFilterButtonEl={setFilterButtonEl}
-        filteredResults={dataFiltered.length}
-        onOpenConfirmDeleteRows={confirmRows.onTrue}
-      />
-    ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [filters.state, selectedRowIds]
   );
 
   const columns: GridColDef[] = [
@@ -234,17 +241,26 @@ export function ProductListView() {
           <DataGrid
             checkboxSelection
             disableRowSelectionOnClick
-            rows={dataFiltered}
+            rows={products}
             columns={columns}
             loading={productsLoading}
             getRowHeight={() => 'auto'}
             pageSizeOptions={[5, 10, 25]}
-            initialState={{ pagination: { paginationModel: { pageSize: 10 } } }}
+            initialState={{
+              pagination: { paginationModel: { pageSize, page: currentPage } },
+            }}
+            rowCount={paginate.totalCount}
+            paginationMode="server"
+            filterMode="server"
+            onPaginationModelChange={(params) => {
+              setPageSize(params.pageSize);
+              setCurrentPage(params.page);
+            }}
             onRowSelectionModelChange={(newSelectionModel) => setSelectedRowIds(newSelectionModel)}
             columnVisibilityModel={columnVisibilityModel}
             onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
             slots={{
-              toolbar: CustomToolbarCallback as GridSlots['toolbar'],
+              toolbar: CustomToolbarMemoized as GridSlots['toolbar'],
               noRowsOverlay: () => <EmptyContent />,
               noResultsOverlay: () => <EmptyContent title="No results found" />,
             }}
@@ -287,84 +303,32 @@ export function ProductListView() {
 // ----------------------------------------------------------------------
 
 interface CustomToolbarProps {
-  canReset: boolean;
-  filteredResults: number;
-  selectedRowIds: GridRowSelectionModel;
-  onOpenConfirmDeleteRows: () => void;
-  filters: UseSetStateReturn<IProductTableFilters>;
-  setFilterButtonEl: React.Dispatch<React.SetStateAction<HTMLButtonElement | null>>;
+  search: string;
+  handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function CustomToolbar({
-  filters,
-  canReset,
-  selectedRowIds,
-  filteredResults,
-  setFilterButtonEl,
-  onOpenConfirmDeleteRows,
-}: CustomToolbarProps) {
+function CustomToolbar({ handleSearchChange, search }: CustomToolbarProps) {
+  const [localSearch, setLocalSearch] = useState(search);
+
+  const debouncedHandleSearchChange = useMemo(
+    () => _.debounce((event: ChangeEvent<HTMLInputElement>) => handleSearchChange(event), 500),
+    [handleSearchChange]
+  );
+
+  const handleLocalSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setLocalSearch(event.target.value);
+    debouncedHandleSearchChange(event);
+  };
+
+  useEffect(() => {
+    setLocalSearch(search);
+  }, [search]);
+
   return (
-    <>
-      <GridToolbarContainer>
-        {/* <ProductTableToolbar
-          filters={filters}
-          options={{ stocks: PRODUCT_STOCK_OPTIONS, publishs: PUBLISH_OPTIONS }}
-        /> */}
-
-        {/* <GridToolbarQuickFilter /> */}
-
-        <Stack
-          spacing={1}
-          flexGrow={1}
-          direction="row"
-          alignItems="center"
-          justifyContent="flex-end"
-        >
-          {!!selectedRowIds.length && (
-            <Button
-              size="small"
-              color="error"
-              startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
-              onClick={onOpenConfirmDeleteRows}
-            >
-              Xóa ({selectedRowIds.length})
-            </Button>
-          )}
-
-          {/* <GridToolbarColumnsButton /> */}
-          {/* <GridToolbarFilterButton ref={setFilterButtonEl} /> */}
-          {/* <GridToolbarExport /> */}
-        </Stack>
-      </GridToolbarContainer>
-
-      {canReset && (
-        <ProductTableFiltersResult
-          filters={filters}
-          totalResults={filteredResults}
-          sx={{ p: 2.5, pt: 0 }}
-        />
-      )}
-    </>
+    <GridToolbarContainer>
+      <GridToolbarQuickFilter onChange={handleLocalSearchChange} value={localSearch} />
+    </GridToolbarContainer>
   );
 }
 
-// ----------------------------------------------------------------------
-
-type ApplyFilterProps = {
-  inputData: IProductListItem[];
-  filters: IProductTableFilters;
-};
-
-function applyFilter({ inputData, filters }: ApplyFilterProps) {
-  const { title, createBy } = filters;
-
-  if (title.length) {
-    inputData = inputData.filter((product) => title.includes(product.title));
-  }
-
-  if (createBy.length) {
-    inputData = inputData.filter((product) => createBy.includes(product.createBy.email));
-  }
-
-  return inputData;
-}
+export default CustomToolbar;

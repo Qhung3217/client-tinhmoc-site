@@ -22,7 +22,7 @@ export function ProductEditView({ product }: Props) {
         links={[
           { name: 'Dashboard', href: paths.dashboard.root },
           { name: 'Sản phẩm', href: paths.dashboard.product.root },
-          { name: product?.title },
+          { name: product?.slug },
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />
