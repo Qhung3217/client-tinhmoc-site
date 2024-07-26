@@ -11,8 +11,7 @@ export type IProductFilters = {
 };
 
 export type IProductTableFilters = {
-  title: string[];
-  createBy: string[];
+  categoryId: string[];
 };
 
 export type IProductReviewNewForm = {

@@ -7,7 +7,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 import { RouterLink } from 'src/routes/components';
 
@@ -19,10 +18,10 @@ import { usePopover, CustomPopover } from 'src/components/custom-popover';
 type Props = StackProps & {
   backLink: string;
   editLink: string;
-  liveLink: string;
-  publish: string;
-  onChangePublish: (newValue: string) => void;
-  publishOptions: {
+  liveLink?: string;
+  publish?: string;
+  onChangePublish?: (newValue: string) => void;
+  publishOptions?: {
     value: string;
     label: string;
   }[];
@@ -53,7 +52,7 @@ export function ProductDetailsToolbar({
 
         <Box sx={{ flexGrow: 1 }} />
 
-        {publish === 'published' && (
+        {publish === 'published' && liveLink !== undefined && (
           <Tooltip title="Go Live">
             <IconButton component={RouterLink} href={liveLink}>
               <Iconify icon="eva:external-link-fill" />
@@ -66,18 +65,6 @@ export function ProductDetailsToolbar({
             <Iconify icon="solar:pen-bold" />
           </IconButton>
         </Tooltip>
-
-        <LoadingButton
-          color="inherit"
-          variant="contained"
-          loading={!publish}
-          loadingIndicator="Loading…"
-          endIcon={<Iconify icon="eva:arrow-ios-downward-fill" />}
-          onClick={popover.onOpen}
-          sx={{ textTransform: 'capitalize' }}
-        >
-          {publish}
-        </LoadingButton>
       </Stack>
 
       <CustomPopover
@@ -87,13 +74,13 @@ export function ProductDetailsToolbar({
         slotProps={{ arrow: { placement: 'top-right' } }}
       >
         <MenuList>
-          {publishOptions.map((option) => (
+          {publishOptions?.map((option) => (
             <MenuItem
               key={option.value}
               selected={option.value === publish}
               onClick={() => {
                 popover.onClose();
-                onChangePublish(option.value);
+                if (onChangePublish !== undefined) onChangePublish(option.value);
               }}
             >
               {option.value === 'published' && <Iconify icon="eva:cloud-upload-fill" />}

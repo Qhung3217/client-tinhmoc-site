@@ -76,8 +76,17 @@ type ProductsData = {
   };
 };
 
-export function useGetProducts(pageSize: number, currentPage: number, search: string) {
-  const url = `${endpoints.product.list}?pageSize=${pageSize}&page=${currentPage + 1}&search=${search}`;
+export function useGetProducts(
+  pageSize: number,
+  currentPage: number,
+  search: string,
+  categories: string[]
+) {
+  let url = `${endpoints.product.list}?pageSize=${pageSize}&page=${currentPage + 1}&search=${search}`;
+
+  for (let i = 0; i < categories.length; i += 1) {
+    url += `&categories[${i}]=${encodeURIComponent(categories[i])}`;
+  }
 
   const { data, isLoading, error, isValidating } = useSWR<ProductsData>(url, fetcher, swrOptions);
 
@@ -115,6 +124,20 @@ export const updateProduct = async (id: string, data: any) => {
   const url = endpoints.product.list;
 
   const response = await axiosInstance.put(`${url}/${id}`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.data;
+};
+
+//------------------------------------------------------------------------
+
+export const deleteProduct = async (id: string) => {
+  const url = endpoints.product.list;
+
+  const response = await axiosInstance.delete(`${url}/${id}`, {
     headers: {
       'Content-Type': 'application/json',
     },

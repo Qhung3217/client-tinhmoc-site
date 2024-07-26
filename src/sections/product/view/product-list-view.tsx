@@ -1,5 +1,6 @@
 import type { ChangeEvent } from 'react';
-import type { IProductListItem } from 'src/types/product';
+import type { UseSetStateReturn } from 'src/hooks/use-set-state';
+import type { IProductListItem, IProductTableFilters } from 'src/types/product';
 import type {
   GridSlots,
   GridColDef,
@@ -25,9 +26,10 @@ import { useRouter } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useSetState } from 'src/hooks/use-set-state';
 
-import { useGetProducts } from 'src/actions/product';
 import { DashboardContent } from 'src/layouts/dashboard';
+import { deleteProduct, useGetProducts } from 'src/actions/product';
 
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
@@ -35,6 +37,7 @@ import { EmptyContent } from 'src/components/empty-content';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
+import { ProductTableToolbar } from '../product-table-toolbar';
 import {
   RenderCellSlug,
   RenderCellProduct,
@@ -61,14 +64,19 @@ export function ProductListView() {
 
   const [search, setSearch] = useState('');
 
-  const { data, productsLoading } = useGetProducts(pageSize, currentPage, search);
+  const [categories, setCategories] = useState([]);
+
+  const { data, productsLoading } = useGetProducts(pageSize, currentPage, search, categories);
 
   const { products, paginate } = data;
+
+  const filters = useSetState<IProductTableFilters>({ categoryId: [] });
 
   useEffect(() => {
     setPageSize(pageSize);
     setCurrentPage(currentPage);
-  }, [pageSize, currentPage]);
+    setCategories(filters.state.categoryId);
+  }, [pageSize, currentPage, filters]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearchChange = (event: any) => {
@@ -77,8 +85,10 @@ export function ProductListView() {
   };
 
   const CustomToolbarMemoized = useCallback(
-    () => <CustomToolbar handleSearchChange={handleSearchChange} search={search} />,
-    [handleSearchChange, search]
+    () => (
+      <CustomToolbar filters={filters} handleSearchChange={handleSearchChange} search={search} />
+    ),
+    [handleSearchChange, search, filters]
   );
 
   const [tableData, setTableData] = useState<IProductListItem[]>([]);
@@ -96,24 +106,15 @@ export function ProductListView() {
     }
   }, [products]);
 
-  const handleDeleteRow = useCallback(
-    (id: string) => {
-      const deleteRow = tableData.filter((row) => row.id !== id);
-
-      toast.success('Xóa thành công!');
-
-      setTableData(deleteRow);
-    },
-    [tableData]
-  );
-
-  const handleDeleteRows = useCallback(() => {
-    const deleteRows = tableData.filter((row) => !selectedRowIds.includes(row.id));
+  const handleDeleteRow = async (id: string) => {
+    await deleteProduct(id);
 
     toast.success('Xóa thành công!');
+  };
 
-    setTableData(deleteRows);
-  }, [selectedRowIds, tableData]);
+  const handleDeleteRows = useCallback(async () => {
+    await Promise.all(selectedRowIds.map((item) => deleteProduct(item.toString())));
+  }, [selectedRowIds]);
 
   const handleEditRow = useCallback(
     (slug: string) => {
@@ -144,7 +145,7 @@ export function ProductListView() {
       minWidth: 160,
       hideable: false,
       renderCell: (params) => (
-        <RenderCellProduct params={params} onViewRow={() => handleViewRow(params.row.id)} />
+        <RenderCellProduct params={params} onViewRow={() => handleViewRow(params.row.slug)} />
       ),
     },
     {
@@ -177,12 +178,12 @@ export function ProductListView() {
       filterable: false,
       disableColumnMenu: true,
       getActions: (params) => [
-        // <GridActionsCellItem
-        //   showInMenu
-        //   icon={<Iconify icon="solar:eye-bold" />}
-        //   label="Xem"
-        //   onClick={() => handleViewRow(params.row.slug)}
-        // />,
+        <GridActionsCellItem
+          showInMenu
+          icon={<Iconify icon="solar:eye-bold" />}
+          label="Xem"
+          onClick={() => handleViewRow(params.row.slug)}
+        />,
         <GridActionsCellItem
           showInMenu
           icon={<Iconify icon="solar:pen-bold" />}
@@ -239,9 +240,8 @@ export function ProductListView() {
           }}
         >
           <DataGrid
-            checkboxSelection
             disableRowSelectionOnClick
-            rows={products}
+            rows={tableData}
             columns={columns}
             loading={productsLoading}
             getRowHeight={() => 'auto'}
@@ -303,11 +303,12 @@ export function ProductListView() {
 // ----------------------------------------------------------------------
 
 interface CustomToolbarProps {
+  filters: UseSetStateReturn<IProductTableFilters>;
   search: string;
   handleSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function CustomToolbar({ handleSearchChange, search }: CustomToolbarProps) {
+function CustomToolbar({ handleSearchChange, search, filters }: CustomToolbarProps) {
   const [localSearch, setLocalSearch] = useState(search);
 
   const debouncedHandleSearchChange = useMemo(
@@ -326,9 +327,16 @@ function CustomToolbar({ handleSearchChange, search }: CustomToolbarProps) {
 
   return (
     <GridToolbarContainer>
+      <ProductTableToolbar filters={filters} options={{ categoryIds: PRODUCT_STOCK_OPTIONS }} />
       <GridToolbarQuickFilter onChange={handleLocalSearchChange} value={localSearch} />
     </GridToolbarContainer>
   );
 }
 
 export default CustomToolbar;
+
+export const PRODUCT_STOCK_OPTIONS = [
+  { id: 'in stock', name: 'In stock' },
+  { id: 'low stock', name: 'Low stock' },
+  { id: 'out of stock', name: 'Out of stock' },
+];
