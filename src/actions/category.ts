@@ -1,4 +1,4 @@
-import type { ICategoryItem } from 'src/types/product';
+import type { ICategoryItem } from 'src/types/category';
 
 import useSWR from 'swr';
 import { useMemo } from 'react';

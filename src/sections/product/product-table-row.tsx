@@ -19,8 +19,30 @@ export function RenderCellSlug({ params }: ParamsProps) {
   return params.row.slug;
 }
 
+export function RenderCellPriority({ params }: ParamsProps) {
+  return (
+    <Box
+      sx={{
+        display: 'inline-block',
+        padding: '2px 8px',
+        borderRadius: '8px',
+        backgroundColor: 'primary.main',
+        color: 'white',
+        textAlign: 'center',
+        minWidth: '24px',
+      }}
+    >
+      {params.row.priority}
+    </Box>
+  );
+}
+
 export function RenderCellPrice({ params }: ParamsProps) {
   return fCurrency(params.row.price);
+}
+
+export function RenderCellSalePercent({ params }: ParamsProps) {
+  return `${params.row.salePercent}%`;
 }
 
 export function RenderCellCreateBy({ params }: ParamsProps) {
@@ -37,24 +59,6 @@ export function RenderCellCreatedAt({ params }: ParamsProps) {
     </Stack>
   );
 }
-
-// export function RenderCellStock({ params }: ParamsProps) {
-//   return (
-//     <Stack justifyContent="center" sx={{ typography: 'caption', color: 'text.secondary' }}>
-//       <LinearProgress
-//         value={(params.row.available * 100) / params.row.quantity}
-//         variant="determinate"
-//         color={
-//           (params.row.inventoryType === 'out of stock' && 'error') ||
-//           (params.row.inventoryType === 'low stock' && 'warning') ||
-//           'success'
-//         }
-//         sx={{ mb: 1, width: 1, height: 6, maxWidth: 80 }}
-//       />
-//       {!!params.row.available && params.row.available} {params.row.inventoryType}
-//     </Stack>
-//   );
-// }
 
 export function RenderCellProduct({
   params,

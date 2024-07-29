@@ -28,6 +28,7 @@ import { RouterLink } from 'src/routes/components';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
 
+import { useGetCategories } from 'src/actions/category';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { deleteProduct, useGetProducts } from 'src/actions/product';
 
@@ -40,9 +41,12 @@ import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { ProductTableToolbar } from '../product-table-toolbar';
 import {
   RenderCellSlug,
+  RenderCellPrice,
   RenderCellProduct,
   RenderCellCreateBy,
+  RenderCellPriority,
   RenderCellCreatedAt,
+  RenderCellSalePercent,
 } from '../product-table-row';
 
 // ----------------------------------------------------------------------
@@ -64,18 +68,18 @@ export function ProductListView() {
 
   const [search, setSearch] = useState('');
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   const { data, productsLoading } = useGetProducts(pageSize, currentPage, search, categories);
 
   const { products, paginate } = data;
 
-  const filters = useSetState<IProductTableFilters>({ categoryId: [] });
+  const filters = useSetState<IProductTableFilters>({ categories: [] });
 
   useEffect(() => {
     setPageSize(pageSize);
     setCurrentPage(currentPage);
-    setCategories(filters.state.categoryId);
+    setCategories(filters.state.categories);
   }, [pageSize, currentPage, filters]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,7 +138,7 @@ export function ProductListView() {
     { field: 'category', headerName: 'Category', filterable: false },
     {
       field: 'id',
-      headerName: 'ID',
+      headerName: 'Mã sản phẩm',
       width: 160,
       renderCell: (params) => <RenderCellSlug params={params} />,
     },
@@ -149,18 +153,36 @@ export function ProductListView() {
       ),
     },
     {
+      field: 'priority',
+      headerName: 'Độ ưu tiên',
+      headerAlign: 'center',
+      width: 100,
+      editable: true,
+      align: 'center',
+      renderCell: (params) => <RenderCellPriority params={params} />,
+    },
+    {
+      field: 'price',
+      headerName: 'Giá',
+      width: 140,
+      editable: true,
+      renderCell: (params) => <RenderCellPrice params={params} />,
+    },
+    {
+      field: 'salePercent',
+      headerName: 'Giảm giá',
+      headerAlign: 'center',
+      align: 'center',
+      width: 100,
+      editable: true,
+      renderCell: (params) => <RenderCellSalePercent params={params} />,
+    },
+    {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       width: 160,
       renderCell: (params) => <RenderCellCreatedAt params={params} />,
     },
-    // {
-    //   field: 'price',
-    //   headerName: 'Price',
-    //   width: 140,
-    //   editable: true,
-    //   renderCell: (params) => <RenderCellPrice params={params} />,
-    // },
     {
       field: 'createBy',
       headerName: 'Tạo bởi',
@@ -325,18 +347,18 @@ function CustomToolbar({ handleSearchChange, search, filters }: CustomToolbarPro
     setLocalSearch(search);
   }, [search]);
 
+  const { categories } = useGetCategories();
+
   return (
     <GridToolbarContainer>
-      <ProductTableToolbar filters={filters} options={{ categoryIds: PRODUCT_STOCK_OPTIONS }} />
-      <GridToolbarQuickFilter onChange={handleLocalSearchChange} value={localSearch} />
+      <ProductTableToolbar filters={filters} options={{ categories }} />
+      <GridToolbarQuickFilter
+        onChange={handleLocalSearchChange}
+        value={localSearch}
+        placeholder="Mã hoặc tên sản phẩm..."
+      />
     </GridToolbarContainer>
   );
 }
 
 export default CustomToolbar;
-
-export const PRODUCT_STOCK_OPTIONS = [
-  { id: 'in stock', name: 'In stock' },
-  { id: 'low stock', name: 'Low stock' },
-  { id: 'out of stock', name: 'Out of stock' },
-];

@@ -34,6 +34,9 @@ export type NewProductSchemaType = z.infer<typeof NewProductSchema>;
 export const NewProductSchema = z.object({
   title: z.string().min(1, { message: 'Tên sản phẩm là bắt buộc!' }),
   content: z.string().min(1, { message: 'Mô tả sản phẩm là bắt buộc!' }),
+  price: z.string(),
+  salePercent: z.number(),
+  priority: z.number(),
   thumbnail: z.string(),
   slug: z.string().min(1, { message: 'Mã sản phẩm là bắt buộc!' }),
   categoryId: z.string(),
@@ -67,6 +70,9 @@ export function ProductNewEditForm({ currentProduct }: Props) {
       content: currentProduct?.content || '',
       thumbnail: currentProduct?.thumbnail || '',
       slug: currentProduct?.slug || '',
+      price: currentProduct?.price || '',
+      salePercent: currentProduct?.salePercent || 0,
+      priority: currentProduct?.priority || 0,
       categoryId:
         typeof currentProduct?.categoryId === 'string'
           ? currentProduct?.categoryId
@@ -211,6 +217,9 @@ export function ProductNewEditForm({ currentProduct }: Props) {
       <Stack spacing={3} sx={{ p: 3 }}>
         <Field.Text name="slug" label="Mã sản phẩm" />
         <Field.Text name="title" label="Tên sản phẩm" />
+        <Field.Text type="number" name="priority" label="Độ ưu tiên" />
+        <Field.Text name="price" label="Giá sản phẩm" />
+        <Field.Text type="number" name="salePercent" label="Giảm giá" />
 
         <Stack spacing={1.5}>
           <Typography variant="subtitle2">Mô tả</Typography>

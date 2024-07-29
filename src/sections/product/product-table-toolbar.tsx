@@ -1,12 +1,14 @@
+import type { ICategoryItem } from 'src/types/category';
 import type { IProductTableFilters } from 'src/types/product';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { UseSetStateReturn } from 'src/hooks/use-set-state';
 
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
+import { ListSubheader } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -20,16 +22,13 @@ import { varAlpha } from 'src/theme/styles';
 type Props = {
   filters: UseSetStateReturn<IProductTableFilters>;
   options: {
-    categoryIds: {
-      id: string;
-      name: string;
-    }[];
+    categories: ICategoryItem[];
   };
 };
 
 export function ProductTableToolbar({ filters, options }: Props) {
   const local = useSetState<IProductTableFilters>({
-    categoryId: filters.state.categoryId,
+    categories: filters.state.categories,
   });
 
   const handleChangeCategory = useCallback(
@@ -37,40 +36,70 @@ export function ProductTableToolbar({ filters, options }: Props) {
       const {
         target: { value },
       } = event;
-
-      local.setState({ categoryId: typeof value === 'string' ? value.split(',') : value });
+      local.setState({ categories: typeof value === 'string' ? value.split(',') : value });
     },
     [local]
   );
 
   const handleFilterCategory = useCallback(() => {
-    filters.setState({ categoryId: local.state.categoryId });
-  }, [filters, local.state.categoryId]);
+    filters.setState({ categories: local.state.categories });
+  }, [filters, local.state.categories]);
 
-  return (
-    <FormControl sx={{ flexShrink: 0, width: { xs: 1, md: 200 } }}>
-      <InputLabel htmlFor="product-filter-title-select-label">title</InputLabel>
+  const handleToggleCategory = useCallback(
+    (category: string) => () => {
+      const currentIndex = local.state.categories.indexOf(category);
+      const newCategories = [...local.state.categories];
 
-      <Select
-        multiple
-        value={local.state.categoryId}
-        onChange={handleChangeCategory}
-        onClose={handleFilterCategory}
-        input={<OutlinedInput label="title" />}
-        renderValue={(selected) => selected.map((value) => value).join(', ')}
-        inputProps={{ id: 'product-filter-title-select-label' }}
-        sx={{ textTransform: 'capitalize' }}
-      >
-        {options.categoryIds.map((option: any) => (
-          <MenuItem key={option.id} value={option.id}>
+      if (currentIndex === -1) {
+        newCategories.push(category);
+      } else {
+        newCategories.splice(currentIndex, 1);
+      }
+
+      local.setState({ categories: newCategories });
+    },
+    [local]
+  );
+
+  const categoryMenuItems: (JSX.Element | React.ReactFragment)[] = options.categories.reduce(
+    (acc: (JSX.Element | React.ReactFragment)[], option) => {
+      acc.push(<ListSubheader key={option.name}>{option.name}</ListSubheader>);
+      option.categories.forEach((category) => {
+        acc.push(
+          <MenuItem
+            key={category.name}
+            value={category.name}
+            onClick={handleToggleCategory(category.name)}
+          >
             <Checkbox
               disableRipple
               size="small"
-              checked={local.state.categoryId.includes(option.id)}
+              checked={local.state.categories.includes(category.name)}
             />
-            {option.name}
+            {category.name}
           </MenuItem>
-        ))}
+        );
+      });
+      return acc;
+    },
+    []
+  );
+
+  return (
+    <FormControl sx={{ flexShrink: 0, width: { xs: 1, md: 200 } }}>
+      <InputLabel htmlFor="product-filter-title-select-label">Loại sản phẩm</InputLabel>
+
+      <Select
+        multiple
+        value={local.state.categories}
+        onChange={handleChangeCategory}
+        onClose={handleFilterCategory}
+        input={<OutlinedInput label="Loại sản phẩm" />}
+        renderValue={(selected) => selected.join(', ')}
+        inputProps={{ id: 'product-filter-title-select-label' }}
+        sx={{ textTransform: 'capitalize' }}
+      >
+        {categoryMenuItems}
         <MenuItem
           onClick={handleFilterCategory}
           sx={{
@@ -80,7 +109,7 @@ export function ProductTableToolbar({ filters, options }: Props) {
             bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
           }}
         >
-          Apply
+          Áp dụng
         </MenuItem>
       </Select>
     </FormControl>

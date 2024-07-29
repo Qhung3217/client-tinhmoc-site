@@ -11,7 +11,7 @@ export type IProductFilters = {
 };
 
 export type IProductTableFilters = {
-  categoryId: string[];
+  categories: string[];
 };
 
 export type IProductReviewNewForm = {
@@ -40,6 +40,9 @@ export type IProductItem = {
   normalizeTitle: string;
   content: string;
   thumbnail: string;
+  price: string;
+  salePercent: number;
+  priority: number;
   categoryId: string;
   createId: string;
   updateId: string;
@@ -64,6 +67,9 @@ export type IProductListItem = {
   slug: string;
   title: string;
   thumbnail: string;
+  price: string;
+  salePercent: number;
+  priority: number;
   createdAt: string;
   updatedAt: string;
   category: {
@@ -74,23 +80,9 @@ export type IProductListItem = {
   };
 };
 
-export type ICategoryItem = {
-  id: string;
-  name: string;
-  parentId?: string;
-  isDeleted: boolean;
-  createId: string;
-  updateId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  categories: {
-    id: string;
-    name: string;
-    parentId: string;
-    isDeleted: boolean;
-    createId: string;
-    updateId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
-};
+export const PRODUCT_SORT_OPTIONS = [
+  { value: 'do-uu-tien', label: 'Độ ưu tiên' },
+  { value: 'moi-nhat', label: 'Mới nhất' },
+  { value: 'gia-cao-nhat', label: 'Giá cao nhất' },
+  { value: 'gia-thap-nhat', label: 'Giá thấp nhất ' },
+];

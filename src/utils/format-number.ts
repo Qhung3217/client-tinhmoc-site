@@ -38,7 +38,7 @@ export function fNumber(inputValue: InputNumberValue, options?: Options) {
 // ----------------------------------------------------------------------
 
 export function fCurrency(inputValue: InputNumberValue, options?: Options) {
-  const locale = formatNumberLocale() || DEFAULT_LOCALE;
+  const locale = DEFAULT_LOCALE;
 
   const number = processInput(inputValue);
   if (number === null) return '';

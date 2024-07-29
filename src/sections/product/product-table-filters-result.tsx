@@ -19,44 +19,24 @@ type Props = {
 };
 
 export function ProductTableFiltersResult({ filters, totalResults, sx }: Props) {
-  const handleRemoveTitle = useCallback(
+  const handleRemoveCategories = useCallback(
     (inputValue: string) => {
-      const newValue = filters.state.title.filter((item) => item !== inputValue);
+      const newValue = filters.state.categories.filter((item) => item !== inputValue);
 
-      filters.setState({ title: newValue });
-    },
-    [filters]
-  );
-
-  const handleRemoveCreateBy = useCallback(
-    (inputValue: string) => {
-      const newValue = filters.state.createBy.filter((item) => item !== inputValue);
-
-      filters.setState({ createBy: newValue });
+      filters.setState({ categories: newValue });
     },
     [filters]
   );
 
   return (
     <FiltersResult totalResults={totalResults} onReset={filters.onResetState} sx={sx}>
-      <FiltersBlock label="title:" isShow={!!filters.state.title.length}>
-        {filters.state.title.map((item) => (
+      <FiltersBlock label="title:" isShow={!!filters.state.categories.length}>
+        {filters.state.categories.map((item) => (
           <Chip
             {...chipProps}
             key={item}
             label={sentenceCase(item)}
-            onDelete={() => handleRemoveTitle(item)}
-          />
-        ))}
-      </FiltersBlock>
-
-      <FiltersBlock label="createBy:" isShow={!!filters.state.createBy.length}>
-        {filters.state.createBy.map((item) => (
-          <Chip
-            {...chipProps}
-            key={item}
-            label={sentenceCase(item)}
-            onDelete={() => handleRemoveCreateBy(item)}
+            onDelete={() => handleRemoveCategories(item)}
           />
         ))}
       </FiltersBlock>
