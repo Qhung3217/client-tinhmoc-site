@@ -180,6 +180,7 @@ function CTooltip({ title, children, sx, offset, position = 'left', ...other }: 
   return (
     <Tooltip
       placement={position === 'left' ? 'left-end' : 'right-end'}
+      sx={{}}
       title={
         <Box
           sx={{
@@ -193,7 +194,8 @@ function CTooltip({ title, children, sx, offset, position = 'left', ...other }: 
             px: '9px',
             pb: '5px',
 
-            backgroundColor: 'transparent',
+            backgroundColor: 'transparent !important',
+
             position: 'relative',
             ...(position === 'left'
               ? {
@@ -238,7 +240,7 @@ function CTooltip({ title, children, sx, offset, position = 'left', ...other }: 
         },
         tooltip: {
           sx: {
-            backgroundColor: 'transparent',
+            backgroundColor: 'transparent !important',
           },
         },
       }}
