@@ -96,6 +96,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                     /> */}
                     <NavSectionHorizontal
                       data={NAV_ITEMS}
+                      enabledRootRedirect
                       cssVars={{
                         '--nav-item-gap': '4px',
                         '--nav-item-radius': '2px',
