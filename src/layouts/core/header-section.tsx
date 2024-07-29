@@ -65,10 +65,11 @@ export function HeaderSection({
 }: HeaderSectionProps) {
   const theme = useTheme();
 
-  const { offsetTop } = useScrollOffSetTop();
+  const { offsetTop } = useScrollOffSetTop(200);
 
   const toolbarStyles = {
     default: {
+      backgroundColor: 'transparent',
       minHeight: 'auto',
       height: 'var(--layout-header-mobile-height)',
       transition: theme.transitions.create(['height', 'background-color'], {
@@ -83,7 +84,7 @@ export function HeaderSection({
       },
     },
     offset: {
-      ...bgBlur({ color: varAlpha(theme.vars.palette.background.defaultChannel, 0.8) }),
+      ...bgBlur({ color: varAlpha(theme.vars.palette.primary.darkChannel, 1) }),
     },
   };
 

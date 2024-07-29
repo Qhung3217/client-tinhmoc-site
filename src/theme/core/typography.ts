@@ -24,7 +24,7 @@ export const defaultFont = 'Raleway';
 
 export const primaryFont = setFont(defaultFont);
 
-export const secondaryFont = setFont('Raleway');
+export const secondaryFont = setFont('Roboto');
 
 // ----------------------------------------------------------------------
 

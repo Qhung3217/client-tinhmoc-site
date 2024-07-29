@@ -1,10 +1,6 @@
 import { useMemo, useState, useCallback, createContext } from 'react';
 
-import { useLocalStorage } from 'src/hooks/use-local-storage';
-
-import { STORAGE_KEY } from '../config-settings';
-
-import type { SettingsState, SettingsContextValue, SettingsProviderProps } from '../types';
+import type { SettingsContextValue, SettingsProviderProps } from '../types';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +11,8 @@ export const SettingsConsumer = SettingsContext.Consumer;
 // ----------------------------------------------------------------------
 
 export function SettingsProvider({ children, settings }: SettingsProviderProps) {
-  const values = useLocalStorage<SettingsState>(STORAGE_KEY, settings);
+  // const values = useLocalStorage<SettingsState>(STORAGE_KEY, settings);
+  const values = settings;
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -29,25 +26,16 @@ export function SettingsProvider({ children, settings }: SettingsProviderProps) 
 
   const memoizedValue = useMemo(
     () => ({
-      ...values.state,
-      canReset: values.canReset,
-      onReset: values.resetState,
-      onUpdate: values.setState,
-      onUpdateField: values.setField,
+      ...values,
+      canReset: (() => {}) as any,
+      onReset: (() => {}) as any,
+      onUpdate: (() => {}) as any,
+      onUpdateField: (() => {}) as any,
       openDrawer,
       onCloseDrawer,
       onToggleDrawer,
     }),
-    [
-      values.state,
-      values.canReset,
-      values.resetState,
-      values.setState,
-      values.setField,
-      openDrawer,
-      onCloseDrawer,
-      onToggleDrawer,
-    ]
+    [values, openDrawer, onCloseDrawer, onToggleDrawer]
   );
 
   return <SettingsContext.Provider value={memoizedValue}>{children}</SettingsContext.Provider>;

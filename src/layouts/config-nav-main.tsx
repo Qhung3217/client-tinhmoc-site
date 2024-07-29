@@ -1,16 +1,221 @@
-import { paths } from 'src/routes/paths';
+import { type NavSectionDataProps } from 'src/components/nav-section';
 
-import { Iconify } from 'src/components/iconify';
+import type { NavItemBaseProps } from './main/nav/types';
 
 // ----------------------------------------------------------------------
 
-export const navData = [
-  { title: 'Trang chủ', path: '/', icon: <Iconify width={22} icon="solar:home-2-bold-duotone" /> },
+export const navData: NavItemBaseProps[] = [
+  { title: 'Trang chủ', path: '/' },
   {
-    title: 'Sản phẩm',
-    path: paths.landing.product.root,
-    icon: <Iconify width={22} icon="solar:atom-bold-duotone" />,
+    title: 'Cửa gỗ',
+    path: '/basic/page',
+    children: [
+      {
+        subheader: '',
+        items: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
   },
-
-
+  {
+    title: 'Cửa nhựa',
+    path: '/basic/page',
+    children: [
+      {
+        subheader: '',
+        items: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Cửa thép vân gỗ',
+    path: '/basic/page',
+    children: [
+      {
+        subheader: '',
+        items: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Bàn ghế',
+    path: '/basic/page',
+    children: [
+      {
+        subheader: '',
+        items: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+];
+export const NAV_ITEMS: NavSectionDataProps = [
+  {
+    items: [
+      {
+        title: 'Trang chủ',
+        path: '/',
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Cửa gỗ',
+        path: '/basic/page',
+        children: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Cửa nhựa',
+        path: '/basic/page',
+        children: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Cửa thép vân gỗ',
+        path: '/basic/page',
+        children: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Cửa chống cháy',
+        path: '/basic/page',
+        children: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Bàn ghế',
+        path: '/basic/page',
+        children: [
+          {
+            title: 'Cửa gỗ HDF sơn',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa gỗ HDF venneer',
+            path: '/basic/page/1',
+          },
+          {
+            title: 'Cửa vòm gỗ',
+            path: '/basic/page/1',
+          },
+        ],
+      },
+    ],
+  },
 ];
