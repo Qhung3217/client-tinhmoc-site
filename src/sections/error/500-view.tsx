@@ -25,7 +25,7 @@ export function View500() {
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            There was an error, please try again later.
+            Đã có lỗi xảy ra ở phía máy chủ, vui lòng thử lại
           </Typography>
         </m.div>
 
@@ -34,7 +34,7 @@ export function View500() {
         </m.div>
 
         <Button component={RouterLink} href="/" size="large" variant="contained">
-          Go to home
+          Quay lại trang chủ
         </Button>
       </Container>
     </SimpleLayout>
