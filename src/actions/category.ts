@@ -10,7 +10,7 @@ type CategoriesData = {
 };
 
 const swrOptions = {
-  revalidateIfStale: false,
+  revalidateIfStale: true,
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };

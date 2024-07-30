@@ -58,9 +58,10 @@ export const NewImagesSchema = z.object({
 
 type Props = {
   currentProduct?: IProductItem;
+  mutate?: any;
 };
 
-export function ProductNewEditForm({ currentProduct }: Props) {
+export function ProductNewEditForm({ currentProduct, mutate }: Props) {
   const router = useRouter();
   const { categories, categoriesLoading } = useGetCategories();
 
@@ -180,6 +181,7 @@ export function ProductNewEditForm({ currentProduct }: Props) {
       reset();
       toast.success(currentProduct ? 'Chỉnh sửa thành công!' : 'Thêm thành công!');
       router.push(paths.dashboard.product.root);
+      mutate();
     } catch (error) {
       console.error(error);
     }

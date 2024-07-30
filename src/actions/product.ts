@@ -8,7 +8,7 @@ import axiosInstance, { fetcher, endpoints } from 'src/utils/axios';
 // ----------------------------------------------------------------------
 
 const swrOptions = {
-  revalidateIfStale: false,
+  revalidateIfStale: true,
   revalidateOnFocus: false,
   revalidateOnReconnect: false,
 };
@@ -88,7 +88,11 @@ export function useGetProducts(
     url += `&categories[${i}]=${encodeURIComponent(categories[i])}`;
   }
 
-  const { data, isLoading, error, isValidating } = useSWR<ProductsData>(url, fetcher, swrOptions);
+  const { data, isLoading, error, isValidating, mutate } = useSWR<ProductsData>(
+    url,
+    fetcher,
+    swrOptions
+  );
 
   const memoizedValue = useMemo(
     () => ({
@@ -97,8 +101,9 @@ export function useGetProducts(
       productsError: error,
       productsValidating: isValidating,
       productsEmpty: !isLoading && !data?.products.length,
+      productsMutate: mutate,
     }),
-    [data, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating, mutate]
   );
 
   return memoizedValue;
