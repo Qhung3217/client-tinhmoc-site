@@ -23,7 +23,7 @@ export function ProductItem({ product }: Props) {
   const { id, name, coverUrl, price, colors, available, sizes, priceSale, newLabel, saleLabel } =
     product;
 
-  const linkTo = paths.product.details(id);
+  const linkTo = paths.landing.product.details(id);
 
   const renderLabels = (newLabel.enabled || saleLabel.enabled) && (
     <Stack

@@ -1,19 +1,20 @@
-import Tab from '@mui/material/Tab';
+import type { IProductItem } from 'src/types/product';
+
 import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { Stack, Button, CardHeader } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
-
-import { varAlpha } from 'src/theme/styles';
+import { RouterLink } from 'src/routes/components';
 
 import { Iconify } from 'src/components/iconify';
+import { EmptyContent } from 'src/components/empty-content';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { ProductDetailsReview } from '../product-details-review';
+import { ProductDetailsSkeleton } from '../product-skeleton';
 import { ProductDetailsSummary } from '../product-details-summary';
 import { ProductDetailsCarousel } from '../product-details-carousel';
 import { ProductDetailsDescription } from '../product-details-description';
@@ -37,71 +38,102 @@ const SUMMARY = [
     icon: 'solar:shield-check-bold',
   },
 ];
-export default function ProductDetailView() {
-  //   if (loading) {
-  //     return (
-  //       <Container sx={{ mt: 5, mb: 10 }}>
-  //         <ProductDetailsSkeleton />
-  //       </Container>
-  //     );
-  //   }
+type Props = {
+  product?: IProductItem;
+  loading?: boolean;
+  error?: any;
+};
+export default function ProductDetailsView({ product, loading, error }: Props) {
+  if (loading) {
+    return (
+      <Container sx={{ mt: 5, mb: 10 }}>
+        <ProductDetailsSkeleton />
+      </Container>
+    );
+  }
 
-  //   if (error) {
-  //     return (
-  //       <Container sx={{ mt: 5, mb: 10 }}>
-  //         <EmptyContent
-  //           filled
-  //           title="Product not found!"
-  //           action={
-  //             <Button
-  //               component={RouterLink}
-  //               href={paths.product.root}
-  //               startIcon={<Iconify width={16} icon="eva:arrow-ios-back-fill" />}
-  //               sx={{ mt: 3 }}
-  //             >
-  //               Back to list
-  //             </Button>
-  //           }
-  //           sx={{ py: 10 }}
-  //         />
-  //       </Container>
-  //     );
-  //   }
+  if (error) {
+    return (
+      <Container sx={{ mt: 5, mb: 10 }}>
+        <EmptyContent
+          filled
+          title="Không tìm thấy sản phẩm !"
+          action={
+            <Button
+              component={RouterLink}
+              href={paths.product.root}
+              startIcon={<Iconify width={16} icon="eva:arrow-ios-back-fill" />}
+              sx={{ mt: 3 }}
+            >
+              Sản phẩm khác
+            </Button>
+          }
+          sx={{ py: 10 }}
+        />
+      </Container>
+    );
+  }
 
   return (
     <Container sx={{ mt: 5, mb: 10 }}>
-      <CustomBreadcrumbs
-        links={[
-          { name: 'Home', href: '/' },
-          { name: 'Shop', href: paths.product.root },
-          { name: product?.name },
-        ]}
-        sx={{ mb: 5 }}
-      />
-
       <Grid container spacing={{ xs: 3, md: 5, lg: 8 }}>
-        <Grid xs={12} md={6} lg={7}>
+        <Grid xs={12} md={6} lg={6}>
           <ProductDetailsCarousel images={product?.images} />
         </Grid>
 
-        <Grid xs={12} md={6} lg={5}>
-          {product && (
-            <ProductDetailsSummary
-              product={product}
-              items={checkout.items}
-              onAddCart={checkout.onAddToCart}
-              onGotoStep={checkout.onGotoStep}
-              disableActions={!product?.available}
-            />
-          )}
+        <Grid xs={12} md={6} lg={6}>
+          <CustomBreadcrumbs
+            links={[
+              { name: 'Sản phẩm', href: paths.landing.product.root },
+              { name: '[Cửa gỗ]', href: paths.landing.product.root },
+              { name: '[Tên sản phẩm]' },
+            ]}
+            sx={{
+              mt: 1,
+              '& .MuiBreadcrumbs-ol': {
+                columnGap: '4px',
+              },
+            }}
+          />
+          {product && <ProductDetailsSummary product={product} />}
+          <Box
+            gap={1}
+            gridTemplateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }}
+            sx={{
+              mt: 10,
+              display: {
+                md: 'grid',
+                xs: 'none',
+              },
+            }}
+          >
+            {SUMMARY.map((item) => (
+              <Box key={item.title} sx={{ textAlign: 'left', px: 1 }}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Iconify icon={item.icon} width={32} sx={{ color: 'primary.main' }} />
+
+                  <Typography variant="subtitle1">{item.title}</Typography>
+                </Stack>
+
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {item.description}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Grid>
       </Grid>
 
       <Box
         gap={5}
-        display="grid"
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
-        sx={{ my: 10 }}
+        sx={{
+          mt: 10,
+          display: {
+            md: 'none',
+            xs: 'grid',
+          },
+        }}
       >
         {SUMMARY.map((item) => (
           <Box key={item.title} sx={{ textAlign: 'center', px: 5 }}>
@@ -118,36 +150,10 @@ export default function ProductDetailView() {
         ))}
       </Box>
 
-      <Card>
-        <Tabs
-          value={tabs.value}
-          onChange={tabs.onChange}
-          sx={{
-            px: 3,
-            boxShadow: (theme) =>
-              `inset 0 -2px 0 0 ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
-          }}
-        >
-          {[
-            { value: 'description', label: 'Description' },
-            { value: 'reviews', label: `Reviews (${product?.reviews.length})` },
-          ].map((tab) => (
-            <Tab key={tab.value} value={tab.value} label={tab.label} />
-          ))}
-        </Tabs>
+      <Card sx={{ mt: 10 }}>
+        <CardHeader title="Mô tả" />
 
-        {tabs.value === 'description' && (
-          <ProductDetailsDescription description={product?.description} />
-        )}
-
-        {tabs.value === 'reviews' && (
-          <ProductDetailsReview
-            ratings={product?.ratings}
-            reviews={product?.reviews}
-            totalRatings={product?.totalRatings}
-            totalReviews={product?.totalReviews}
-          />
-        )}
+        <ProductDetailsDescription description={product?.description} />
       </Card>
     </Container>
   );
