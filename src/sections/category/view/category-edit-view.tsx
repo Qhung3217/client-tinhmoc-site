@@ -1,27 +1,33 @@
+import type { ICategoryItem } from 'src/types/category';
+
 import { paths } from 'src/routes/paths';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { ProductNewEditForm } from '../product-new-edit-form';
+import { CategoryNewEditForm } from '../category-new-edit-form';
 
 // ----------------------------------------------------------------------
 
-export function ProductCreateView() {
+type Props = {
+  category?: ICategoryItem;
+};
+
+export function CategoryEditView({ category }: Props) {
   return (
     <DashboardContent>
       <CustomBreadcrumbs
-        heading="Thêm sản phẩm"
+        heading="Chỉnh sửa loại sản phẩm"
         links={[
           { name: 'Quản trị', href: paths.dashboard.root },
-          { name: 'Sản phẩm', href: paths.dashboard.product.root },
-          { name: 'Thêm sản phẩm' },
+          { name: 'Loại sản phẩm', href: paths.dashboard.product.root },
+          { name: category?.name },
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />
 
-      <ProductNewEditForm />
+      <CategoryNewEditForm currentCategory={category} />
     </DashboardContent>
   );
 }

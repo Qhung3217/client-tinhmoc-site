@@ -20,7 +20,7 @@ export function ProductEditView({ product }: Props) {
       <CustomBreadcrumbs
         heading="Chỉnh sửa sản phẩm"
         links={[
-          { name: 'Dashboard', href: paths.dashboard.root },
+          { name: 'Quản trị', href: paths.dashboard.root },
           { name: 'Sản phẩm', href: paths.dashboard.product.root },
           { name: product?.slug },
         ]}

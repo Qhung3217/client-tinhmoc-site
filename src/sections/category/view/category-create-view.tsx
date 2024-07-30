@@ -4,24 +4,24 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
-import { ProductNewEditForm } from '../product-new-edit-form';
+import { CategoryNewEditForm } from '../category-new-edit-form';
 
 // ----------------------------------------------------------------------
 
-export function ProductCreateView() {
+export function CategoryCreateView() {
   return (
     <DashboardContent>
       <CustomBreadcrumbs
-        heading="Thêm sản phẩm"
+        heading="Thêm loại sản phẩm"
         links={[
           { name: 'Quản trị', href: paths.dashboard.root },
-          { name: 'Sản phẩm', href: paths.dashboard.product.root },
-          { name: 'Thêm sản phẩm' },
+          { name: 'Loại sản phẩm', href: paths.dashboard.category.root },
+          { name: 'Thêm loại sản phẩm' },
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />
 
-      <ProductNewEditForm />
+      <CategoryNewEditForm />
     </DashboardContent>
   );
 }

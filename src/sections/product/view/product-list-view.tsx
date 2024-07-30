@@ -236,7 +236,7 @@ export function ProductListView() {
         <CustomBreadcrumbs
           heading="Danh sách"
           links={[
-            { name: 'Dashboard', href: paths.dashboard.root },
+            { name: 'Quản trị', href: paths.dashboard.root },
             { name: 'Sản phẩm', href: paths.dashboard.product.root },
             { name: 'Danh sách' },
           ]}

@@ -11,7 +11,7 @@ const MOCK_TITLE = _postTitles[2];
 const ROOTS = {
   AUTH: '/auth',
   AUTH_DEMO: '/auth-demo',
-  DASHBOARD: '/admin',
+  DASHBOARD: '/quan-tri',
   LANDING: '/',
 };
 
@@ -139,6 +139,16 @@ export const paths = {
       demo: {
         details: `${ROOTS.DASHBOARD}/san-pham/${MOCK_ID}`,
         edit: `${ROOTS.DASHBOARD}/san-pham/${MOCK_ID}/chinh-sua`,
+      },
+    },
+    category: {
+      root: `${ROOTS.DASHBOARD}/loai-san-pham`,
+      new: `${ROOTS.DASHBOARD}/loai-san-pham/tao-moi`,
+      details: (id: string) => `${ROOTS.DASHBOARD}/loai-san-pham/${id}`,
+      edit: (id: string) => `${ROOTS.DASHBOARD}/loai-san-pham/${id}/chinh-sua`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/loai-san-pham/${MOCK_ID}`,
+        edit: `${ROOTS.DASHBOARD}/loai-san-pham/${MOCK_ID}/chinh-sua`,
       },
     },
     invoice: {

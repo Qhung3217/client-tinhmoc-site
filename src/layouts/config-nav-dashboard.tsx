@@ -87,6 +87,17 @@ export const navData = [
           // { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
         ],
       },
+      {
+        title: 'Loại Sản Phẩm',
+        path: paths.dashboard.category.root,
+        icon: ICONS.product,
+        children: [
+          { title: 'Danh sách', path: paths.dashboard.category.root },
+          // { title: 'Chi tiết', path: paths.dashboard.product.demo.details },
+          { title: 'Tạo mới', path: paths.dashboard.category.new },
+          // { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
+        ],
+      },
       // {
       //   title: 'Order',
       //   path: paths.dashboard.order.root,

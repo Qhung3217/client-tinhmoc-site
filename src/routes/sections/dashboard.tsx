@@ -23,6 +23,11 @@ const ProductDetailsPage = lazy(() => import('src/pages/dashboard/product/detail
 const ProductListPage = lazy(() => import('src/pages/dashboard/product/list'));
 const ProductCreatePage = lazy(() => import('src/pages/dashboard/product/new'));
 const ProductEditPage = lazy(() => import('src/pages/dashboard/product/edit'));
+// Category
+const CategoryDetailsPage = lazy(() => import('src/pages/dashboard/category/details'));
+const CategoryListPage = lazy(() => import('src/pages/dashboard/category/list'));
+const CategoryCreatePage = lazy(() => import('src/pages/dashboard/category/new'));
+const CategoryEditPage = lazy(() => import('src/pages/dashboard/category/edit'));
 // Order
 const OrderListPage = lazy(() => import('src/pages/dashboard/order/list'));
 const OrderDetailsPage = lazy(() => import('src/pages/dashboard/order/details'));
@@ -78,7 +83,7 @@ const layoutContent = (
 
 export const dashboardRoutes = [
   {
-    path: 'admin',
+    path: 'quan-tri',
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
       { element: <IndexPage />, index: true },
@@ -108,6 +113,16 @@ export const dashboardRoutes = [
           { path: ':id', element: <ProductDetailsPage /> },
           { path: 'tao-moi', element: <ProductCreatePage /> },
           { path: ':id/chinh-sua', element: <ProductEditPage /> },
+        ],
+      },
+      {
+        path: 'loai-san-pham',
+        children: [
+          { element: <CategoryListPage />, index: true },
+          { path: 'danh-sach', element: <CategoryListPage /> },
+          { path: ':id', element: <CategoryDetailsPage /> },
+          { path: 'tao-moi', element: <CategoryCreatePage /> },
+          { path: ':id/chinh-sua', element: <CategoryEditPage /> },
         ],
       },
       {
