@@ -12,6 +12,7 @@ import { usePathname, useActiveLink } from 'src/routes/hooks';
 
 import { useDebounce } from 'src/hooks/use-debounce';
 import { useSetState } from 'src/hooks/use-set-state';
+import { useResponsive } from 'src/hooks/use-responsive';
 
 import { useSearchProducts } from 'src/actions/product';
 
@@ -22,6 +23,7 @@ import { ProductSort } from '../product-sort';
 import { ProductSearch } from '../product-search';
 import { PRODUCT_SORT_OPTIONS } from '../@constant';
 import CategoryFilter from '../filters/category-filter';
+import { ProductFiltersMobile } from '../filters/product-filters-mobile';
 
 // ----------------------------------------------------------------------
 const CATEGORIES = [
@@ -49,6 +51,8 @@ const CATEGORIES = [
 
 export default function ProductListView() {
   const [sortBy, setSortBy] = useState('featured');
+
+  const smUp = useResponsive('up', 'sm');
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -93,6 +97,7 @@ export default function ProductListView() {
       />
 
       <Stack direction="row" spacing={1} flexShrink={0}>
+        {!smUp && <ProductFiltersMobile options={[]} filters={filters} />}
         <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
       </Stack>
     </Stack>
@@ -110,21 +115,30 @@ export default function ProductListView() {
           <Typography variant="h3" sx={{ mb: { xs: 3, md: 5 } }}>
             [Cửa gỗ]
           </Typography>
-          <Stack direction="row" spacing={3}>
-            {CATEGORIES.map((category) => (
-              <Box key={category.title}>
-                <CategoryLink title={category.title} href="/san-pham" />
-                <Typography variant="caption" sx={{}}>
-                  {category.total} sản phẩm
-                </Typography>
-              </Box>
-            ))}
-          </Stack>
+          <Scrollbar fillContent>
+            <Stack direction="row" spacing={3} minWidth={0} maxWidth={1} width={1}>
+              {CATEGORIES.map((category) => (
+                <Box key={category.title} minWidth="fit-content">
+                  <CategoryLink title={category.title} href="/san-pham" />
+                  <Typography variant="caption" sx={{}}>
+                    {category.total} sản phẩm
+                  </Typography>
+                </Box>
+              ))}
+            </Stack>
+          </Scrollbar>
         </Container>
       </Box>
       <Container sx={{ mb: 15, mt: 3 }}>
         <Grid container>
-          <Grid xs={0} sm={4} md={3}>
+          <Grid
+            xs={0}
+            sm={4}
+            md={3}
+            sx={{
+              ...(!smUp && { display: 'none' }),
+            }}
+          >
             <Stack
               spacing={3}
               sx={{

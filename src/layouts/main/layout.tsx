@@ -4,6 +4,7 @@ import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useResponsive } from 'src/hooks/use-responsive';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
@@ -14,6 +15,7 @@ import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
+import { LandingSearch } from '../components/landing-search';
 import { NAV_ITEMS, navData as mainNavData } from '../config-nav-main';
 
 import type { NavMainProps } from './nav/types';
@@ -42,6 +44,8 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
   const layoutQuery: Breakpoint = 'md';
 
   const navData = data?.nav ?? mainNavData;
+
+  const mdUp = useResponsive('up', layoutQuery);
 
   return (
     <>
@@ -86,90 +90,103 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                 ),
                 rightAreaStart: (
                   <>
-                    {/* <NavDesktop
-                      data={navData}
-                      sx={{
-                        display: 'none',
-                        [theme.breakpoints.up(layoutQuery)]: { mr: 2.5, display: 'flex' },
-                      }}
-                    /> */}
-                    <NavSectionHorizontal
-                      data={NAV_ITEMS}
-                      enabledRootRedirect
-                      cssVars={{
-                        '--nav-item-gap': '4px',
-                        '--nav-item-radius': '2px',
-                        '--nav-item-color': offsetTop ? '#ddd' : theme.vars.palette.text.secondary,
-                        '--nav-item-hover-bg': theme.vars.palette.primary.light,
+                    {mdUp && (
+                      <NavSectionHorizontal
+                        data={NAV_ITEMS}
+                        enabledRootRedirect
+                        cssVars={{
+                          '--nav-item-gap': '4px',
+                          '--nav-item-radius': '2px',
+                          '--nav-item-color': offsetTop
+                            ? '#ddd'
+                            : theme.vars.palette.text.secondary,
+                          '--nav-item-hover-bg': theme.vars.palette.primary.light,
 
-                        '--nav-item-root-active-color': offsetTop
-                          ? theme.vars.palette.primary.lighter
-                          : theme.vars.palette.primary.main,
-                        // '--nav-item-root-active-bg': offsetTop
-                        //   ? theme.vars.palette.primary.darker
-                        //   : theme.vars.palette.primary.dark,
+                          '--nav-item-root-active-color': offsetTop
+                            ? theme.vars.palette.primary.lighter
+                            : theme.vars.palette.primary.main,
+                          // '--nav-item-root-active-bg': offsetTop
+                          //   ? theme.vars.palette.primary.darker
+                          //   : theme.vars.palette.primary.dark,
 
-                        '--nav-item-root-open-bg': theme.vars.palette.primary.light,
-                        '--nav-item-root-open-color': 'white',
+                          '--nav-item-root-open-bg': theme.vars.palette.primary.light,
+                          '--nav-item-root-open-color': 'white',
 
-                        '--nav-item-sub-open-color': 'white',
-                        '--nav-item-sub-open-bg': theme.vars.palette.primary.light,
-                      }}
-                      sx={{
-                        display: 'none',
-                        [theme.breakpoints.up(layoutQuery)]: { display: 'flex' },
-                        '& .mnl__nav__ul': {
-                          height: 1,
-                        },
-                        '& .mnl__nav__item': {
-                          height: 1,
-                        },
-                        '& .mnl__nav__item.state--active .mnl__nav__item__title': {
-                          fontWeight: '800',
-                        },
-                      }}
-                      slotProps={{
-                        paper: { borderRadius: '2px' },
-                        rootItem: {
-                          sx: {
-                            typography: 'subtitle1',
-                            textTransform: 'uppercase',
-                            fontFamily: (th) => th.typography.fontSecondaryFamily,
+                          '--nav-item-sub-open-color': 'white',
+                          '--nav-item-sub-open-bg': theme.vars.palette.primary.light,
+                        }}
+                        sx={{
+                          display: 'flex',
+                          '& .mnl__nav__ul': {
+                            height: 1,
                           },
-                          icon: {},
-                          title: {
-                            fontWeight: 600,
+                          '& .mnl__nav__item': {
+                            height: 1,
                           },
-                          caption: {},
-                          info: {},
-                          arrow: {},
-                        },
-                        subItem: {
-                          sx: {
-                            '&:first-letter': {
+                          '& .mnl__nav__item.state--active .mnl__nav__item__title': {
+                            fontWeight: '800',
+                          },
+                        }}
+                        slotProps={{
+                          paper: { borderRadius: '2px' },
+                          rootItem: {
+                            sx: {
+                              typography: 'subtitle1',
                               textTransform: 'uppercase',
+                              fontFamily: (th) => th.typography.fontSecondaryFamily,
                             },
-                            fontFamily: (th) => th.typography.fontSecondaryFamily,
-                            '&:hover': { color: 'white' },
+                            icon: {},
+                            title: {
+                              fontWeight: 600,
+                            },
+                            caption: {},
+                            info: {},
+                            arrow: {},
                           },
-                          icon: {},
-                          title: {},
-                          caption: {},
-                          info: {},
-                          arrow: {},
-                        },
-                      }}
-                    />
-                    <Logo
+                          subItem: {
+                            sx: {
+                              '&:first-letter': {
+                                textTransform: 'uppercase',
+                              },
+                              fontFamily: (th) => th.typography.fontSecondaryFamily,
+                              '&:hover': { color: 'white' },
+                            },
+                            icon: {},
+                            title: {},
+                            caption: {},
+                            info: {},
+                            arrow: {},
+                          },
+                        }}
+                      />
+                    )}
+                    {/* <Logo
                       data-slot="logo"
                       width={50}
                       height={50}
                       sx={{
                         [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
                       }}
-                    />
+                    /> */}
                   </>
                 ),
+                centerArea: (
+                  <Logo
+                    data-slot="logo"
+                    width={50}
+                    height={50}
+                    sx={{
+                      [theme.breakpoints.up(layoutQuery)]: {
+                        display: 'none',
+                      },
+                      ...(!offsetTop && {
+                        display: 'none',
+                      }),
+                    }}
+                  />
+                ),
+
+                rightAreaEnd: <LandingSearch offsetTop={offsetTop} theme={theme} />,
               }}
             />
           }

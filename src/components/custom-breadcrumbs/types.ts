@@ -17,9 +17,9 @@ export type CustomBreadcrumbsProps = BreadcrumbsProps & {
   links: BreadcrumbsLinkProps[];
   sx?: SxProps<Theme>;
   slotProps?: {
-    action: SxProps<Theme>;
-    heading: SxProps<Theme>;
-    moreLink: SxProps<Theme>;
-    breadcrumbs: SxProps<Theme>;
+    action?: SxProps<Theme>;
+    heading?: SxProps<Theme>;
+    moreLink?: SxProps<Theme>;
+    breadcrumbs?: SxProps<Theme>;
   };
 };

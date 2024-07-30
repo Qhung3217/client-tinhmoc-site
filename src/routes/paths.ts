@@ -22,7 +22,7 @@ export const paths = {
   landing: {
     product: {
       root: '/san-pham',
-      view: (id: string | number) => `${ROOTS.LANDING}san-pham/${id}`,
+      details: (id: string | number) => `${ROOTS.LANDING}san-pham/${id}`,
     },
   },
   comingSoon: '/coming-soon',

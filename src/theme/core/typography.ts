@@ -20,7 +20,7 @@ declare module '@mui/material/styles' {
 
 // ----------------------------------------------------------------------
 
-export const defaultFont = 'Raleway';
+export const defaultFont = 'Roboto';
 
 export const primaryFont = setFont(defaultFont);
 

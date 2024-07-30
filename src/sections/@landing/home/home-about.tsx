@@ -176,11 +176,35 @@ export default function HomeAbout() {
 
       <SubTitle>
         Giá trị của sản phẩm Tinh Mộc được tạo thành
-        <br />
+        <Box
+          component="br"
+          sx={{
+            display: {
+              sm: 'block',
+              xs: 'none',
+            },
+          }}
+        />
         từ vật liệu gỗ tự nhiên có chất lượng cao,
-        <br />
+        <Box
+          component="br"
+          sx={{
+            display: {
+              sm: 'block',
+              xs: 'none',
+            },
+          }}
+        />
         công nghệ hiện đại, qui trình sản xuất khép kín
-        <br />
+        <Box
+          component="br"
+          sx={{
+            display: {
+              sm: 'block',
+              xs: 'none',
+            },
+          }}
+        />
         và đội ngũ chuyên viên kỹ thuật.
       </SubTitle>
     </Box>
