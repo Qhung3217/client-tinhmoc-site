@@ -11,7 +11,7 @@ export type InputNumberValue = string | number | null | undefined;
 
 type Options = Intl.NumberFormatOptions | undefined;
 
-const DEFAULT_LOCALE = { code: 'vi-VN', currency: 'VND' };
+const DEFAULT_LOCALE = { code: 'vi', currency: 'VND' };
 
 function processInput(inputValue: InputNumberValue): number | null {
   if (inputValue == null || Number.isNaN(inputValue)) return null;
