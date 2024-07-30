@@ -5,6 +5,8 @@ import Carousel from 'react-spring-3d-carousel';
 
 import { Box } from '@mui/material';
 
+import { useResponsive } from 'src/hooks/use-responsive';
+
 import { uuidv4 } from 'src/utils/uuidv4';
 
 import { SubTitle, SectionTitle } from '../_common/section-title';
@@ -45,6 +47,7 @@ export default function HomeDoors() {
       content: <img alt="" src="/assets/landing/doors/5L01.jpg" />,
     },
   ].map((slide, index) => ({ ...slide, onClick: () => setNextSlide(index) }));
+  const mdUp = useResponsive('up', 'md');
 
   return (
     <Box
@@ -54,20 +57,21 @@ export default function HomeDoors() {
         backgroundColor: '#1a1a1a',
       }}
     >
-      <Box position="relative" width={673} height={600} mx="auto">
-        {/* <Carousel carousel={carousel}>
-          {slides.map((slide) => (
-            <Box sx={{ position: 'relative' }} key={slide.title}>
-              <Image visibleByDefault alt={slide.title} src={slide.url} />
-            </Box>
-          ))}
-        </Carousel> */}
+      <Box
+        position="relative"
+        width={{
+          sm: 673,
+          xs: 1,
+        }}
+        height={{ xs: 400, sm: 600 }}
+        mx="auto"
+      >
         <Carousel
           slides={slides}
           goToSlide={nextSlide}
           showNavigation={false}
           animationConfig={config.stiff}
-          offsetRadius={3}
+          offsetRadius={mdUp ? 3 : 2}
         />
       </Box>
       <Box

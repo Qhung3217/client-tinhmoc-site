@@ -43,7 +43,14 @@ export default function HomeFeatured() {
         ))}
       </Carousel>
       <Stack direction="row" alignItems="center" sx={{ py: 6.25, backgroundColor: '#1a1a1a' }}>
-        <m.div
+        <Box
+          component={m.div}
+          sx={{
+            display: {
+              sm: 'block',
+              xs: 'none',
+            },
+          }}
           animate={buttonPrevControl}
           transition={{
             type: 'easeInOut',
@@ -64,13 +71,13 @@ export default function HomeFeatured() {
           <ButtonBase sx={buttonStyles} onClick={carousel.arrows.onClickPrev}>
             <SvgColor src="/assets/landing/icons/prv.svg" />
           </ButtonBase>
-        </m.div>
+        </Box>
         <Box
           flexGrow={1}
           display="flex"
           alignItems="center"
           sx={{
-            px: 14,
+            px: { xs: 2, sm: 10, md: 14 },
             maxWidth: 1200,
             mx: 'auto',
             flexDirection: {
@@ -98,7 +105,14 @@ export default function HomeFeatured() {
             <br /> mang lại niềm vui, hạnh phúc và sự an lành.
           </SubTitle>
         </Box>
-        <m.div
+        <Box
+          component={m.div}
+          sx={{
+            display: {
+              sm: 'block',
+              xs: 'none',
+            },
+          }}
           animate={buttonNextControl}
           transition={{
             type: 'easeInOut',
@@ -119,7 +133,7 @@ export default function HomeFeatured() {
           <ButtonBase sx={buttonStyles} onClick={carousel.arrows.onClickNext}>
             <SvgColor src="/assets/landing/icons/next.svg" />
           </ButtonBase>
-        </m.div>
+        </Box>
       </Stack>
     </Box>
   );
