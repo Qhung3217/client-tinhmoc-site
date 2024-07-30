@@ -90,6 +90,7 @@ export function CategoryListView() {
     {
       field: 'id',
       headerName: 'Mã loại sản phẩm',
+      sortable: false,
       width: 160,
       renderCell: (params) => <RenderCellID params={params} />,
     },
@@ -99,6 +100,9 @@ export function CategoryListView() {
       flex: 1,
       minWidth: 160,
       hideable: false,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellName params={params} />,
     },
     {
@@ -108,6 +112,9 @@ export function CategoryListView() {
       width: 130,
       editable: true,
       align: 'center',
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellCreateBy params={params} />,
     },
     {

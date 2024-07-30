@@ -140,6 +140,9 @@ export function ProductListView() {
       field: 'id',
       headerName: 'Mã sản phẩm',
       width: 160,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellSlug params={params} />,
     },
     {
@@ -148,6 +151,9 @@ export function ProductListView() {
       flex: 1,
       minWidth: 160,
       hideable: false,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => (
         <RenderCellProduct params={params} onViewRow={() => handleViewRow(params.row.slug)} />
       ),
@@ -159,6 +165,9 @@ export function ProductListView() {
       width: 100,
       editable: true,
       align: 'center',
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellPriority params={params} />,
     },
     {
@@ -166,6 +175,9 @@ export function ProductListView() {
       headerName: 'Giá',
       width: 140,
       editable: true,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellPrice params={params} />,
     },
     {
@@ -175,18 +187,27 @@ export function ProductListView() {
       align: 'center',
       width: 100,
       editable: true,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellSalePercent params={params} />,
     },
     {
       field: 'createdAt',
       headerName: 'Ngày tạo',
       width: 160,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellCreatedAt params={params} />,
     },
     {
       field: 'createBy',
       headerName: 'Tạo bởi',
       width: 110,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
       renderCell: (params) => <RenderCellCreateBy params={params} />,
     },
     {

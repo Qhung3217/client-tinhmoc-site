@@ -1,4 +1,5 @@
 import type { CardProps } from '@mui/material/Card';
+import type { IProductListItem } from 'src/types/product';
 import type { TableHeadCustomProps } from 'src/components/table';
 
 import Box from '@mui/material/Box';
@@ -12,11 +13,11 @@ import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import CardHeader from '@mui/material/CardHeader';
-import IconButton from '@mui/material/IconButton';
+
+import { paths } from 'src/routes/paths';
 
 import { fCurrency } from 'src/utils/format-number';
 
-import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 import { TableHeadCustom } from 'src/components/table';
@@ -28,13 +29,7 @@ type Props = CardProps & {
   title?: string;
   subheader?: string;
   headLabel: TableHeadCustomProps['headLabel'];
-  tableData: {
-    id: string;
-    price: number;
-    status: string;
-    category: string;
-    invoiceNumber: string;
-  }[];
+  tableData: IProductListItem[];
 };
 
 export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other }: Props) {
@@ -61,6 +56,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
           size="small"
           color="inherit"
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
+          href={paths.dashboard.product.root}
         >
           View all
         </Button>
@@ -101,30 +97,49 @@ function RowItem({ row }: RowItemProps) {
   return (
     <>
       <TableRow>
-        <TableCell>{row.invoiceNumber}</TableCell>
+        <TableCell>{row.slug}</TableCell>
 
-        <TableCell>{row.category}</TableCell>
+        <TableCell>{row.title}</TableCell>
+
+        <TableCell
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'inline-block',
+              padding: '2px 8px',
+              marginLeft: '25px',
+              borderRadius: '8px',
+              backgroundColor: 'primary.main',
+              color: 'white',
+              textAlign: 'center',
+              minWidth: '24px',
+            }}
+          >
+            {row.priority}
+          </Box>
+        </TableCell>
 
         <TableCell>{fCurrency(row.price)}</TableCell>
 
         <TableCell>
-          <Label
-            variant="soft"
-            color={
-              (row.status === 'progress' && 'warning') ||
-              (row.status === 'out of date' && 'error') ||
-              'success'
-            }
+          <Box
+            sx={{
+              marginLeft: '25px',
+            }}
           >
-            {row.status}
-          </Label>
+            {row.salePercent}%
+          </Box>
         </TableCell>
 
-        <TableCell align="right" sx={{ pr: 1 }}>
+        {/* <TableCell align="right" sx={{ pr: 1 }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
 
       <CustomPopover

@@ -99,3 +99,37 @@ export const deleteCategory = async (id: string) => {
 
   return response.data;
 };
+
+//------------------------------------------------------------------------
+
+type CategoriesCountData = {
+  categories: {
+    id: string;
+    name: string;
+    level: number;
+    count: number;
+  }[];
+};
+
+export function useGetCategoriesCount() {
+  const url = `${endpoints.category.list}/category-count`;
+
+  const { data, isLoading, error, isValidating } = useSWR<CategoriesCountData>(
+    url,
+    fetcher,
+    swrOptions
+  );
+
+  const memoizedValue = useMemo(
+    () => ({
+      categories: data?.categories || [],
+      categoriesLoading: isLoading,
+      categoriesError: error,
+      categoriesValidating: isValidating,
+      categoriesEmpty: !isLoading && !data?.categories.length,
+    }),
+    [data?.categories, error, isLoading, isValidating]
+  );
+
+  return memoizedValue;
+}

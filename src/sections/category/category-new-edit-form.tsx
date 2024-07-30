@@ -42,10 +42,14 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
   const defaultValues = useMemo(
     () => ({
       name: currentCategory?.name || '',
-      parentId: typeof currentCategory?.parentId === 'string' ? currentCategory?.parentId : '',
+      parentId: typeof currentCategory?.parentId === 'string' ? currentCategory?.parentId : null,
     }),
     [currentCategory]
   );
+
+  console.dir(currentCategory);
+
+  console.dir(defaultValues);
 
   const methods = useForm<NewCategorySchemaType>({
     mode: 'all',
@@ -82,10 +86,10 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       console.log('DATA after upload', data);
+      if (data.parentId === '') {
+        data.parentId = null;
+      }
       if (!currentCategory) {
-        if (data.parentId === '') {
-          data.parentId = null;
-        }
         await addCategory(data);
       } else {
         await updateCategory(currentCategory.id, data);
@@ -107,6 +111,7 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
       <Stack spacing={3} sx={{ p: 3 }}>
         <Field.Text name="name" label="Tên loại sản phẩm" />
 
+        {/* {currentCategory && currentCategory.parentId === null ? <></> : <div />} */}
         {categoriesLoading ? (
           <LoadingIcon />
         ) : (
@@ -133,7 +138,7 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
   const renderActions = (
     <Stack spacing={3} direction="row" alignItems="center" flexWrap="wrap">
       <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
-        {!currentCategory ? 'Thêm sản phẩm' : 'Lưu thay đổi'}
+        {!currentCategory ? 'Thêm loại sản phẩm' : 'Lưu thay đổi'}
       </LoadingButton>
     </Stack>
   );
