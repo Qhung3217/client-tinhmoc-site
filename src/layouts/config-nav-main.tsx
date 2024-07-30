@@ -8,14 +8,14 @@ export const navData: NavItemBaseProps[] = [
   { title: 'Trang chủ', path: '/' },
   {
     title: 'Cửa gỗ',
-    path: '/basic/page',
+    path: '/san-pham',
     children: [
       {
         subheader: '',
         items: [
           {
             title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
+            path: '/san-pham',
           },
           {
             title: 'Cửa gỗ HDF venneer',
@@ -112,11 +112,11 @@ export const NAV_ITEMS: NavSectionDataProps = [
     items: [
       {
         title: 'Cửa gỗ',
-        path: '/basic/page',
+        path: '/san-pham',
         children: [
           {
             title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
+            path: '/san-pham',
           },
           {
             title: 'Cửa gỗ HDF venneer',

@@ -9,6 +9,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { styled, useTheme } from '@mui/material/styles';
 
+import { usePathname } from 'src/routes/hooks';
+
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { bgBlur, varAlpha } from 'src/theme/styles';
@@ -65,7 +67,11 @@ export function HeaderSection({
 }: HeaderSectionProps) {
   const theme = useTheme();
 
-  const { offsetTop } = useScrollOffSetTop(200);
+  const pathname = usePathname();
+
+  const homePage = pathname === '/';
+
+  const { offsetTop } = useScrollOffSetTop(homePage ? 200 : 0);
 
   const toolbarStyles = {
     default: {

@@ -11,9 +11,8 @@ import { SplashScreen } from 'src/components/loading-screen';
 const ComingSoonPage = lazy(() => import('src/pages/coming-soon'));
 const MaintenancePage = lazy(() => import('src/pages/maintenance'));
 // Product
-const ProductListPage = lazy(() => import('src/pages/product/list'));
-const ProductDetailsPage = lazy(() => import('src/pages/product/details'));
-const ProductCheckoutPage = lazy(() => import('src/pages/product/checkout'));
+const ProductListPage = lazy(() => import('src/pages/san-pham/list'));
+const ProductDetailPage = lazy(() => import('src/pages/san-pham/details'));
 // Error
 const Page500 = lazy(() => import('src/pages/error/500'));
 const Page403 = lazy(() => import('src/pages/error/403'));
@@ -37,12 +36,11 @@ export const mainRoutes = [
         ),
         children: [
           {
-            path: 'product',
+            path: 'san-pham',
             children: [
               { element: <ProductListPage />, index: true },
               { path: 'list', element: <ProductListPage /> },
-              { path: ':id', element: <ProductDetailsPage /> },
-              { path: 'checkout', element: <ProductCheckoutPage /> },
+              { path: ':id', element: <ProductDetailPage /> },
             ],
           },
         ],

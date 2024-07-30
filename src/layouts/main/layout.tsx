@@ -30,13 +30,14 @@ export type MainLayoutProps = {
 
 export function MainLayout({ sx, data, children }: MainLayoutProps) {
   const theme = useTheme();
-  const { offsetTop } = useScrollOffSetTop(200);
 
   // const pathname = usePathname();
 
   const mobileNavOpen = useBoolean();
 
   // const homePage = pathname === '/';
+
+  const { offsetTop } = useScrollOffSetTop(homePage ? 200 : 0);
 
   const layoutQuery: Breakpoint = 'md';
 
@@ -94,6 +95,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                     /> */}
                     <NavSectionHorizontal
                       data={NAV_ITEMS}
+                      enabledRootRedirect
                       cssVars={{
                         '--nav-item-gap': '4px',
                         '--nav-item-radius': '2px',

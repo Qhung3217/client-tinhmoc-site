@@ -19,14 +19,16 @@ export function View403() {
       <Container component={MotionContainer}>
         <m.div variants={varBounce().in}>
           <Typography variant="h3" sx={{ mb: 2 }}>
-            No permission
+            Không có quyền truy cập
           </Typography>
         </m.div>
 
         <m.div variants={varBounce().in}>
           <Typography sx={{ color: 'text.secondary' }}>
-            The page you’re trying to access has restricted access. Please refer to your system
-            administrator.
+            T Có vẻ bạn không được cấp quyền truy cập trang này,&apos;một số trang chỉ khả dụng cho
+            người dùng đặc biệt
+            <br />
+            Nếu bạn nằm trong số đó, vui lòng liên hệ chúng tôi để được cấp quyền.
           </Typography>
         </m.div>
 
@@ -35,7 +37,7 @@ export function View403() {
         </m.div>
 
         <Button component={RouterLink} href="/" size="large" variant="contained">
-          Go to home
+          Trở lại trang chủ
         </Button>
       </Container>
     </SimpleLayout>
