@@ -16,7 +16,7 @@ export function ProductItemSkeleton({
   amount?: number;
 }) {
   return [...Array(amount)].map((_, index) => (
-    <Paper key={index} variant="outlined" sx={{ borderRadius: 2, ...sx }} {...other}>
+    <Paper key={index} variant="outlined" sx={{ borderRadius: 0, ...sx }} {...other}>
       <Stack sx={{ p: 1 }}>
         <Skeleton sx={{ pt: '100%' }} />
       </Stack>
