@@ -82,7 +82,7 @@ export const Image = forwardRef<HTMLSpanElement, ImageProps>(
         placeholderSrc={
           visibleByDefault || disabledEffect
             ? `${CONFIG.site.basePath}/assets/transparent.png`
-            : `${CONFIG.site.basePath}/assets/placeholder.svg`
+            : `${CONFIG.site.basePath}/assets/default-image.png`
         }
         sx={{
           width: 1,
