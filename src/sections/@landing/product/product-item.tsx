@@ -1,4 +1,7 @@
-import type { IProductItem } from 'src/types/product';
+import type { IProductListItem } from 'src/types/product';
+
+import dayjs from 'dayjs';
+import { useMemo } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -8,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
+import { fIsAfter } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 
 import { Label } from 'src/components/label';
@@ -16,16 +20,23 @@ import { Image } from 'src/components/image';
 // ----------------------------------------------------------------------
 
 type Props = {
-  product: IProductItem;
+  product: IProductListItem;
 };
 
 export function ProductItem({ product }: Props) {
-  const { id, name, coverUrl, price, colors, available, sizes, priceSale, newLabel, saleLabel } =
-    product;
+  const { id, title, thumbnail, price, salePercent, createdAt } = product;
+
+  const isSale = useMemo(() => !!salePercent, [salePercent]);
+
+  const isNew = useMemo(() => {
+    const sevenDaysNext = dayjs(createdAt).add(7, 'day').startOf('day');
+
+    return fIsAfter(sevenDaysNext, Date.now());
+  }, [createdAt]);
 
   const linkTo = paths.landing.product.details(id);
 
-  const renderLabels = (newLabel.enabled || saleLabel.enabled) && (
+  const renderLabels = (isNew || isSale) && (
     <Stack
       direction="row"
       alignItems="center"
@@ -37,14 +48,14 @@ export function ProductItem({ product }: Props) {
         right: 16,
       }}
     >
-      {newLabel.enabled && (
+      {isNew && (
         <Label variant="filled" color="info">
-          {newLabel.content}
+          Mới
         </Label>
       )}
-      {saleLabel.enabled && (
+      {isSale && (
         <Label variant="filled" color="error">
-          {saleLabel.content}
+          SALE
         </Label>
       )}
     </Stack>
@@ -52,21 +63,35 @@ export function ProductItem({ product }: Props) {
 
   const renderImg = (
     <Box sx={{ position: 'relative', p: 1 }}>
-      <Image alt={name} src={coverUrl} ratio="2/3" sx={{ borderRadius: 0.5 }} />
+      <Image
+        alt={title}
+        src={`${thumbnail}`}
+        ratio="2/3"
+        effect="opacity"
+        sx={{
+          borderRadius: 0.5,
+          '& .mnl__image__wrapper': {
+            aspectRatio: '2/3',
+          },
+          '& .lazy-load-image-background.opacity:not(.lazy-load-image-loaded) img': {
+            display: 'none',
+          },
+        }}
+      />
     </Box>
   );
 
   const renderContent = (
     <Stack spacing={2.5} sx={{ p: 3, pt: 2 }}>
       <Link component={RouterLink} href={linkTo} color="inherit" variant="subtitle2" noWrap>
-        {name}
+        {title}
       </Link>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Stack direction="row" spacing={0.5} sx={{ typography: 'subtitle1' }}>
-          {priceSale && (
+          {isSale && (
             <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-              {fCurrency(priceSale)}
+              {fCurrency(Number(price) - Number(price) * (salePercent / 100))}
             </Box>
           )}
 

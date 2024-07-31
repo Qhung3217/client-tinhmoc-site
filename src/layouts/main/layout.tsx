@@ -1,8 +1,11 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
+import { useMemo } from 'react';
+
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
+import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -12,13 +15,14 @@ import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 import { Logo } from 'src/components/logo';
 import { NavSectionHorizontal } from 'src/components/nav-section';
 
+import { useCategoryContext } from 'src/sections/@landing/_common/category-context';
+
 import { Main } from './main';
 import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
 import { LandingSearch } from '../components/landing-search';
-import { NAV_ITEMS, navData as mainNavData } from '../config-nav-main';
 
 import type { NavMainProps } from './nav/types';
 
@@ -33,6 +37,10 @@ export type MainLayoutProps = {
 };
 
 export function MainLayout({ sx, data, children }: MainLayoutProps) {
+  const {
+    categoryList: { list: categoriesData },
+  } = useCategoryContext();
+
   const theme = useTheme();
 
   const pathname = usePathname();
@@ -45,13 +53,58 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
 
   const layoutQuery: Breakpoint = 'md';
 
-  const navData = data?.nav ?? mainNavData;
+  const navData = useMemo(() => {
+    const nav = [{ title: 'Trang chủ', path: '/' }] as any;
+    const desktop = [
+      {
+        items: [
+          {
+            title: 'Trang chủ',
+            path: '/',
+          },
+        ],
+      },
+    ] as any;
+    categoriesData.forEach((category, index) => {
+      nav.push({
+        title: category.name,
+        path: paths.landing.product.category(category.name),
+        children: {
+          subheader: '',
+          items: [],
+        },
+      });
+      desktop.push({
+        items: [
+          {
+            title: category.name,
+            path: paths.landing.product.category(category.name),
+            children: [],
+          },
+        ],
+      });
+      category.categories.forEach((subCategory) => {
+        nav[index + 1].children.push({
+          title: subCategory.name,
+          path: paths.landing.product.subCategory(category.name, subCategory.name),
+        });
+        desktop[index + 1].items[0].children.push({
+          title: subCategory.name,
+          path: paths.landing.product.subCategory(category.name, subCategory.name),
+        });
+      });
+    });
+    return {
+      mobile: nav,
+      desktop,
+    };
+  }, [categoriesData]);
 
   const mdUp = useResponsive('up', layoutQuery);
 
   return (
     <>
-      <NavMobile data={navData} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
+      <NavMobile data={navData.mobile} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
 
       <div
         style={{
@@ -94,7 +147,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                   <>
                     {mdUp && (
                       <NavSectionHorizontal
-                        data={NAV_ITEMS}
+                        data={navData.desktop}
                         enabledRootRedirect
                         cssVars={{
                           '--nav-item-gap': '4px',

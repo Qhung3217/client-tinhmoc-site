@@ -22,6 +22,9 @@ export const paths = {
   landing: {
     product: {
       root: '/san-pham',
+      category: (category: string) => `/san-pham?category=${category}`,
+      subCategory: (category: string, subCategory: string) =>
+        `/san-pham?category=${category}&subCategory=${subCategory}`,
       details: (id: string | number) => `${ROOTS.LANDING}san-pham/${id}`,
     },
   },

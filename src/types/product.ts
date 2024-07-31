@@ -3,11 +3,18 @@ import type { IDateValue } from './common';
 // ----------------------------------------------------------------------
 
 export type IProductFilters = {
-  rating: string;
-  gender: string[];
-  category: string;
-  colors: string[];
-  priceRange: number[];
+  category: string | null;
+  subCategory: string | null;
+  sort: string;
+};
+
+export type IProductFilterOptions = {
+  category: IProductFilterOptionItem;
+};
+
+export type IProductFilterOptionItem = {
+  title: string;
+  children: string[];
 };
 
 export type IProductTableFilters = {

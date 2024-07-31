@@ -1,17 +1,25 @@
+import type { IProductListItem } from 'src/types/product';
+
 import { Box, Pagination, paginationClasses } from '@mui/material';
-
-import { useGetProducts } from 'src/actions/product';
-
-import { EmptyContent } from 'src/components/empty-content';
 
 import { ProductItem } from './product-item';
 import { ProductItemSkeleton } from './product-skeleton';
 
-export default function ProductList() {
-  const { products, productsLoading } = useGetProducts();
-
+type Props = {
+  products: IProductListItem[];
+  loading: boolean;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  currentPage: number;
+};
+export default function ProductList({
+  products,
+  loading,
+  totalPages,
+  onPageChange,
+  currentPage,
+}: Props) {
   const renderLoading = <ProductItemSkeleton />;
-  const renderNotFound = <EmptyContent filled sx={{ py: 10 }} />;
 
   const renderList = products.map((product, index) => (
     <ProductItem key={product.id} product={product} />
@@ -32,12 +40,17 @@ export default function ProductList() {
           borderTop: '1px solid rgba(255,255,255,0.2)',
         }}
       >
-        {productsLoading ? renderLoading : renderList}
+        {loading ? renderLoading : renderList}
       </Box>
 
-      {products.length > 8 && (
+      {products.length > 0 && (
         <Pagination
-          count={8}
+          color="primary"
+          size="large"
+          shape="rounded"
+          page={currentPage}
+          count={totalPages}
+          onChange={(event, newPage) => onPageChange(newPage)}
           sx={{
             mt: { xs: 5, md: 8 },
             [`& .${paginationClasses.ul}`]: { justifyContent: 'center' },

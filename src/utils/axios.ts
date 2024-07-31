@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { CONFIG } from 'src/config-global';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = `${CONFIG.site.serverUrl}/api`;
 
 // ----------------------------------------------------------------------
 

@@ -1,28 +1,31 @@
-import type { IProductFilters } from 'src/types/product';
+import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
-import { useState, useCallback } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-import { Box, Grid, Link } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { Box, Grid, Link, Button } from '@mui/material';
 
+import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
-import { usePathname, useActiveLink } from 'src/routes/hooks';
 
 import { useDebounce } from 'src/hooks/use-debounce';
-import { useSetState } from 'src/hooks/use-set-state';
+import useWatchParams from 'src/hooks/use-watch-params';
+import useQueryParams from 'src/hooks/use-query-params';
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { useSearchProducts } from 'src/actions/product';
+import { useGetProducts } from 'src/actions/product';
 
 import { Scrollbar } from 'src/components/scrollbar';
+import { EmptyContent } from 'src/components/empty-content';
 
 import ProductList from '../product-list';
 import { ProductSort } from '../product-sort';
 import { ProductSearch } from '../product-search';
 import { PRODUCT_SORT_OPTIONS } from '../@constant';
 import CategoryFilter from '../filters/category-filter';
+import { useCategoryContext } from '../../_common/category-context';
 import { ProductFiltersMobile } from '../filters/product-filters-mobile';
 
 // ----------------------------------------------------------------------
@@ -48,29 +51,91 @@ const CATEGORIES = [
     total: 57,
   },
 ];
+const DF_FILTERS = {
+  category: '',
+  subCategory: '',
+  sort: PRODUCT_SORT_OPTIONS[0].value,
+};
 
 export default function ProductListView() {
-  const [sortBy, setSortBy] = useState('featured');
+  const {
+    categoryList: { list: categoriesData },
+    categoryCountData: { list: categoryCountData },
+  } = useCategoryContext();
+
+  const { updateParams, updateParam } = useQueryParams(paths.landing.product.root);
+
+  const [sortBy, setSortBy] = useState(DF_FILTERS.sort);
+
+  const { category, subCategory, p, q } = useWatchParams(['category', 'subCategory', 'p', 'q']);
 
   const smUp = useResponsive('up', 'sm');
 
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const pathname = usePathname();
-
-  const active = useActiveLink(pathname, true);
+  const [searchQuery, setSearchQuery] = useState(() => q || '');
 
   const debouncedQuery = useDebounce(searchQuery);
 
-  const filters = useSetState<IProductFilters>({
-    gender: [],
-    colors: [],
-    rating: '',
-    category: 'all',
-    priceRange: [0, 200],
-  });
+  const [page, setPage] = useState(() => (p ? Number(p) : 1));
 
-  const { searchResults, searchLoading } = useSearchProducts(debouncedQuery);
+  const [filters, setFilters] = useState<IProductFilters>(() => ({
+    ...DF_FILTERS,
+    category: category || '',
+    subCategory: subCategory || '',
+  }));
+
+  const onFilter = useCallback(
+    (key: keyof IProductFilters, value: any) => {
+      setFilters((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    },
+    [setFilters]
+  );
+
+  useEffect(() => {
+    updateParams({
+      ...(filters.category && {
+        category: filters.category.toString(),
+      }),
+      ...(filters.subCategory && {
+        subCategory: filters.subCategory.toString(),
+      }),
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters]);
+
+  const { data, productsLoading, productsEmpty } = useGetProducts(
+    20,
+    page - 1,
+    debouncedQuery,
+    filters.subCategory ? [filters.subCategory] : [filters.category || ''],
+    sortBy
+  );
+
+  const categoryCountList = useMemo(
+    () => categoryCountData.filter((cate) => cate.level === 1),
+    [categoryCountData]
+  );
+
+  const options = useMemo<IProductFilterOptions>(() => {
+    const result: IProductFilterOptions = {
+      category: {
+        title: '',
+        children: [],
+      },
+    };
+    if (filters.category) {
+      const currentCate = categoriesData.find((cate) => cate.name === filters.category);
+      if (currentCate) {
+        result.category.title = currentCate.name;
+        result.category.children = currentCate.categories.map((ct) => ct.name);
+      }
+    }
+
+    return result;
+  }, [categoriesData, filters.category]);
 
   const handleSortBy = useCallback((newValue: string) => {
     setSortBy(newValue);
@@ -80,7 +145,15 @@ export default function ProductListView() {
     setSearchQuery(inputValue);
   }, []);
 
-  // const productsEmpty = !loading && !products.length;
+  const handleReset = useCallback(() => {
+    if (filters.category) setFilters({ ...DF_FILTERS, category: filters.category });
+    else setFilters(DF_FILTERS);
+  }, [filters.category]);
+
+  useEffect(() => {
+    updateParam('q', debouncedQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedQuery]);
 
   const renderFilters = (
     <Stack
@@ -91,16 +164,26 @@ export default function ProductListView() {
     >
       <ProductSearch
         query={debouncedQuery}
-        results={searchResults}
+        results={data.products}
         onSearch={handleSearch}
-        loading={searchLoading}
+        loading={productsLoading}
       />
 
       <Stack direction="row" spacing={1} flexShrink={0}>
-        {!smUp && <ProductFiltersMobile options={[]} filters={filters} />}
+        {!smUp && (
+          <ProductFiltersMobile
+            options={options}
+            filters={filters}
+            onFilters={onFilter}
+            onReset={handleReset}
+          />
+        )}
         <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
       </Stack>
     </Stack>
+  );
+  const renderNotFound = (
+    <EmptyContent filled sx={{ py: 10 }} title="Sản phẩm đang được cập nhật" />
   );
 
   return (
@@ -113,15 +196,22 @@ export default function ProductListView() {
       >
         <Container>
           <Typography variant="h3" sx={{ mb: { xs: 3, md: 5 } }}>
-            [Cửa gỗ]
+            {filters.category}
           </Typography>
           <Scrollbar fillContent>
             <Stack direction="row" spacing={3} minWidth={0} maxWidth={1} width={1}>
-              {CATEGORIES.map((category) => (
-                <Box key={category.title} minWidth="fit-content">
-                  <CategoryLink title={category.title} href="/san-pham" />
+              {categoryCountList.map((c) => (
+                <Box key={c.id} minWidth="fit-content">
+                  <CategoryLink
+                    title={c.name}
+                    href={paths.landing.product.category(c.name)}
+                    onClick={() => {
+                      onFilter('category', c.name);
+                    }}
+                    active={c.name === category}
+                  />
                   <Typography variant="caption" sx={{}}>
-                    {category.total} sản phẩm
+                    {c.count} sản phẩm
                   </Typography>
                 </Box>
               ))}
@@ -157,11 +247,15 @@ export default function ProductListView() {
                 }}
               >
                 <CategoryFilter
-                  title="Cửa gỗ"
-                  options={['Cửa gỗ HDF sơn', 'Cửa gỗ HDF venneer', 'Cửa vòm gỗ']}
-                  filters={filters}
+                  title={options.category.title}
+                  options={options.category.children || []}
+                  filters={filters.subCategory || ''}
+                  onFilters={onFilter}
                 />
               </Scrollbar>
+              <Button color="primary" variant="soft" onClick={handleReset}>
+                Đặt lại bộ lọc
+              </Button>
             </Stack>
           </Grid>
           <Grid xs={12} sm={8} md={9}>
@@ -169,9 +263,15 @@ export default function ProductListView() {
               {renderFilters}
             </Stack>
 
-            {/* {(notFound || productsEmpty) && renderNotFound} */}
+            {productsEmpty && renderNotFound}
 
-            <ProductList />
+            <ProductList
+              products={data.products}
+              loading={productsLoading}
+              totalPages={data.paginate.pageCount}
+              onPageChange={(pg) => setPage(pg)}
+              currentPage={page}
+            />
           </Grid>
         </Grid>
       </Container>
@@ -182,9 +282,10 @@ export default function ProductListView() {
 type CategoryLinkProps = {
   title: string;
   href: string;
+  onClick: any;
+  active: boolean;
 };
-const CategoryLink = ({ title, href }: CategoryLinkProps) => {
-  const active = useActiveLink(href, true);
+function CategoryLink({ title, href, onClick, active }: CategoryLinkProps) {
   return (
     <Link
       component={RouterLink}
@@ -192,6 +293,7 @@ const CategoryLink = ({ title, href }: CategoryLinkProps) => {
       sx={{
         textDecoration: 'none',
       }}
+      onClick={onClick}
     >
       <Typography
         variant="subtitle1"
@@ -212,4 +314,4 @@ const CategoryLink = ({ title, href }: CategoryLinkProps) => {
       </Typography>
     </Link>
   );
-};
+}

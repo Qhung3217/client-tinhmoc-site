@@ -1,20 +1,19 @@
-import type { UseSetStateReturn } from 'src/hooks/use-set-state';
-
 import { useCallback } from 'react';
 
 import { Box, Radio, Typography, FormControlLabel } from '@mui/material';
 
 type Props = {
   options: string[];
-  filters: UseSetStateReturn<any>;
+  filters: string;
+  onFilters: any;
   title: string;
 };
-export default function CategoryFilter({ options, filters, title }: Props) {
+export default function CategoryFilter({ options, filters, title, onFilters }: Props) {
   const handleFilterCategory = useCallback(
     (newValue: string) => {
-      filters.setState({ gender: newValue });
+      onFilters('subCategory', newValue);
     },
-    [filters]
+    [onFilters]
   );
   return (
     <Box display="flex" flexDirection="column">
@@ -28,10 +27,7 @@ export default function CategoryFilter({ options, filters, title }: Props) {
         <FormControlLabel
           key={option}
           control={
-            <Radio
-              checked={filters.state.gender === option}
-              onClick={() => handleFilterCategory(option)}
-            />
+            <Radio checked={filters === option} onClick={() => handleFilterCategory(option)} />
           }
           label={option}
         />

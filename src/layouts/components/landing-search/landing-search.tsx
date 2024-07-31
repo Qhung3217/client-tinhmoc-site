@@ -1,17 +1,21 @@
 import type { Theme } from '@mui/material/styles';
 
-import { useState, useEffect, useCallback } from 'react';
+import { uniqueId } from 'lodash';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
+import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
-import { Box, Button, TextField, IconButton, Autocomplete } from '@mui/material';
+import { Box, Button, TextField, IconButton, Typography, Autocomplete } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
-import { useDebounce } from 'src/hooks/use-debounce';
 import useQueryParams from 'src/hooks/use-query-params';
 
+import { useSearchProducts } from 'src/actions/product';
+
 import { Iconify } from 'src/components/iconify';
-import { SearchNotFound } from 'src/components/search-not-found';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 type Props = {
@@ -23,22 +27,62 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
   const { searchParams, updateParams, getParam, getParams } = useQueryParams(
     paths.landing.product.root
   );
-  const [query, setQuery] = useState<any>('');
+
+  const { push } = useRouter();
+
+  const [query, setQuery] = useState<string>('');
+
   const isFocus = useBoolean();
-  const queryDebounce = useDebounce(query, 400);
+
+  const [queryDebounce, setQueryDebounce] = useState(query);
 
   const popover = usePopover();
 
+  const searchInputRef = useRef<any>();
+
+  const { data, productsLoading, productsEmpty } = useSearchProducts(
+    isFocus.value && queryDebounce ? queryDebounce : null
+  );
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setQueryDebounce(query);
+    }, 400);
+    return () => clearTimeout(id);
+  }, [query]);
+
+  const options: any = useMemo(() => {
+    if (!queryDebounce && productsEmpty) return [];
+
+    if (productsEmpty)
+      return [
+        {
+          value: uniqueId(),
+          label: 'Không tìm thấy sản phẩm',
+        },
+      ];
+    const result = data.products.map((product) => ({
+      value: product.slug,
+      label: product.title,
+    }));
+
+    result.push({
+      value: VIEW_MORE_VALUE,
+      label: 'Xem thêm...',
+    });
+    return result;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, productsEmpty]);
+
   const handleClick = useCallback(() => {
-    const currentParams = getParams(['subject', 'category']);
+    const currentParams = getParams(['category']);
     const newParams = [['q', query]];
-    if (currentParams.subject) {
-      newParams.push(['subject', currentParams.subject]);
-    }
+
     if (currentParams.category) {
       newParams.push(['category', currentParams.category]);
     }
-    updateParams([['q', query]]);
+    updateParams(newParams);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
@@ -57,19 +101,20 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
       }
     };
 
-    if (isFocus.value) {
+    if (popover.open) {
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocus]);
+  }, [popover]);
 
   const handleToDetail = (slug: string) => {
     if (slug === VIEW_MORE_VALUE) handleClick();
-    else updateParams([['chi-tiet', slug]]);
+    else push(paths.landing.product.details(slug));
   };
+
   return (
     <>
       <IconButton onClick={popover.onOpen}>
@@ -95,74 +140,34 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
             sx: { width: { xs: 1, sm: 340 } },
           },
         }}
+        onTransitionEnd={() => {
+          searchInputRef.current?.focus();
+        }}
       >
         <Autocomplete
           freeSolo
           fullWidth
-          autoHighlight
-          // loading={loading}
-          //   onChange={(event, newValue) => {
-          //     handleToDetail(newValue.value);
-          //   }}
+          loading={productsLoading}
+          onChange={(event, newValue: any) => {
+            handleToDetail(newValue.value);
+          }}
           disableClearable
           filterOptions={(x) => x}
           getOptionDisabled={(option) => option.label === 'Không tìm thấy sản phẩm'}
-          //   options={options}
-          noOptionsText={<SearchNotFound query={query} />}
-          options={[
-            {
-              label: 'a',
-              value: 'sa',
-            },
-          ]}
+          options={options}
           size="small"
-          renderOption={(props, option) =>
-            option.value === VIEW_MORE_VALUE ? (
-              <Box component="li" {...props}>
-                <Button
-                  fullWidth
-                  variant="text"
-                  color="primary"
-                  sx={{
-                    justifyContent: 'center!important',
-                    py: 1,
-                  }}
-                  onClick={handleClick}
-                >
-                  {option.label}
-                </Button>
-              </Box>
-            ) : (
-              <Box
-                component="li"
-                {...props}
-                sx={{
-                  transition: (t) =>
-                    t.transitions.create('all', {
-                      duration: 200,
-                      delay: 0,
-                    }),
-                  '&:hover': {
-                    backgroundColor: `${theme.palette.primary.main}!important`,
-                    color: 'white',
-                  },
-                }}
-              >
-                {option.label}
-              </Box>
-            )
-          }
           renderInput={(params) => (
             <TextField
               {...params}
               fullWidth
+              inputRef={searchInputRef}
               onFocus={isFocus.onTrue}
               onBlur={isFocus.onFalse}
               variant="outlined"
               placeholder="Tìm kiếm sản phẩm..."
-              onChange={(event) => {
-                setQuery(event.target.value);
-              }}
+              // onChange={(event) => {
+              //   setQuery(event.target.value);
+              // }}
               InputProps={{
                 ...params.InputProps,
                 type: 'search',
@@ -184,6 +189,49 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
           value={query}
           defaultValue={searchParams.get('q')?.toString()}
           sx={{ mr: 1, fontWeight: 'fontWeightBold', maxWidth: 350 }}
+          onInputChange={(event, value) => {
+            setQuery(value);
+          }}
+          renderOption={(props, option, { inputValue }) => {
+            const matches = match(option.label, inputValue);
+            const parts = parse(option.label, matches);
+
+            return option.value === VIEW_MORE_VALUE ? (
+              <Box component="li" {...props}>
+                <Button
+                  fullWidth
+                  variant="text"
+                  color="primary"
+                  size="small"
+                  sx={{
+                    justifyContent: 'center!important',
+                    py: 1,
+                  }}
+                  onClick={handleClick}
+                >
+                  {option.label}
+                </Button>
+              </Box>
+            ) : (
+              <Box component="li" {...props} onClick={handleClick} key={option.value}>
+                <div key={inputValue}>
+                  {parts.map((part, index) => (
+                    <Typography
+                      key={index}
+                      component="span"
+                      color={part.highlight ? 'primary' : 'textPrimary'}
+                      sx={{
+                        typography: 'body2',
+                        fontWeight: part.highlight ? 'fontWeightSemiBold' : 'fontWeightMedium',
+                      }}
+                    >
+                      {part.text}
+                    </Typography>
+                  ))}
+                </div>
+              </Box>
+            );
+          }}
         />
       </CustomPopover>
     </>

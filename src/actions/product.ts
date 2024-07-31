@@ -39,27 +39,36 @@ export function useGetProduct(slug: string) {
 
 // ----------------------------------------------------------------------
 
-type SearchResultsData = {
-  results: IProductItem[];
-};
+export function useSearchProducts(search: string | null) {
+  const url = search
+    ? [
+        endpoints.product.list,
+        {
+          params: {
+            pageSize: 10,
+            page: 1,
+            search,
+          },
+        },
+      ]
+    : null;
 
-export function useSearchProducts(query: string) {
-  const url = query ? [endpoints.product.search, { params: { query } }] : '';
-
-  const { data, isLoading, error, isValidating } = useSWR<SearchResultsData>(url, fetcher, {
-    ...swrOptions,
-    keepPreviousData: true,
-  });
+  const { data, isLoading, error, isValidating, mutate } = useSWR<ProductsData>(
+    url,
+    fetcher,
+    swrOptions
+  );
 
   const memoizedValue = useMemo(
     () => ({
-      searchResults: data?.results || [],
-      searchLoading: isLoading,
-      searchError: error,
-      searchValidating: isValidating,
-      searchEmpty: !isLoading && !data?.results.length,
+      data: data || { products: [], paginate: { totalCount: 0, pageCount: 0, currentPage: 0 } },
+      productsLoading: isLoading,
+      productsError: error,
+      productsValidating: isValidating,
+      productsEmpty: !isLoading && !data?.products.length,
+      productsMutate: mutate,
     }),
-    [data?.results, error, isLoading, isValidating]
+    [data, error, isLoading, isValidating, mutate]
   );
 
   return memoizedValue;
@@ -77,16 +86,24 @@ type ProductsData = {
 };
 
 export function useGetProducts(
-  pageSize: number,
-  currentPage: number,
-  search: string,
-  categories: string[]
+  pageSize?: number,
+  currentPage?: number,
+  search?: string,
+  categories?: string[],
+  sort?: string
 ) {
-  let url = `${endpoints.product.list}?pageSize=${pageSize}&page=${currentPage + 1}&search=${search}`;
-
-  for (let i = 0; i < categories.length; i += 1) {
-    url += `&categories[${i}]=${encodeURIComponent(categories[i])}`;
-  }
+  const url = [
+    endpoints.product.list,
+    {
+      params: {
+        pageSize,
+        page: currentPage ? currentPage + 1 : 1,
+        search,
+        categories: categories?.filter((c) => !!c),
+        sort,
+      },
+    },
+  ];
 
   const { data, isLoading, error, isValidating, mutate } = useSWR<ProductsData>(
     url,

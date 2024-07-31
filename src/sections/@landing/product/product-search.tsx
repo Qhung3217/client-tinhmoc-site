@@ -1,10 +1,9 @@
-import type { IProductItem } from 'src/types/product';
+import type { IProductListItem } from 'src/types/product';
 
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -21,7 +20,7 @@ import { SearchNotFound } from 'src/components/search-not-found';
 type Props = {
   query: string;
   loading?: boolean;
-  results: IProductItem[];
+  results: IProductListItem[];
   onSearch: (inputValue: string) => void;
 };
 
@@ -30,16 +29,6 @@ export function ProductSearch({ query, results, onSearch, loading }: Props) {
 
   const handleClick = (id: string) => {
     router.push(paths.product.details(id));
-  };
-
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (query) {
-      if (event.key === 'Enter') {
-        const selectItem = results.filter((product) => product.name === query)[0];
-
-        handleClick(selectItem.id);
-      }
-    }
   };
 
   return (
@@ -51,7 +40,7 @@ export function ProductSearch({ query, results, onSearch, loading }: Props) {
       popupIcon={null}
       options={results}
       onInputChange={(event, newValue) => onSearch(newValue)}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.title}
       noOptionsText={<SearchNotFound query={query} />}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       slotProps={{
@@ -62,7 +51,6 @@ export function ProductSearch({ query, results, onSearch, loading }: Props) {
         <TextField
           {...params}
           placeholder="Tìm kiếm..."
-          onKeyUp={handleKeyUp}
           InputProps={{
             ...params.InputProps,
             startAdornment: (
@@ -80,19 +68,12 @@ export function ProductSearch({ query, results, onSearch, loading }: Props) {
         />
       )}
       renderOption={(props, product, { inputValue }) => {
-        const matches = match(product.name, inputValue);
-        const parts = parse(product.name, matches);
+        const matches = match(product.title, inputValue);
+        const parts = parse(product.title, matches);
 
         return (
-          <Box component="li" {...props} onClick={() => handleClick(product.id)} key={product.id}>
-            <Avatar
-              key={product.id}
-              alt={product.name}
-              src={product.coverUrl}
-              variant="rounded"
-              sx={{ mr: 1.5, width: 48, height: 48, flexShrink: 0, borderRadius: 1 }}
-            />
-
+          <Box component="li" {...props} onClick={() => handleClick(product.slug)} key={product.id}>
+            =
             <div key={inputValue}>
               {parts.map((part, index) => (
                 <Typography

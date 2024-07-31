@@ -1,5 +1,4 @@
-import type { IProductFilters } from 'src/types/product';
-import type { UseSetStateReturn } from 'src/hooks/use-set-state';
+import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -21,11 +20,13 @@ import CategoryFilter from './category-filter';
 // ----------------------------------------------------------------------
 
 type Props = {
-  filters: UseSetStateReturn<IProductFilters>;
-  options: any;
+  filters: IProductFilters;
+  onFilters: any;
+  onReset: any;
+  options: IProductFilterOptions;
 };
 
-export function ProductFiltersMobile({ filters, options }: Props) {
+export function ProductFiltersMobile({ filters, options, onFilters, onReset }: Props) {
   const open = useBoolean();
   const canReset = false;
 
@@ -37,7 +38,7 @@ export function ProductFiltersMobile({ filters, options }: Props) {
         </Typography>
 
         <Tooltip title="Reset">
-          <IconButton onClick={filters.onResetState}>
+          <IconButton onClick={onReset}>
             <Badge color="error" variant="dot" invisible={!canReset}>
               <Iconify icon="solar:restart-bold" />
             </Badge>
@@ -80,9 +81,10 @@ export function ProductFiltersMobile({ filters, options }: Props) {
         <Scrollbar sx={{ px: 2.5, py: 3 }}>
           <Stack spacing={3}>
             <CategoryFilter
-              title="Cửa gỗ"
-              options={['Cửa gỗ HDF sơn', 'Cửa gỗ HDF venneer', 'Cửa vòm gỗ']}
-              filters={filters}
+              title={options.category.title}
+              options={options.category.children}
+              filters={filters.subCategory || ''}
+              onFilters={onFilters}
             />
           </Stack>
         </Scrollbar>

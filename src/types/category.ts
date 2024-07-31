@@ -12,3 +12,10 @@ export type ICategoryItem = {
     email: string;
   };
 };
+
+export type ICategoryCountItem = {
+  id: string;
+  name: string;
+  level: number;
+  count: number;
+};

@@ -6,6 +6,8 @@ import { SimpleLayout } from 'src/layouts/simple';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
+import { CategoryProvider } from 'src/sections/@landing/_common/category-context';
+
 // ----------------------------------------------------------------------
 
 const ComingSoonPage = lazy(() => import('src/pages/coming-soon'));
@@ -24,7 +26,9 @@ export const mainRoutes = [
   {
     element: (
       <Suspense fallback={<SplashScreen />}>
-        <Outlet />
+        <CategoryProvider>
+          <Outlet />
+        </CategoryProvider>
       </Suspense>
     ),
     children: [
