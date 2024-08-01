@@ -5,7 +5,7 @@ import { useMemo, useState, useEffect, useCallback } from 'react';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { Box, Grid, Link, Button } from '@mui/material';
+import { Box, Link, Button } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -17,6 +17,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 import { useGetProducts } from 'src/actions/product';
 
+import { Grid } from 'src/components/Grid/mui';
 import { Scrollbar } from 'src/components/scrollbar';
 import { EmptyContent } from 'src/components/empty-content';
 
@@ -29,28 +30,7 @@ import { useCategoryContext } from '../../_common/category-context';
 import { ProductFiltersMobile } from '../filters/product-filters-mobile';
 
 // ----------------------------------------------------------------------
-const CATEGORIES = [
-  {
-    title: 'Cửa gỗ',
-    total: 100,
-  },
-  {
-    title: 'Cửa nhựa',
-    total: 20,
-  },
-  {
-    title: 'Cửa thép vân gỗ',
-    total: 30,
-  },
-  {
-    title: 'Cửa chóng cháy',
-    total: 14,
-  },
-  {
-    title: 'Bàn ghế',
-    total: 57,
-  },
-];
+
 const DF_FILTERS = {
   category: '',
   subCategory: '',
@@ -73,7 +53,7 @@ export default function ProductListView() {
 
   const [searchQuery, setSearchQuery] = useState(() => q || '');
 
-  const debouncedQuery = useDebounce(searchQuery);
+  const searchDebounce = useDebounce(searchQuery, 400);
 
   const [page, setPage] = useState(() => (p ? Number(p) : 1));
 
@@ -109,7 +89,7 @@ export default function ProductListView() {
   const { data, productsLoading, productsEmpty } = useGetProducts(
     20,
     page - 1,
-    debouncedQuery,
+    searchDebounce,
     filters.subCategory ? [filters.subCategory] : [filters.category || ''],
     sortBy
   );
@@ -151,9 +131,9 @@ export default function ProductListView() {
   }, [filters.category]);
 
   useEffect(() => {
-    updateParam('q', debouncedQuery);
+    updateParam('q', searchDebounce);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedQuery]);
+  }, [searchDebounce]);
 
   const renderFilters = (
     <Stack
@@ -162,12 +142,7 @@ export default function ProductListView() {
       alignItems={{ xs: 'flex-end', sm: 'center' }}
       direction={{ xs: 'column', sm: 'row' }}
     >
-      <ProductSearch
-        query={debouncedQuery}
-        results={data.products}
-        onSearch={handleSearch}
-        loading={productsLoading}
-      />
+      <ProductSearch query={searchQuery} onSearch={handleSearch} loading={productsLoading} />
 
       <Stack direction="row" spacing={1} flexShrink={0}>
         {!smUp && (

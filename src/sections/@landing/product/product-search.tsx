@@ -1,96 +1,51 @@
-import type { IProductListItem } from 'src/types/product';
-
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
-
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
-import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
-
-import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 
 import { Iconify } from 'src/components/iconify';
-import { SearchNotFound } from 'src/components/search-not-found';
 
 // ----------------------------------------------------------------------
 
 type Props = {
   query: string;
   loading?: boolean;
-  results: IProductListItem[];
   onSearch: (inputValue: string) => void;
 };
 
-export function ProductSearch({ query, results, onSearch, loading }: Props) {
-  const router = useRouter();
-
-  const handleClick = (id: string) => {
-    router.push(paths.product.details(id));
-  };
-
+export function ProductSearch({ query, onSearch, loading }: Props) {
   return (
-    <Autocomplete
-      sx={{ width: { xs: 1, sm: 260 } }}
-      loading={loading}
-      size="small"
-      autoHighlight
-      popupIcon={null}
-      options={results}
-      onInputChange={(event, newValue) => onSearch(newValue)}
-      getOptionLabel={(option) => option.title}
-      noOptionsText={<SearchNotFound query={query} />}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
-      slotProps={{
-        popper: { placement: 'bottom-start', sx: { minWidth: 320 } },
-        paper: { sx: { [` .${autocompleteClasses.option}`]: { pl: 0.75 } } },
+    <TextField
+      fullWidth
+      sx={{
+        maxWidth: 500,
       }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="Tìm kiếm..."
-          InputProps={{
-            ...params.InputProps,
-            startAdornment: (
-              <InputAdornment position="start">
-                <Iconify icon="eva:search-fill" sx={{ ml: 1, color: 'text.disabled' }} />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <>
-                {loading ? <Iconify icon="svg-spinners:8-dots-rotate" sx={{ mr: -3 }} /> : null}
-                {params.InputProps.endAdornment}
-              </>
-            ),
-          }}
-        />
-      )}
-      renderOption={(props, product, { inputValue }) => {
-        const matches = match(product.title, inputValue);
-        const parts = parse(product.title, matches);
+      autoComplete="off"
+      value={query}
+      onChange={(event) => {
+        onSearch(event.target.value);
+      }}
+      size="small"
+      placeholder="Tìm kiếm..."
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <Iconify icon="eva:search-fill" sx={{ ml: 1, color: 'text.disabled' }} />
+          </InputAdornment>
+        ),
+        endAdornment: (
+          <InputAdornment position="end">
+            {loading ? <Iconify icon="svg-spinners:8-dots-rotate" /> : null}
 
-        return (
-          <Box component="li" {...props} onClick={() => handleClick(product.slug)} key={product.id}>
-            =
-            <div key={inputValue}>
-              {parts.map((part, index) => (
-                <Typography
-                  key={index}
-                  component="span"
-                  color={part.highlight ? 'primary' : 'textPrimary'}
-                  sx={{
-                    typography: 'body2',
-                    fontWeight: part.highlight ? 'fontWeightSemiBold' : 'fontWeightMedium',
-                  }}
-                >
-                  {part.text}
-                </Typography>
-              ))}
-            </div>
-          </Box>
-        );
+            {!loading && query ? (
+              <Iconify
+                icon="lets-icons:close-square-fill"
+                onClick={() => onSearch('')}
+                sx={{
+                  cursor: 'pointer',
+                }}
+              />
+            ) : null}
+          </InputAdornment>
+        ),
       }}
     />
   );
