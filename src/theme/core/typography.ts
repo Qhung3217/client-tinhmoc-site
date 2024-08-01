@@ -20,11 +20,11 @@ declare module '@mui/material/styles' {
 
 // ----------------------------------------------------------------------
 
-export const defaultFont = 'Roboto';
+export const defaultFont = 'Nunito Sans';
 
 export const primaryFont = setFont(defaultFont);
 
-export const secondaryFont = setFont('Roboto');
+export const secondaryFont = setFont('Nunito Sans');
 
 // ----------------------------------------------------------------------
 
