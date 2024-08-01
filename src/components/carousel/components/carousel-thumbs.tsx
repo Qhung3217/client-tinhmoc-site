@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
+import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 
 import { carouselClasses } from '../classes';
@@ -110,6 +111,10 @@ export function CarouselThumb({
         alt={`carousel-thumb-${index}`}
         src={src}
         className={carouselClasses.thumbImage}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = `${CONFIG.site.basePath}/assets/default-image.png`;
+        }}
         sx={{
           width: 1,
           height: 1,
