@@ -20,8 +20,6 @@ export function CustomBreadcrumbs({
   sx,
   ...other
 }: CustomBreadcrumbsProps) {
-  const lastLink = links[links.length - 1].name;
-
   const renderHeading = (
     <Typography variant="h4" sx={{ mb: 2, ...slotProps?.heading }}>
       {heading}
@@ -35,7 +33,7 @@ export function CustomBreadcrumbs({
           key={link.name ?? index}
           link={link}
           activeLast={activeLast}
-          disabled={link.name === lastLink}
+          disabled={!activeLast && index + 1 === links.length}
         />
       ))}
     </Breadcrumbs>
