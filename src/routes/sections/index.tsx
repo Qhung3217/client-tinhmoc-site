@@ -5,6 +5,8 @@ import { MainLayout } from 'src/layouts/main';
 
 import { SplashScreen } from 'src/components/loading-screen';
 
+import { CategoryProvider } from 'src/sections/@landing/_common/category-context';
+
 import { authRoutes } from './auth';
 import { mainRoutes } from './main';
 import { authDemoRoutes } from './auth-demo';
@@ -25,9 +27,11 @@ export function Router() {
        */
       element: (
         <Suspense fallback={<SplashScreen />}>
-          <MainLayout>
-            <HomePage />
-          </MainLayout>
+          <CategoryProvider>
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          </CategoryProvider>
         </Suspense>
       ),
     },

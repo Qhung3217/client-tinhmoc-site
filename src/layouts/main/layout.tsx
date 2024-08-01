@@ -69,10 +69,12 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
       nav.push({
         title: category.name,
         path: paths.landing.product.category(category.name),
-        children: {
-          subheader: '',
-          items: [],
-        },
+        children: [
+          {
+            subheader: '',
+            items: [],
+          },
+        ],
       });
       desktop.push({
         items: [
@@ -84,7 +86,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
         ],
       });
       category.categories.forEach((subCategory) => {
-        nav[index + 1].children.push({
+        nav[index + 1].children[0].items.push({
           title: subCategory.name,
           path: paths.landing.product.subCategory(category.name, subCategory.name),
         });

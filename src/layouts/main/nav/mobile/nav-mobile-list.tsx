@@ -1,8 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Collapse from '@mui/material/Collapse';
 
+import { paths } from 'src/routes/paths';
 import { isExternalLink } from 'src/routes/utils';
+import { usePathname, useSearchParams } from 'src/routes/hooks';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { CONFIG } from 'src/config-global';
@@ -17,9 +19,30 @@ import type { NavListProps } from '../types';
 // ----------------------------------------------------------------------
 
 export function NavList({ data }: NavListProps) {
-  const active = useActiveLink(data.path, !!data.children);
+  const searchParams = useSearchParams();
+
+  const pathname = usePathname();
+
+  const _active = useActiveLink(data.path, !!data.children);
+
+  const [active, setActive] = useState(_active);
 
   const [openMenu, setOpenMenu] = useState(false);
+
+  useEffect(() => {
+    if (pathname.startsWith(paths.landing.product.root) && searchParams.size) {
+      const params = Object.fromEntries(searchParams.entries());
+      const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
+      const category = pathParams.get('category');
+      let isActive = false;
+      if (category) {
+        if ('category' in params && params.category === category) isActive = true;
+      }
+      setActive(isActive);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const handleToggleMenu = useCallback(() => {
     if (data.children) {

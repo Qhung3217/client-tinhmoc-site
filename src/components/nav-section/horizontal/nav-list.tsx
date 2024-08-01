@@ -4,8 +4,9 @@ import Paper from '@mui/material/Paper';
 import Popover from '@mui/material/Popover';
 import { useTheme } from '@mui/material/styles';
 
-import { usePathname } from 'src/routes/hooks';
+import { paths } from 'src/routes/paths';
 import { isExternalLink } from 'src/routes/utils';
+import { usePathname, useSearchParams } from 'src/routes/hooks';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { paper } from 'src/theme/styles';
@@ -28,13 +29,43 @@ export function NavList({
 }: NavListProps) {
   const theme = useTheme();
 
+  const searchParams = useSearchParams();
+
   const pathname = usePathname();
 
   const navItemRef = useRef<HTMLButtonElement | null>(null);
 
-  const active = useActiveLink(data.path, !!data.children);
+  const _active = useActiveLink(data.path, !!data.children);
+
+  const [active, setActive] = useState(_active);
 
   const [openMenu, setOpenMenu] = useState(false);
+
+  useEffect(() => {
+    if (pathname.startsWith(paths.landing.product.root) && searchParams.size) {
+      const params = Object.fromEntries(searchParams.entries());
+      const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
+      const category = pathParams.get('category');
+      const subCategory = pathParams.get('subCategory');
+      let isActive = false;
+      if (category && subCategory) {
+        if ('category' in params && params.category === category) {
+          if ('subCategory' in params && params.subCategory === subCategory) {
+            isActive = true;
+          }
+        }
+      } else if (category) {
+        if ('category' in params && params.category === category) isActive = true;
+      } else if (subCategory) {
+        if ('subCategory' in params && params.subCategory === subCategory) {
+          isActive = true;
+        }
+      }
+      setActive(isActive);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   useEffect(() => {
     if (openMenu) {
