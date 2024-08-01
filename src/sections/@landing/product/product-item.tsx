@@ -24,7 +24,7 @@ type Props = {
 };
 
 export function ProductItem({ product }: Props) {
-  const { id, title, thumbnail, price, salePercent, createdAt } = product;
+  const { slug, title, thumbnail, price, salePercent, createdAt } = product;
 
   const isSale = useMemo(() => !!salePercent, [salePercent]);
 
@@ -34,7 +34,7 @@ export function ProductItem({ product }: Props) {
     return fIsAfter(sevenDaysNext, Date.now());
   }, [createdAt]);
 
-  const linkTo = paths.landing.product.details(id);
+  const linkTo = paths.landing.product.details(slug);
 
   const renderLabels = (isNew || isSale) && (
     <Stack

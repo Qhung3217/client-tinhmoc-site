@@ -7,13 +7,13 @@ import { useGetProduct } from 'src/actions/product';
 import ProductDetailsView from 'src/sections/@landing/product/view/product-detail-view';
 
 export default function ProductDetailsPage() {
-  const { id = '' } = useParams();
+  const { slug = '' } = useParams();
 
-  const { product, productLoading, productError } = useGetProduct(id);
+  const { product, productLoading, productError } = useGetProduct(slug);
   return (
     <>
       <Helmet>
-        <title> {product?.name || 'Sản phẩm'}</title>
+        <title> {product?.title || 'Sản phẩm'}</title>
       </Helmet>
 
       <ProductDetailsView product={product} loading={productLoading} error={productError} />

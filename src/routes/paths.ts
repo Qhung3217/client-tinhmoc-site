@@ -25,7 +25,7 @@ export const paths = {
       category: (category: string) => `/san-pham?category=${category}`,
       subCategory: (category: string, subCategory: string) =>
         `/san-pham?category=${category}&subCategory=${subCategory}`,
-      details: (id: string | number) => `${ROOTS.LANDING}san-pham/${id}`,
+      details: (slug: string | number) => `${ROOTS.LANDING}san-pham/${slug}`,
     },
   },
   comingSoon: '/coming-soon',
