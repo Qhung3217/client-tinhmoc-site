@@ -157,7 +157,10 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                           '--nav-item-color': offsetTop
                             ? '#ddd'
                             : theme.vars.palette.text.secondary,
-                          '--nav-item-hover-bg': theme.vars.palette.primary.light,
+                          '--nav-item-hover-color': theme.vars.palette.primary.lighter,
+                          '--nav-item-hover-bg': offsetTop
+                            ? theme.vars.palette.primary.main
+                            : theme.vars.palette.primary.dark,
 
                           '--nav-item-root-active-color': offsetTop
                             ? theme.vars.palette.primary.lighter
@@ -171,6 +174,9 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
 
                           '--nav-item-sub-open-color': 'white',
                           '--nav-item-sub-open-bg': theme.vars.palette.primary.light,
+
+                          '--nav-item-sub-active-color': '#ddd',
+                          '--nav-item-sub-active-bg': theme.vars.palette.primary.darker,
                         }}
                         sx={{
                           display: 'flex',

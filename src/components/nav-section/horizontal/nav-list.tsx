@@ -42,26 +42,30 @@ export function NavList({
   const [openMenu, setOpenMenu] = useState(false);
 
   useEffect(() => {
-    if (pathname.startsWith(paths.landing.product.root) && searchParams.size) {
-      const params = Object.fromEntries(searchParams.entries());
-      const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
-      const category = pathParams.get('category');
-      const subCategory = pathParams.get('subCategory');
-      let isActive = false;
-      if (category && subCategory) {
-        if ('category' in params && params.category === category) {
+    if (pathname.startsWith(paths.landing.product.root)) {
+      if (searchParams.size) {
+        const params = Object.fromEntries(searchParams.entries());
+        const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
+        const category = pathParams.get('category');
+        const subCategory = pathParams.get('subCategory');
+        let isActive = false;
+        if (category && subCategory) {
+          if ('category' in params && params.category === category) {
+            if ('subCategory' in params && params.subCategory === subCategory) {
+              isActive = true;
+            }
+          }
+        } else if (category) {
+          if ('category' in params && params.category === category) isActive = true;
+        } else if (subCategory) {
           if ('subCategory' in params && params.subCategory === subCategory) {
             isActive = true;
           }
         }
-      } else if (category) {
-        if ('category' in params && params.category === category) isActive = true;
-      } else if (subCategory) {
-        if ('subCategory' in params && params.subCategory === subCategory) {
-          isActive = true;
-        }
+        setActive(isActive);
+      } else {
+        setActive(false);
       }
-      setActive(isActive);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

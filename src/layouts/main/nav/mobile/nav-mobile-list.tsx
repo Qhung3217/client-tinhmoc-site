@@ -31,14 +31,18 @@ export function NavList({ data }: NavListProps) {
 
   useEffect(() => {
     if (pathname.startsWith(paths.landing.product.root) && searchParams.size) {
-      const params = Object.fromEntries(searchParams.entries());
-      const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
-      const category = pathParams.get('category');
-      let isActive = false;
-      if (category) {
-        if ('category' in params && params.category === category) isActive = true;
+      if (searchParams.size) {
+        const params = Object.fromEntries(searchParams.entries());
+        const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
+        const category = pathParams.get('category');
+        let isActive = false;
+        if (category) {
+          if ('category' in params && params.category === category) isActive = true;
+        }
+        setActive(isActive);
+      } else {
+        setActive(false);
       }
-      setActive(isActive);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

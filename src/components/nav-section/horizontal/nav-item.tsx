@@ -120,6 +120,7 @@ const StyledNavItem = styled(ButtonBase, {
       color: 'var(--nav-item-color)',
       borderRadius: 'var(--nav-item-radius)',
       '&:hover': {
+        color: 'var(--nav-item-hover-color)',
         backgroundColor: 'var(--nav-item-hover-bg)',
       },
     },

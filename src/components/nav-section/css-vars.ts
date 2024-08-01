@@ -16,6 +16,7 @@ function colorVars(theme: Theme, variant?: 'vertical' | 'mini' | 'horizontal') {
 
   return {
     '--nav-item-color': palette.text.secondary,
+    '--nav-item-hover-color': palette.text.secondary,
     '--nav-item-hover-bg': palette.action.hover,
     '--nav-item-caption-color': palette.text.disabled,
     // root
