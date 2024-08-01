@@ -1,19 +1,26 @@
 import { useCallback } from 'react';
 
-import { Box, Radio, Typography, FormControlLabel } from '@mui/material';
+import { Box, Checkbox, Typography, FormControlLabel } from '@mui/material';
 
 type Props = {
   options: string[];
-  filters: string;
+  filters: string[];
   onFilters: any;
   title: string;
 };
 export default function CategoryFilter({ options, filters, title, onFilters }: Props) {
   const handleFilterCategory = useCallback(
-    (newValue: string) => {
-      onFilters('subCategory', newValue);
+    (newValue: string, checked: boolean) => {
+      const isExisted = filters.includes(newValue);
+      console.log(newValue, checked, isExisted, filters, [...filters, newValue]);
+      if (isExisted) {
+        onFilters(
+          'subCategory',
+          filters.filter((f) => f !== newValue)
+        );
+      } else onFilters('subCategory', [...filters, newValue]);
     },
-    [onFilters]
+    [onFilters, filters]
   );
   return (
     <Box display="flex" flexDirection="column">
@@ -26,9 +33,8 @@ export default function CategoryFilter({ options, filters, title, onFilters }: P
       {options.map((option) => (
         <FormControlLabel
           key={option}
-          control={
-            <Radio checked={filters === option} onClick={() => handleFilterCategory(option)} />
-          }
+          control={<Checkbox checked={filters.includes(option)} />}
+          onChange={(event, checked) => handleFilterCategory(option, checked)}
           label={option}
         />
       ))}

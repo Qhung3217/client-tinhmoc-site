@@ -1,5 +1,7 @@
 import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
+import { useMemo } from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
@@ -28,7 +30,7 @@ type Props = {
 
 export function ProductFiltersMobile({ filters, options, onFilters, onReset }: Props) {
   const open = useBoolean();
-  const canReset = false;
+  const canReset = useMemo(() => !!filters.subCategory.length, [filters]);
 
   const renderHead = (
     <>
@@ -37,7 +39,7 @@ export function ProductFiltersMobile({ filters, options, onFilters, onReset }: P
           Bộ lọc
         </Typography>
 
-        <Tooltip title="Reset">
+        <Tooltip title="Đặt lại bộ lọc">
           <IconButton onClick={onReset}>
             <Badge color="error" variant="dot" invisible={!canReset}>
               <Iconify icon="solar:restart-bold" />
@@ -80,12 +82,15 @@ export function ProductFiltersMobile({ filters, options, onFilters, onReset }: P
 
         <Scrollbar sx={{ px: 2.5, py: 3 }}>
           <Stack spacing={3}>
-            <CategoryFilter
-              title={options.category.title}
-              options={options.category.children}
-              filters={filters.subCategory || ''}
-              onFilters={onFilters}
-            />
+            {options.category.map((cGroup) => (
+              <CategoryFilter
+                key={cGroup.title}
+                title={cGroup.title}
+                options={cGroup.children || []}
+                filters={filters.subCategory}
+                onFilters={onFilters}
+              />
+            ))}
           </Stack>
         </Scrollbar>
       </Drawer>

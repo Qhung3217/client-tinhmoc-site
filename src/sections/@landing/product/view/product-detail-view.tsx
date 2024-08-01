@@ -1,5 +1,7 @@
 import type { IProductItem } from 'src/types/product';
 
+import { useMemo } from 'react';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -15,7 +17,9 @@ import { EmptyContent } from 'src/components/empty-content';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ProductDetailsSkeleton } from '../product-skeleton';
+import ProductRelatedCarousel from '../product-related-carousel';
 import { ProductDetailsSummary } from '../product-details-summary';
+import { useCategoryContext } from '../../_common/category-context';
 import { ProductDetailsCarousel } from '../product-details-carousel';
 import { ProductDetailsDescription } from '../product-details-description';
 
@@ -44,6 +48,17 @@ type Props = {
   error?: any;
 };
 export default function ProductDetailsView({ product, loading, error }: Props) {
+  const {
+    categoryList: { list: categories },
+  } = useCategoryContext();
+  const rootCategory = useMemo(
+    () =>
+      product?.category
+        ? categories.find((c) => c.categories.find((sc) => sc.name === product.category.name))
+            ?.name || ''
+        : '',
+    [categories, product?.category]
+  );
   if (loading) {
     return (
       <Container sx={{ mt: 5, mb: 10 }}>
@@ -61,7 +76,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
           action={
             <Button
               component={RouterLink}
-              href={paths.product.root}
+              href={paths.landing.product.root}
               startIcon={<Iconify width={16} icon="eva:arrow-ios-back-fill" />}
               sx={{ mt: 3 }}
             >
@@ -78,15 +93,23 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
     <Container sx={{ mt: 5, mb: 10 }}>
       <Grid container spacing={{ xs: 3, md: 5, lg: 8 }}>
         <Grid xs={12} md={6} lg={6}>
-          <ProductDetailsCarousel images={product?.images} />
+          <ProductDetailsCarousel
+            images={product?.thumbnail ? [product.thumbnail, ...product.images] : []}
+          />
         </Grid>
 
         <Grid xs={12} md={6} lg={6}>
           <CustomBreadcrumbs
             links={[
               { name: 'Sản phẩm', href: paths.landing.product.root },
-              { name: '[Cửa gỗ]', href: paths.landing.product.root },
-              { name: '[Tên sản phẩm]' },
+              {
+                name: product?.category?.name || 'Danh mục',
+                href: paths.landing.product.subCategory(
+                  rootCategory,
+                  product?.category?.name || ''
+                ),
+              },
+              { name: product?.title || 'Sản phẩm' },
             ]}
             sx={{
               mt: 1,
@@ -153,8 +176,9 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
       <Card sx={{ mt: 10 }}>
         <CardHeader title="Mô tả" />
 
-        <ProductDetailsDescription description={product?.description} />
+        <ProductDetailsDescription description={product?.content} />
       </Card>
+      <ProductRelatedCarousel category={product?.category?.name || ''} />
     </Container>
   );
 }

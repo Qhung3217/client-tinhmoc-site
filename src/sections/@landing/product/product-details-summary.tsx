@@ -16,6 +16,8 @@ import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
 
+import { useGetSaleInfo } from './@utils';
+
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -27,7 +29,13 @@ const TEL = '(+84) 0292 654 6543';
 export function ProductDetailsSummary({ product, ...other }: Props) {
   const { copy } = useCopyToClipboard();
 
-  const { id, name, price, newLabel, priceSale, saleLabel, subDescription } = product;
+  const { title, price, salePercent, createdAt } = product;
+
+  const { isSale, isNew, priceSale } = useGetSaleInfo({
+    createdAt,
+    price,
+    salePercent,
+  });
 
   const handleCopyTel = async () => {
     try {
@@ -100,22 +108,17 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
         component={RouterLink}
         href="tel:(+84)02926546543"
         color="primary"
+        startIcon={<Iconify icon="line-md:phone-call-twotone-loop" />}
       >
-        Gọi ngay
+        Liên hệ ngay
       </Button>
     </Stack>
   );
 
-  const renderSubDescription = (
-    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-      {subDescription}
-    </Typography>
-  );
-
-  const renderLabels = (newLabel.enabled || saleLabel.enabled) && (
+  const renderLabels = (isNew || isSale) && (
     <Stack direction="row" alignItems="center" spacing={1}>
-      {newLabel.enabled && <Label color="info">{newLabel.content}</Label>}
-      {saleLabel.enabled && <Label color="error">{saleLabel.content}</Label>}
+      {isNew && <Label color="info">Mới</Label>}
+      {isSale && <Label color="error">SALE</Label>}
     </Stack>
   );
 
@@ -124,7 +127,7 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
       <Stack spacing={2} alignItems="flex-start">
         {renderLabels}
 
-        <Typography variant="h5">{name}</Typography>
+        <Typography variant="h5">{title}</Typography>
 
         {renderPrice}
 

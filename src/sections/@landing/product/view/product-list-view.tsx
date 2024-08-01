@@ -33,7 +33,7 @@ import { ProductFiltersMobile } from '../filters/product-filters-mobile';
 
 const DF_FILTERS = {
   category: '',
-  subCategory: '',
+  subCategory: [],
   sort: PRODUCT_SORT_OPTIONS[0].value,
 };
 
@@ -60,7 +60,7 @@ export default function ProductListView() {
   const [filters, setFilters] = useState<IProductFilters>(() => ({
     ...DF_FILTERS,
     category: category || '',
-    subCategory: subCategory || '',
+    subCategory: subCategory ? subCategory.split(',') : [],
   }));
 
   const onFilter = useCallback(
@@ -78,8 +78,8 @@ export default function ProductListView() {
       ...(filters.category && {
         category: filters.category.toString(),
       }),
-      ...(filters.subCategory && {
-        subCategory: filters.subCategory.toString(),
+      ...(filters.subCategory.length && {
+        subCategory: filters.subCategory.join(','),
       }),
     });
 
@@ -90,28 +90,41 @@ export default function ProductListView() {
     20,
     page - 1,
     searchDebounce,
-    filters.subCategory ? [filters.subCategory] : [filters.category || ''],
+    filters.subCategory.length ? filters.subCategory : [filters.category || ''],
     sortBy
   );
 
-  const categoryCountList = useMemo(
-    () => categoryCountData.filter((cate) => cate.level === 1),
-    [categoryCountData]
-  );
+  const categoryCountList = useMemo(() => {
+    const other = categoryCountData.filter((cate) => cate.level === 1);
+
+    const all = {
+      id: 'all',
+      name: 'Tất cả',
+      count: other.reduce((total, item) => total + item.count, 0),
+    };
+    return [all, ...other];
+  }, [categoryCountData]);
 
   const options = useMemo<IProductFilterOptions>(() => {
     const result: IProductFilterOptions = {
-      category: {
-        title: '',
-        children: [],
-      },
+      category: [
+        {
+          title: '',
+          children: [],
+        },
+      ],
     };
     if (filters.category) {
       const currentCate = categoriesData.find((cate) => cate.name === filters.category);
       if (currentCate) {
-        result.category.title = currentCate.name;
-        result.category.children = currentCate.categories.map((ct) => ct.name);
+        result.category[0].title = currentCate.name;
+        result.category[0].children = currentCate.categories.map((ct) => ct.name);
       }
+    } else {
+      result.category = categoriesData.map((c) => ({
+        title: c.name,
+        children: c.categories.map((ct) => ct.name),
+      }));
     }
 
     return result;
@@ -125,10 +138,17 @@ export default function ProductListView() {
     setSearchQuery(inputValue);
   }, []);
 
-  const handleReset = useCallback(() => {
-    if (filters.category) setFilters({ ...DF_FILTERS, category: filters.category });
-    else setFilters(DF_FILTERS);
-  }, [filters.category]);
+  const handleReset = useCallback(
+    (toCate?: string) => {
+      if (toCate || filters.category)
+        setFilters({
+          ...DF_FILTERS,
+          category: ((toCate ?? null) !== null ? toCate : filters.category) || '',
+        });
+      else setFilters(DF_FILTERS);
+    },
+    [filters.category]
+  );
 
   useEffect(() => {
     updateParam('q', searchDebounce);
@@ -150,7 +170,7 @@ export default function ProductListView() {
             options={options}
             filters={filters}
             onFilters={onFilter}
-            onReset={handleReset}
+            onReset={() => handleReset()}
           />
         )}
         <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
@@ -179,11 +199,16 @@ export default function ProductListView() {
                 <Box key={c.id} minWidth="fit-content">
                   <CategoryLink
                     title={c.name}
-                    href={paths.landing.product.category(c.name)}
+                    href={
+                      c.id === 'all'
+                        ? paths.landing.product.root
+                        : paths.landing.product.category(c.name)
+                    }
                     onClick={() => {
-                      onFilter('category', c.name);
+                      if (c.id === 'all') handleReset('');
+                      else handleReset(c.name);
                     }}
-                    active={c.name === category}
+                    active={c.id === 'all' && !category ? true : c.name === category}
                   />
                   <Typography variant="caption" sx={{}}>
                     {c.count} sản phẩm
@@ -221,14 +246,17 @@ export default function ProductListView() {
                   },
                 }}
               >
-                <CategoryFilter
-                  title={options.category.title}
-                  options={options.category.children || []}
-                  filters={filters.subCategory || ''}
-                  onFilters={onFilter}
-                />
+                {options.category.map((cGroup) => (
+                  <CategoryFilter
+                    key={cGroup.title}
+                    title={cGroup.title}
+                    options={cGroup.children || []}
+                    filters={filters.subCategory}
+                    onFilters={onFilter}
+                  />
+                ))}
               </Scrollbar>
-              <Button color="primary" variant="soft" onClick={handleReset}>
+              <Button color="primary" variant="soft" onClick={() => handleReset()}>
                 Đặt lại bộ lọc
               </Button>
             </Stack>

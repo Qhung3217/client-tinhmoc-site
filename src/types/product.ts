@@ -4,12 +4,12 @@ import type { IDateValue } from './common';
 
 export type IProductFilters = {
   category: string | null;
-  subCategory: string | null;
+  subCategory: string[] | [];
   sort: string;
 };
 
 export type IProductFilterOptions = {
-  category: IProductFilterOptionItem;
+  category: IProductFilterOptionItem[];
 };
 
 export type IProductFilterOptionItem = {

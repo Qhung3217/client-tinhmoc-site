@@ -57,7 +57,18 @@ export function ProductDetailsCarousel({ images }: Props) {
                 src={slide.src}
                 ratio="2/3"
                 onClick={() => lightbox.onOpen(slide.src)}
-                sx={{ cursor: 'zoom-in', maxWidth: 300 }}
+                effect="opacity"
+                sx={{
+                  cursor: 'zoom-in',
+                  maxWidth: 300,
+
+                  '& .mnl__image__wrapper': {
+                    aspectRatio: '2/3',
+                  },
+                  '& .lazy-load-image-background.opacity:not(.lazy-load-image-loaded) img': {
+                    display: 'none',
+                  },
+                }}
               />
             ))}
           </Carousel>
