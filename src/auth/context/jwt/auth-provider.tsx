@@ -2,11 +2,9 @@ import { useMemo, useEffect, useCallback } from 'react';
 
 import { useSetState } from 'src/hooks/use-set-state';
 
-import axios, { endpoints } from 'src/utils/axios';
-
-import { STORAGE_KEY } from './constant';
 import { AuthContext } from '../auth-context';
 import { setSession, isValidToken } from './utils';
+import { STORAGE_KEY, STORAGE_KEY_USER } from './constant';
 
 import type { AuthState } from '../../types';
 
@@ -31,13 +29,15 @@ export function AuthProvider({ children }: Props) {
   const checkUserSession = useCallback(async () => {
     try {
       const accessToken = sessionStorage.getItem(STORAGE_KEY);
+      const userJson = sessionStorage.getItem(STORAGE_KEY_USER);
 
-      if (accessToken && isValidToken(accessToken)) {
+      if (userJson && accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const res = await axios.get(endpoints.auth.me);
+        // const res = await axios.get(endpoints.auth.me);
 
-        const { user } = res.data;
+        // const { user } = res.data;
+        const user = JSON.parse(userJson);
 
         setState({ user: { ...user, accessToken }, loading: false });
       } else {
