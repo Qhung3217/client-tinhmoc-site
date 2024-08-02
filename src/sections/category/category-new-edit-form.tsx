@@ -109,7 +109,7 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
       <Divider />
 
       <Stack spacing={3} sx={{ p: 3 }}>
-        <Field.Text name="name" label="Tên loại sản phẩm" />
+        <Field.Text name="name" label="Tên loại sản phẩm *" />
 
         {/* {currentCategory && currentCategory.parentId === null ? <></> : <div />} */}
         {categoriesLoading ? (

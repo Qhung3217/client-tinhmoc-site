@@ -58,7 +58,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" width={18} sx={{ ml: -0.5 }} />}
           href={paths.dashboard.product.root}
         >
-          View all
+          Xem thêm
         </Button>
       </Box>
     </Card>

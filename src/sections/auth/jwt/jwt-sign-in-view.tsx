@@ -29,12 +29,12 @@ export type SignInSchemaType = zod.infer<typeof SignInSchema>;
 export const SignInSchema = zod.object({
   email: zod
     .string()
-    .min(1, { message: 'Email is required!' })
-    .email({ message: 'Email must be a valid email address!' }),
+    .min(1, { message: 'Bạn chưa nhập email!' })
+    .email({ message: 'Email không hợp lệ!' }),
   password: zod
     .string()
-    .min(1, { message: 'Password is required!' })
-    .min(6, { message: 'Password must be at least 6 characters!' }),
+    .min(1, { message: 'Bạn chưa nhập mật khẩu!' })
+    .min(6, { message: 'Mật khẩu ít nhất 6 kí tự!' }),
 });
 
 // ----------------------------------------------------------------------
@@ -131,7 +131,7 @@ export function JwtSignInView() {
         type="submit"
         variant="contained"
         loading={isSubmitting}
-        loadingIndicator="Sign in..."
+        loadingIndicator="Đang đăng nhập..."
       >
         Đăng nhập
       </LoadingButton>

@@ -217,14 +217,14 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
       <Divider />
 
       <Stack spacing={3} sx={{ p: 3 }}>
-        <Field.Text name="slug" label="Mã sản phẩm" />
-        <Field.Text name="title" label="Tên sản phẩm" />
+        <Field.Text name="slug" label="Mã sản phẩm *" />
+        <Field.Text name="title" label="Tên sản phẩm *" />
         <Field.Text type="number" name="priority" label="Độ ưu tiên" />
         <Field.Text name="price" label="Giá sản phẩm" />
         <Field.Text type="number" name="salePercent" label="Giảm giá" />
 
         <Stack spacing={1.5}>
-          <Typography variant="subtitle2">Mô tả</Typography>
+          <Typography variant="subtitle2">Mô tả *</Typography>
           <Field.Editor name="content" sx={{ maxHeight: 480 }} />
         </Stack>
 
