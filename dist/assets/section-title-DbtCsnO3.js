@@ -1,0 +1,1 @@
+import{j as o,T as i}from"./index-DBDTQgzR.js";function s({children:t,sx:e,...r}){return o.jsx(i,{color:"primary.main",sx:{mx:"auto",textAlign:"center",textTransform:"uppercase",fontSize:{xs:24,md:30},fontWeight:600,lineHeight:1.8,...e},...r,children:t})}export{s as S};

@@ -1,1 +1,0 @@
-import{j as t,H as e,l as a}from"./index-u4c5uTy0.js";import{B as s}from"./view-DuwZnWVG.js";const r={title:`Item params | Dashboard - ${a.site.name}`};function l(){return t.jsxs(t.Fragment,{children:[t.jsx(e,{children:t.jsxs("title",{children:[" ",r.title]})}),t.jsx(s,{title:"Item active has params"})]})}export{l as default};
