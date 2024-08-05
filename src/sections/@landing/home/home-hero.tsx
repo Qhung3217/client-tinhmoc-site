@@ -28,12 +28,13 @@ export default function HomeHero() {
   const { offsetTop } = useScrollOffSetTop();
   const ref = useRef<any>();
   const { width } = useClientRect(ref);
+  console.log(width);
   return (
     <Box
-      sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5 }}
+      sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5, pt: 1 }}
       component="section"
     >
-      <Box width={1} textAlign="center" sx={{ ml: { xs: 0, sm: -1, md: -1 } }}>
+      <Box width={1} textAlign="center" sx={{ ml: { xs: 0, sm: 0, md: 0 } }}>
         <Logo disableLink width={70} height={80} />
       </Box>
       <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
@@ -63,7 +64,7 @@ export default function HomeHero() {
             backgroundPosition: '0% 0px',
 
             backgroundSize: 'cover',
-            height: width * 0.55 > 675 ? 675 : width * 0.55,
+            height: width === 1200 || width * 0.56 >= 675 ? 675 : width * 0.56,
           }}
           className={offsetTop ? 'videoOnOpen' : 'videoOnClose'}
         />
