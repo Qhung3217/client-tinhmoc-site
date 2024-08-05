@@ -1,0 +1,1 @@
+import{aS as n,aT as u,r as t,az as c}from"./index-CZQdhxL6.js";function f(o){const e=n(()=>u(o)),{isStatic:s}=t.useContext(c);if(s){const[,a]=t.useState(o);t.useEffect(()=>e.on("change",a),[])}return e}export{f as u};

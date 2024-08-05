@@ -1,0 +1,1 @@
+import{r as t}from"./index-CZQdhxL6.js";const i=typeof window<"u"?t.useLayoutEffect:t.useEffect;function d(n,r,f,s){const o=t.useRef(r);i(()=>{o.current=r},[r]),t.useEffect(()=>{const e=window;if(!(e&&e.addEventListener))return;const u=c=>o.current(c);return e.addEventListener(n,u,s),()=>{e.removeEventListener(n,u)}},[n,f,s])}export{d as u};
