@@ -14,6 +14,8 @@ import {
   CarouselArrowNumberButtons,
 } from 'src/components/carousel';
 
+import ProductDetal3D from './product-detail-3d';
+
 // ----------------------------------------------------------------------
 
 type Props = {
@@ -48,6 +50,15 @@ export function ProductDetailsCarousel({ images }: Props) {
             selectedIndex={carousel.dots.selectedIndex + 1}
             sx={{ right: 16, bottom: 16, position: 'absolute' }}
           />
+          <Box
+            sx={{
+              bottom: 64,
+              right: 16,
+              position: 'absolute',
+            }}
+          >
+            <ProductDetal3D />
+          </Box>
 
           <Carousel carousel={carousel} sx={{ maxWidth: 300, mx: 'auto' }}>
             {slides.map((slide) => (
