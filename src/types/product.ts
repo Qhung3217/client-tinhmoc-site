@@ -47,6 +47,7 @@ export type IProductItem = {
   normalizeTitle: string;
   content: string;
   thumbnail: string;
+  link3d: string;
   price: string;
   salePercent: number;
   priority: number;

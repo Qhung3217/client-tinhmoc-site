@@ -188,6 +188,26 @@ export const uploadProductThumbnail = async (id: string, image: File | string): 
 
 //------------------------------------------------------------------------
 
+export const uploadProductLink3d = async (id: string, image: File | string): Promise<string> => {
+  if (typeof image === 'string') return image;
+
+  const formData = new FormData();
+  formData.append('file', image);
+  formData.append('id', id);
+
+  console.log('3d');
+
+  const response = await axiosInstance.post(endpoints.file.link3d, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response.data;
+};
+
+//------------------------------------------------------------------------
+
 export const uploadProductImages = async (
   id: string,
   images: File[],

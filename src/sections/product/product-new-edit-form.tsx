@@ -22,6 +22,7 @@ import {
   addProduct,
   updateProduct,
   uploadProductImages,
+  uploadProductLink3d,
   uploadProductThumbnail,
 } from 'src/actions/product';
 
@@ -48,6 +49,12 @@ export const NewThumbSchema = z.object({
   thumb: z.union([z.string(), z.instanceof(File)]),
 });
 
+export type Link3dSchemaType = z.infer<typeof NewLink3dSchema>;
+
+export const NewLink3dSchema = z.object({
+  thumb: z.union([z.string(), z.instanceof(File)]),
+});
+
 export type ImagesSchemaType = z.infer<typeof NewImagesSchema>;
 
 export const NewImagesSchema = z.object({
@@ -70,6 +77,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
       title: currentProduct?.title || '',
       content: currentProduct?.content || '',
       thumbnail: currentProduct?.thumbnail || '',
+      link3d: currentProduct?.link3d || '',
       slug: currentProduct?.slug || '',
       price: currentProduct?.price || '',
       salePercent: currentProduct?.salePercent || 0,
@@ -87,6 +95,13 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
   const defaultThumbValues = useMemo(
     () => ({
       thumb: currentProduct?.thumbnail || '',
+    }),
+    [currentProduct]
+  );
+
+  const defaultLink3dValues = useMemo(
+    () => ({
+      thumb: currentProduct?.link3d || '',
     }),
     [currentProduct]
   );
@@ -110,6 +125,12 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
     defaultValues: defaultThumbValues,
   });
 
+  const link3dMethods = useForm<ThumbSchemaType>({
+    mode: 'all',
+    resolver: zodResolver(NewLink3dSchema),
+    defaultValues: defaultLink3dValues,
+  });
+
   const imagesMethods = useForm<ImagesSchemaType>({
     mode: 'all',
     resolver: zodResolver(NewImagesSchema),
@@ -119,15 +140,18 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
   useEffect(() => {
     methods.reset(defaultValues);
     thumbMethods.reset(defaultThumbValues);
+    link3dMethods.reset(defaultLink3dValues);
     imagesMethods.reset(defaultImagesValues);
   }, [
     currentProduct,
     defaultImagesValues,
     defaultThumbValues,
+    defaultLink3dValues,
     defaultValues,
     imagesMethods,
     methods,
     thumbMethods,
+    link3dMethods,
   ]);
 
   const {
@@ -143,6 +167,10 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
   const { watch: watchThumb, setValue: setValueThumb } = thumbMethods;
 
   const valuesThumb = watchThumb();
+
+  const { watch: watchLink3d, setValue: setValueLink3d } = link3dMethods;
+
+  const valuesLink3d = watchLink3d();
 
   const { watch: watchImages, setValue: setValueImages } = imagesMethods;
 
@@ -172,12 +200,15 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
       if (!currentProduct) {
         const product = await addProduct(data);
         await uploadProductThumbnail(product.id, valuesThumb.thumb);
+        await uploadProductLink3d(product.id, valuesLink3d.thumb);
         await uploadProductImages(product.id, fileImages, stringImages);
       } else {
         await updateProduct(currentProduct.id, data);
         await uploadProductThumbnail(currentProduct.id, valuesThumb.thumb);
+        await uploadProductLink3d(currentProduct.id, valuesLink3d.thumb);
         await uploadProductImages(currentProduct.id, fileImages, stringImages);
       }
+      console.log(valuesLink3d.thumb);
       reset();
       toast.success(currentProduct ? 'Chỉnh sửa thành công!' : 'Thêm thành công!');
       router.push(paths.dashboard.product.root);
@@ -193,6 +224,14 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
   const handleRemoveAllFiles = useCallback(() => {
     setValueThumb('thumb', '', { shouldValidate: true });
   }, [setValueThumb]);
+
+  const handleRemoveLink3d = useCallback(() => {
+    setValueLink3d('thumb', '', { shouldValidate: true });
+  }, [setValueLink3d]);
+
+  const handleRemoveAllLink3d = useCallback(() => {
+    setValueLink3d('thumb', '', { shouldValidate: true });
+  }, [setValueLink3d]);
 
   const handleRemoveImages = useCallback(
     (inputFile: File | string) => {
@@ -251,6 +290,21 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
               maxSize={3145728}
               onRemove={handleRemoveImages}
               onRemoveAll={handleRemoveAllImages}
+            />
+          </Form>
+        </Stack>
+
+        <Stack spacing={1.5}>
+          <Typography variant="subtitle2">Ảnh 3D</Typography>
+          <Form methods={link3dMethods}>
+            <Field.Upload
+              name="thumb"
+              maxSize={314572800}
+              accept={{
+                'application/octet-stream': ['.fbx'], // Chỉ cho phép upload file .fbx
+              }}
+              onRemove={handleRemoveLink3d}
+              onRemoveAll={handleRemoveAllLink3d}
             />
           </Form>
         </Stack>
