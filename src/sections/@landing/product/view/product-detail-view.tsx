@@ -173,13 +173,25 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
           </Box>
         ))}
       </Box>
-
       <Card sx={{ mt: 10 }}>
         <CardHeader title="Mô tả" />
 
         <ProductDetailsDescription description={product?.content} />
       </Card>
       <ProductRelatedCarousel category={product?.category?.name || ''} />
+
+      {/* <Grid container spacing={3}>
+        <Grid xs={12} md={8}>
+          <Card sx={{ mt: 10 }}>
+            <CardHeader title="Mô tả" />
+
+            <ProductDetailsDescription description={product?.content} />
+          </Card>
+        </Grid>
+        <Grid xs={12} md={4}>
+          <ProductRelatedCarousel category={product?.category?.name || ''} />
+        </Grid>
+      </Grid> */}
     </Container>
   );
 }

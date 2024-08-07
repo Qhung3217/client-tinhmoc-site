@@ -62,21 +62,22 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
             <ProductDetal3D link3d={link3d} />
           </Box>
 
-          <Carousel carousel={carousel} sx={{ maxWidth: 300, mx: 'auto' }}>
+          <Carousel carousel={carousel} sx={{ maxWidth: 500, mx: 'auto' }}>
             {slides.map((slide) => (
               <Image
                 key={slide.src}
                 alt={slide.src}
                 src={slide.src}
-                ratio="2/3"
+                ratio="1/1"
                 onClick={() => lightbox.onOpen(slide.src)}
                 effect="opacity"
                 sx={{
                   cursor: 'zoom-in',
-                  maxWidth: 300,
+                  maxWidth: 600,
+                  borderRadius: 0.5,
 
                   '& .mnl__image__wrapper': {
-                    aspectRatio: '2/3',
+                    aspectRatio: '1/1',
                   },
                   '& .lazy-load-image-background.opacity:not(.lazy-load-image-loaded) img': {
                     display: 'none',
@@ -102,7 +103,7 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
               onClick={() => carousel.thumbs.onClickThumb(index)}
               sx={{
                 borderRadius: 0.5,
-                aspectRatio: '2/3',
+                aspectRatio: '1/1',
                 height: 'unset',
               }}
             />

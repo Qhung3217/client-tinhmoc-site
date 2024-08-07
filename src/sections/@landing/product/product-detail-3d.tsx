@@ -9,6 +9,8 @@ import { Box, Modal, IconButton, LinearProgress } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
+import { varAlpha } from 'src/theme/styles';
+
 import { Iconify } from 'src/components/iconify';
 
 type Props = {
@@ -19,7 +21,17 @@ export default function ProductDetal3D({ link3d }: Props) {
   if (!link3d) return <></>;
   return (
     <>
-      <IconButton onClick={isOpen.onTrue} color="primary" size="medium">
+      <IconButton
+        onClick={isOpen.onTrue}
+        color="primary"
+        size="medium"
+        sx={{
+          bgcolor: (theme: any) => varAlpha(theme.vars.palette.grey['900Channel'], 0.48),
+          '&:hover': {
+            bgcolor: (theme: any) => varAlpha(theme.vars.palette.grey['900Channel'], 0.56),
+          },
+        }}
+      >
         <Iconify icon="material-symbols:3d-rotation-outline-rounded" width={28} />
       </IconButton>
 

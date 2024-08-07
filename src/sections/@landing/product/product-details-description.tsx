@@ -23,6 +23,9 @@ export function ProductDetailsDescription({ description }: Props) {
             '&:first-of-type': { minWidth: 240, mb: { xs: 0.5, md: 0 } },
           },
         },
+        '& .nml__editor__content__image': {
+          borderRadius: 0,
+        },
       }}
     />
   );

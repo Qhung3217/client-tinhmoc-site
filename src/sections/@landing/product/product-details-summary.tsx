@@ -70,7 +70,7 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
         </Box>
       )}
 
-      {fCurrency(priceSale)}
+      {priceSale !== '' && fCurrency(priceSale)}
     </Box>
   );
 

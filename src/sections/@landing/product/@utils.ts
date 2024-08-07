@@ -18,6 +18,7 @@ export const useGetSaleInfo = ({ salePercent, price, createdAt }: Props) => {
   }, [createdAt]);
 
   const priceSale = useMemo(() => {
+    if (price === '') return '';
     const pNumber = Number(price);
     return pNumber - pNumber * (salePercent / 100);
   }, [price, salePercent]);
