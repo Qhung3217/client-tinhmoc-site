@@ -70,7 +70,12 @@ export function ProductListView() {
 
   const [categories, setCategories] = useState<string[]>([]);
 
-  const { data, productsLoading } = useGetProducts(pageSize, currentPage, search, categories);
+  const { data, productsLoading, productsMutate } = useGetProducts(
+    pageSize,
+    currentPage,
+    search,
+    categories
+  );
 
   const { products, paginate } = data;
 
@@ -112,7 +117,7 @@ export function ProductListView() {
 
   const handleDeleteRow = async (id: string) => {
     await deleteProduct(id);
-
+    productsMutate();
     toast.success('Xóa thành công!');
   };
 

@@ -18,7 +18,11 @@ const swrOptions = {
 export function useGetCategories() {
   const url = endpoints.category.list;
 
-  const { data, isLoading, error, isValidating } = useSWR<CategoriesData>(url, fetcher, swrOptions);
+  const { data, isLoading, error, isValidating, mutate } = useSWR<CategoriesData>(
+    url,
+    fetcher,
+    swrOptions
+  );
 
   const memoizedValue = useMemo(
     () => ({
@@ -27,8 +31,9 @@ export function useGetCategories() {
       categoriesError: error,
       categoriesValidating: isValidating,
       categoriesEmpty: !isLoading && !data?.categories.length,
+      categoiresMutate: mutate,
     }),
-    [data?.categories, error, isLoading, isValidating]
+    [data?.categories, error, isLoading, isValidating, mutate]
   );
 
   return memoizedValue;

@@ -55,7 +55,7 @@ const HIDE_COLUMNS_TOGGLABLE = ['category', 'actions'];
 export function CategoryListView() {
   const confirmRows = useBoolean();
   const router = useRouter();
-  const { categories, categoriesLoading } = useGetCategories();
+  const { categories, categoriesLoading, categoiresMutate } = useGetCategories();
   const [tableData, setTableData] = useState<any[]>([]);
   const [selectedRowIds, setSelectedRowIds] = useState<GridRowSelectionModel>([]);
   const [filterButtonEl, setFilterButtonEl] = useState<HTMLButtonElement | null>(null);
@@ -71,6 +71,7 @@ export function CategoryListView() {
 
   const handleDeleteRow = async (id: string) => {
     await deleteCategory(id);
+    categoiresMutate();
     toast.success('Xóa thành công!');
   };
 
