@@ -65,6 +65,7 @@ export const endpoints = {
   file: {
     default: `${API_URL}/upload`,
     productThumbnail: `${API_URL}/upload/product-thumbnail`,
+    link3d: `${API_URL}/upload/product-link3d`,
     productImages: `${API_URL}/upload/product-images`,
   },
 };
