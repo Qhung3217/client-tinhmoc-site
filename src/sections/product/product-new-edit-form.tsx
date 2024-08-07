@@ -299,9 +299,9 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
           <Form methods={link3dMethods}>
             <Field.Upload
               name="thumb"
-              maxSize={314572800}
+              maxSize={1800000000}
               accept={{
-                'application/octet-stream': ['.fbx'], // Chỉ cho phép upload file .fbx
+                'application/octet-stream': ['.fbx', '.glb'],
               }}
               onRemove={handleRemoveLink3d}
               onRemoveAll={handleRemoveAllLink3d}
