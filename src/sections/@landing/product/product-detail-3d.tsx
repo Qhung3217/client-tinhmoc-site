@@ -11,16 +11,21 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 
-export default function ProductDetal3D() {
+type Props = {
+  link3d: string | undefined | null;
+};
+export default function ProductDetal3D({ link3d }: Props) {
   const isOpen = useBoolean();
-
+  if (!link3d) return <></>;
   return (
     <>
       <IconButton onClick={isOpen.onTrue} color="primary" size="medium">
         <Iconify icon="material-symbols:3d-rotation-outline-rounded" width={28} />
       </IconButton>
 
-      <Suspense fallback={<Loading />}>{isOpen.value && <MD onClose={isOpen.onFalse} />}</Suspense>
+      <Suspense fallback={<Loading />}>
+        {isOpen.value && <MD onClose={isOpen.onFalse} link3d={link3d} />}
+      </Suspense>
     </>
   );
 }
@@ -36,11 +41,12 @@ function Loading() {
 }
 type MProps = {
   onClose: () => void;
+  link3d: string;
 };
-function MD({ onClose }: MProps) {
+function MD({ onClose, link3d }: MProps) {
   // const object = useLoader(FBXLoader, 'http://192.168.1.18:3000/uploads/1L01.fbx');
   //   const { scene } = useLoader(GLTFLoader, 'http://192.168.1.18:3000/uploads/1L01.glb');
-  const { scene } = useGLTF('http://192.168.1.18:3000/uploads/1L01.glb');
+  const { scene } = useGLTF(link3d);
 
   const content = (
     <Canvas shadows camera={{ position: [0, 1, 10], fov: 25 }}>

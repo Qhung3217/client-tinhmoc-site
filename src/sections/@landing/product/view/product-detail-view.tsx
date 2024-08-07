@@ -95,6 +95,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
         <Grid xs={12} md={6} lg={6}>
           <ProductDetailsCarousel
             images={product?.thumbnail ? [product.thumbnail, ...product.images] : []}
+            link3d={product?.link3d}
           />
         </Grid>
 

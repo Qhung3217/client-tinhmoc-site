@@ -20,9 +20,10 @@ import ProductDetal3D from './product-detail-3d';
 
 type Props = {
   images?: IProductItem['images'];
+  link3d?: string;
 };
 
-export function ProductDetailsCarousel({ images }: Props) {
+export function ProductDetailsCarousel({ images, link3d }: Props) {
   const carousel = useCarousel({
     thumbs: {
       slidesToShow: 'auto',
@@ -58,7 +59,7 @@ export function ProductDetailsCarousel({ images }: Props) {
               zIndex: 1,
             }}
           >
-            <ProductDetal3D />
+            <ProductDetal3D link3d={link3d} />
           </Box>
 
           <Carousel carousel={carousel} sx={{ maxWidth: 300, mx: 'auto' }}>
