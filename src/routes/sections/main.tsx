@@ -11,7 +11,6 @@ import { CategoryProvider } from 'src/sections/@landing/_common/category-context
 // ----------------------------------------------------------------------
 
 const ComingSoonPage = lazy(() => import('src/pages/coming-soon'));
-const MaintenancePage = lazy(() => import('src/pages/maintenance'));
 // Product
 const ProductListPage = lazy(() => import('src/pages/san-pham/list'));
 const ProductDetailPage = lazy(() => import('src/pages/san-pham/details'));
@@ -58,14 +57,7 @@ export const mainRoutes = [
           </SimpleLayout>
         ),
       },
-      {
-        path: 'maintenance',
-        element: (
-          <SimpleLayout content={{ compact: true }}>
-            <MaintenancePage />
-          </SimpleLayout>
-        ),
-      },
+
       { path: '500', element: <Page500 /> },
       { path: '404', element: <Page404 /> },
       { path: '403', element: <Page403 /> },
