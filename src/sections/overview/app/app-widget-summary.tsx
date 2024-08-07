@@ -5,9 +5,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 
-import { fNumber, fPercent } from 'src/utils/format-number';
+import { fNumber } from 'src/utils/format-number';
 
-import { Iconify } from 'src/components/iconify';
 import { Chart, useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
@@ -40,28 +39,6 @@ export function AppWidgetSummary({ title, percent, total, chart, sx, ...other }:
     plotOptions: { bar: { borderRadius: 1.5, columnWidth: '64%' } },
     ...chart.options,
   });
-
-  const renderTrending = (
-    <Box sx={{ gap: 0.5, display: 'flex', alignItems: 'center' }}>
-      <Iconify
-        width={24}
-        icon={
-          percent < 0
-            ? 'solar:double-alt-arrow-down-bold-duotone'
-            : 'solar:double-alt-arrow-up-bold-duotone'
-        }
-        sx={{ flexShrink: 0, color: 'success.main', ...(percent < 0 && { color: 'error.main' }) }}
-      />
-
-      <Box component="span" sx={{ typography: 'subtitle2' }}>
-        {percent > 0 && '+'}
-        {fPercent(percent)}
-      </Box>
-      <Box component="span" sx={{ typography: 'body2', color: 'text.secondary' }}>
-        last 7 days
-      </Box>
-    </Box>
-  );
 
   return (
     <Card

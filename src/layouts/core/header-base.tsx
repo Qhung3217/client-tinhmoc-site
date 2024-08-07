@@ -11,10 +11,6 @@ import { AccountDrawer } from '../components/account-drawer';
 
 import type { HeaderSectionProps } from './header-section';
 import type { AccountDrawerProps } from '../components/account-drawer';
-import type { ContactsPopoverProps } from '../components/contacts-popover';
-import type { LanguagePopoverProps } from '../components/language-popover';
-import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
-import type { NotificationsDrawerProps } from '../components/notifications-drawer';
 
 // ----------------------------------------------------------------------
 
@@ -50,10 +46,6 @@ export type HeaderBaseProps = HeaderSectionProps & {
   data?: {
     nav?: NavSectionProps['data'];
     account?: AccountDrawerProps['data'];
-    langs?: LanguagePopoverProps['data'];
-    contacts?: ContactsPopoverProps['data'];
-    workspaces?: WorkspacesPopoverProps['data'];
-    notifications?: NotificationsDrawerProps['data'];
   };
   slots?: {
     navMobile?: {
@@ -136,9 +128,6 @@ export function HeaderBase({
             {/* -- Divider -- */}
             <StyledDivider data-slot="divider" />
 
-            {/* -- Workspace popover -- */}
-            {/* {workspaces && <WorkspacesPopover data-slot="workspaces" data={data?.workspaces} />} */}
-
             {slots?.leftAreaEnd}
           </>
         ),
@@ -154,15 +143,6 @@ export function HeaderBase({
                 gap: { xs: 1, sm: 1.5 },
               }}
             >
-              {/* -- Searchbar -- */}
-              {/* {searchbar && <Searchbar data-slot="searchbar" data={data?.nav} />} */}
-
-              {/* -- Contacts popover -- */}
-              {/* {contacts && <ContactsPopover data-slot="contacts" data={data?.contacts} />} */}
-
-              {/* -- Settings button -- */}
-              {/* {settings && <SettingsButton data-slot="settings" />} */}
-
               {/* -- Account drawer -- */}
               {account && <AccountDrawer data-slot="account" data={data?.account} />}
             </Box>

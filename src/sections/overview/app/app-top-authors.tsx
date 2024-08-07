@@ -93,14 +93,14 @@ function Item({ item, index, sx, ...other }: ItemProps) {
           alignItems: 'center',
           color: 'primary.main',
           justifyContent: 'center',
-          bgcolor: (theme) => varAlpha(theme.vars.palette.primary.mainChannel, 0.08),
+          bgcolor: (theme: any) => varAlpha(theme.vars.palette.primary.mainChannel, 0.08),
           ...(index === 1 && {
             color: 'info.main',
-            bgcolor: (theme) => varAlpha(theme.vars.palette.info.mainChannel, 0.08),
+            bgcolor: (theme: any) => varAlpha(theme.vars.palette.info.mainChannel, 0.08),
           }),
           ...(index === 2 && {
             color: 'error.main',
-            bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
+            bgcolor: (theme: any) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
           }),
         }}
       >

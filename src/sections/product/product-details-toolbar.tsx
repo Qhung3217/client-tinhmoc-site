@@ -47,7 +47,7 @@ export function ProductDetailsToolbar({
           href={backLink}
           startIcon={<Iconify icon="eva:arrow-ios-back-fill" width={16} />}
         >
-          Back
+          Quay lại
         </Button>
 
         <Box sx={{ flexGrow: 1 }} />

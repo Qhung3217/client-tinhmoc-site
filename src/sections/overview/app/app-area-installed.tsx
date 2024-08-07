@@ -1,7 +1,7 @@
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
@@ -33,7 +33,7 @@ type Props = CardProps & {
 export function AppAreaInstalled({ title, subheader, chart, ...other }: Props) {
   const theme = useTheme();
 
-  const [selectedSeries, setSelectedSeries] = useState('2024');
+  const [selectedSeries] = useState('2024');
 
   const chartColors = chart.colors ?? [
     theme.palette.primary.dark,
@@ -51,36 +51,11 @@ export function AppAreaInstalled({ title, subheader, chart, ...other }: Props) {
     ...chart.options,
   });
 
-  const handleChangeSeries = useCallback((newValue: string) => {
-    setSelectedSeries(newValue);
-  }, []);
-
   const currentSeries = chart.series.find((i) => i.name === selectedSeries);
 
   return (
     <Card {...other}>
-      <CardHeader
-        title={title}
-        subheader={subheader}
-        // action={
-        //   <ChartSelect
-        //     options={chart.series.map((item) => item.name)}
-        //     value={selectedSeries}
-        //     onChange={handleChangeSeries}
-        //   />
-        // }
-        sx={{ mb: 3 }}
-      />
-
-      {/* <ChartLegends
-        colors={chartOptions?.colors}
-        labels={chart.series[0].data.map((item) => item.name)}
-        values={[fShortenNumber(1234), fShortenNumber(6789), fShortenNumber(1012)]}
-        sx={{
-          px: 3,
-          gap: 3,
-        }}
-      /> */}
+      <CardHeader title={title} subheader={subheader} sx={{ mb: 3 }} />
 
       <Chart
         key={selectedSeries}

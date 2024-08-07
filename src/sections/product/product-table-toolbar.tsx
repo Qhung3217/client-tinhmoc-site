@@ -104,9 +104,10 @@ export function ProductTableToolbar({ filters, options }: Props) {
           onClick={handleFilterCategory}
           sx={{
             justifyContent: 'center',
-            fontWeight: (theme) => theme.typography.button,
-            border: (theme) => `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
-            bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+            fontWeight: (theme: any) => theme.typography.button,
+            border: (theme: any) =>
+              `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
+            bgcolor: (theme: any) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
           }}
         >
           Áp dụng

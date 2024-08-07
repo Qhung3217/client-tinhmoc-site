@@ -134,12 +134,6 @@ function RowItem({ row }: RowItemProps) {
             {row.salePercent}%
           </Box>
         </TableCell>
-
-        {/* <TableCell align="right" sx={{ pr: 1 }}>
-          <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
-        </TableCell> */}
       </TableRow>
 
       <CustomPopover

@@ -6,7 +6,7 @@ import { useSearchParams } from 'src/routes/hooks';
 export default function useWatchParams(params: string | string[]) {
   const searchParams = useSearchParams();
 
-  const [state, setState] = useState<{
+  const [state] = useState<{
     [key: string]: string | null;
   }>(() => {
     if (Array.isArray(params)) {
