@@ -1,5 +1,7 @@
 import { useMemo, useState, useCallback, createContext } from 'react';
 
+import { useSetState } from 'src/hooks/use-set-state';
+
 import type { SettingsContextValue, SettingsProviderProps } from '../types';
 
 // ----------------------------------------------------------------------
@@ -12,7 +14,7 @@ export const SettingsConsumer = SettingsContext.Consumer;
 
 export function SettingsProvider({ children, settings }: SettingsProviderProps) {
   // const values = useLocalStorage<SettingsState>(STORAGE_KEY, settings);
-  const values = settings;
+  const values = useSetState(settings);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -26,11 +28,11 @@ export function SettingsProvider({ children, settings }: SettingsProviderProps) 
 
   const memoizedValue = useMemo(
     () => ({
-      ...values,
-      canReset: (() => {}) as any,
-      onReset: (() => {}) as any,
-      onUpdate: (() => {}) as any,
-      onUpdateField: (() => {}) as any,
+      ...values.state,
+      canReset: values.canReset,
+      onReset: values.onResetState,
+      onUpdate: values.setState,
+      onUpdateField: values.setField,
       openDrawer,
       onCloseDrawer,
       onToggleDrawer,
