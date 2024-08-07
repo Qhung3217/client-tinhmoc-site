@@ -2,6 +2,7 @@ import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import { useMemo } from 'react';
 
+import { Box } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
@@ -249,7 +250,11 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                   />
                 ),
 
-                rightAreaEnd: <LandingSearch offsetTop={offsetTop} theme={theme} />,
+                rightAreaEnd: (
+                  <Box sx={{ width: 60 }}>
+                    <LandingSearch offsetTop={offsetTop} theme={theme} />
+                  </Box>
+                ),
               }}
             />
           }

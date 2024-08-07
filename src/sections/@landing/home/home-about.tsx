@@ -130,8 +130,8 @@ export default function HomeAbout() {
             clipPath: 'polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)',
           }}
         >
-          {slides.map((slide) => (
-            <Box sx={{ position: 'relative' }}>
+          {slides.map((slide, index) => (
+            <Box sx={{ position: 'relative' }} key={slide + index}>
               <Image visibleByDefault alt={slide} src={slide} ratio="1/1" />
             </Box>
           ))}

@@ -36,8 +36,8 @@ export default function HomeFeatured() {
   return (
     <Box sx={{ position: 'relative' }} component="section">
       <Carousel carousel={carousel}>
-        {slides.map((slide) => (
-          <Box sx={{ position: 'relative' }}>
+        {slides.map((slide, index) => (
+          <Box sx={{ position: 'relative' }} key={slide + index}>
             <Image visibleByDefault alt={slide} src={slide} ratio={{ xs: '4/3', sm: '16/10' }} />
           </Box>
         ))}

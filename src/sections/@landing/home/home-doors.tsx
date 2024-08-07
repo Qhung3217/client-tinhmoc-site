@@ -1,6 +1,5 @@
 import { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { config } from 'react-spring';
 import Carousel from 'react-spring-3d-carousel';
 
 import { Box } from '@mui/material';
@@ -60,7 +59,7 @@ export default function HomeDoors() {
       <Box
         position="relative"
         width={{
-          sm: 673,
+          md: 673,
           xs: 1,
         }}
         height={{ xs: 400, sm: 600 }}
@@ -70,7 +69,7 @@ export default function HomeDoors() {
           slides={slides}
           goToSlide={nextSlide}
           showNavigation={false}
-          animationConfig={config.stiff}
+          animationConfig={{ tension: 210, friction: 30 }}
           offsetRadius={mdUp ? 3 : 2}
         />
       </Box>
