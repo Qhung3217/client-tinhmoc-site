@@ -56,7 +56,7 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
 
   const renderPrice = (
     <Box sx={{ typography: 'h5', color: 'primary.light' }}>
-      {priceSale && (
+      {!!salePercent && (
         <Box
           component="span"
           sx={{
@@ -66,11 +66,11 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
             typography: 'h6',
           }}
         >
-          {fCurrency(priceSale)}
+          {fCurrency(price)}
         </Box>
       )}
 
-      {fCurrency(price)}
+      {fCurrency(priceSale)}
     </Box>
   );
 

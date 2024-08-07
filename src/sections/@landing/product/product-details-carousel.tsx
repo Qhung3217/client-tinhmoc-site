@@ -55,6 +55,7 @@ export function ProductDetailsCarousel({ images }: Props) {
               bottom: 64,
               right: 16,
               position: 'absolute',
+              zIndex: 1,
             }}
           >
             <ProductDetal3D />

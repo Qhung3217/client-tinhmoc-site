@@ -76,6 +76,7 @@ function MD({ onClose }: MProps) {
         sx={{
           backgroundColor: 'white',
           maxWidth: 500,
+          width: '80%',
           height: 500,
           position: 'absolute',
           top: '50%',

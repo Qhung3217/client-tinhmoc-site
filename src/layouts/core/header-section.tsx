@@ -9,6 +9,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { styled, useTheme } from '@mui/material/styles';
 
+import { ROOTS } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
@@ -71,6 +72,8 @@ export function HeaderSection({
 
   const homePage = pathname === '/';
 
+  const isLandingPages = !pathname.includes(ROOTS.DASHBOARD);
+
   const { offsetTop } = useScrollOffSetTop(homePage ? 200 : 0);
 
   const toolbarStyles = {
@@ -90,7 +93,11 @@ export function HeaderSection({
       },
     },
     offset: {
-      ...bgBlur({ color: varAlpha(theme.vars.palette.primary.darkChannel, 1) }),
+      ...bgBlur({
+        color: isLandingPages
+          ? varAlpha(theme.vars.palette.primary.darkChannel, 1)
+          : varAlpha(theme.vars.palette.background.defaultChannel, 0.8),
+      }),
     },
   };
 
