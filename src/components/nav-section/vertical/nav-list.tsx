@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { paths } from 'src/routes/paths';
+import { paths, ROOTS } from 'src/routes/paths';
 import { isExternalLink } from 'src/routes/utils';
 import { usePathname, useSearchParams } from 'src/routes/hooks';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
@@ -18,11 +18,15 @@ export function NavList({ data, render, depth, slotProps, enabledRootRedirect }:
 
   const pathname = usePathname();
 
-  const _active = useActiveLink(data.path, !!data.children);
+  const _active = useActiveLink(data.path, !!data.children && data.path !== ROOTS.DASHBOARD);
 
   const [active, setActive] = useState(_active);
 
   const [openMenu, setOpenMenu] = useState(active);
+
+  useEffect(() => {
+    setActive(_active);
+  }, [_active]);
 
   useEffect(() => {
     if (pathname.startsWith(paths.landing.product.root) && searchParams.size) {
