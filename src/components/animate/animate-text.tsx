@@ -4,9 +4,9 @@ import type { Variants, UseInViewOptions } from 'framer-motion';
 import { useRef, useEffect } from 'react';
 import { m, useInView, useAnimation } from 'framer-motion';
 
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import { MuiBox } from '../@mui/mui-box';
 import { varFade, varContainer } from './variants';
 
 // ----------------------------------------------------------------------
@@ -99,7 +99,7 @@ export function AnimateText({
     >
       <span className={animateTextClasses.srOnly}>{textArray.join(' ')}</span>
 
-      <Box
+      <MuiBox
         component={m.span}
         ref={ref}
         initial="initial"
@@ -110,7 +110,7 @@ export function AnimateText({
         className={animateTextClasses.lines}
       >
         {textArray.map((line, lineIndex) => (
-          <Box
+          <MuiBox
             component="span"
             key={`${line}-${lineIndex}`}
             data-index={lineIndex}
@@ -121,7 +121,7 @@ export function AnimateText({
               const lastWordInline = line.split(' ')[line.split(' ').length - 1];
 
               return (
-                <Box
+                <MuiBox
                   component="span"
                   key={`${word}-${wordIndex}`}
                   data-index={wordIndex}
@@ -129,7 +129,7 @@ export function AnimateText({
                   sx={{ display: 'inline-block' }}
                 >
                   {word.split('').map((char, charIndex) => (
-                    <Box
+                    <MuiBox
                       component={m.span}
                       key={`${char}-${charIndex}`}
                       variants={variants ?? varFade().in}
@@ -138,24 +138,24 @@ export function AnimateText({
                       sx={{ display: 'inline-block' }}
                     >
                       {char}
-                    </Box>
+                    </MuiBox>
                   ))}
 
                   {lastWordInline !== word && (
-                    <Box
+                    <MuiBox
                       component="span"
                       className={animateTextClasses.space}
                       sx={{ display: 'inline-block' }}
                     >
                       &nbsp;
-                    </Box>
+                    </MuiBox>
                   )}
-                </Box>
+                </MuiBox>
               );
             })}
-          </Box>
+          </MuiBox>
         ))}
-      </Box>
+      </MuiBox>
     </Typography>
   );
 }

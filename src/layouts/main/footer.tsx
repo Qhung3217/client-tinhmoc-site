@@ -1,6 +1,5 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -10,6 +9,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { CONFIG } from 'src/config-global';
 
 import { SvgColor } from 'src/components/svg-color';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { CustomModal } from 'src/components/custom-modal';
 
 // ----------------------------------------------------------------------
@@ -21,7 +21,7 @@ export type HomeFooterProps = {
 export function HomeFooter({ sx }: HomeFooterProps) {
   const isOpen = useBoolean();
   return (
-    <Box
+    <MuiBox
       component="footer"
       sx={{
         textAlign: 'center',
@@ -34,7 +34,7 @@ export function HomeFooter({ sx }: HomeFooterProps) {
     >
       <Container>
         <Stack alignItems="center" sx={{ backgroundColor: 'transparent' }}>
-          <Box textAlign="center" display="flex" alignItems="center" flexDirection="column">
+          <MuiBox textAlign="center" display="flex" alignItems="center" flexDirection="column">
             <Typography
               sx={{ color: 'rgb(215, 173, 93)', pb: '5px', letterSpacing: 2 }}
               variant="caption"
@@ -53,20 +53,20 @@ export function HomeFooter({ sx }: HomeFooterProps) {
             <Typography variant="caption" sx={{ color: 'rgb(134, 134, 134)' }}>
               Email: tinhmoc@tinhmoc.com
             </Typography>
-          </Box>
-          <Box sx={{ mt: '10px' }}>
+          </MuiBox>
+          <MuiBox sx={{ mt: '10px' }}>
             <Stack direction="row" alignItems="center">
-              <Box sx={{ cursor: 'pointer' }} onClick={isOpen.onTrue}>
+              <MuiBox sx={{ cursor: 'pointer' }} onClick={isOpen.onTrue}>
                 <SvgColor
                   src={`${CONFIG.site.basePath}/assets/landing/icons/maps.svg`}
                   sx={{ width: 50, height: 50, backgroundColor: 'rgb(134, 134, 134)' }}
                 />
-              </Box>
-              <Box sx={{ ml: '10px', pt: '5px' }}>
+              </MuiBox>
+              <MuiBox sx={{ ml: '10px', pt: '5px' }}>
                 <Counter />
-              </Box>
+              </MuiBox>
             </Stack>
-          </Box>
+          </MuiBox>
         </Stack>
       </Container>
       <CustomModal open={isOpen.value} onClose={isOpen.onFalse}>
@@ -80,7 +80,7 @@ export function HomeFooter({ sx }: HomeFooterProps) {
           referrerPolicy="no-referrer-when-downgrade"
         />
       </CustomModal>
-    </Box>
+    </MuiBox>
   );
 }
 function Counter() {

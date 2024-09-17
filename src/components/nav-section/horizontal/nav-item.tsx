@@ -1,11 +1,12 @@
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { stylesMode } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { useNavItem } from '../hooks';
 import { Iconify } from '../../iconify';
@@ -70,15 +71,15 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
         {...other}
       >
         {icon && (
-          <Box component="span" className={navSectionClasses.item.icon}>
+          <MuiBox component="span" className={navSectionClasses.item.icon}>
             {navItem.renderIcon}
-          </Box>
+          </MuiBox>
         )}
 
         {title && (
-          <Box component="span" className={navSectionClasses.item.title}>
+          <MuiBox component="span" className={navSectionClasses.item.title}>
             {title}
-          </Box>
+          </MuiBox>
         )}
 
         {caption && (
@@ -88,9 +89,9 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
         )}
 
         {info && (
-          <Box component="span" className={navSectionClasses.item.info}>
+          <MuiBox component="span" className={navSectionClasses.item.info}>
             {navItem.renderInfo}
-          </Box>
+          </MuiBox>
         )}
 
         {hasChild && (

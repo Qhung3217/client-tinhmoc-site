@@ -4,7 +4,7 @@ import type { Theme, SxProps } from '@mui/system';
 
 import { m, useSpring } from 'framer-motion';
 
-import Box from '@mui/material/Box';
+import { MuiBox } from 'src/components/@mui/mui-box';
 // ----------------------------------------------------------------------
 
 export interface ScrollProgressProps extends BoxProps {
@@ -30,7 +30,7 @@ export function ScrollProgress({
   const progressSize = variant === 'circular' ? size ?? 64 : size ?? 3;
 
   const renderCircular = (
-    <Box
+    <MuiBox
       component="svg"
       width={progressSize}
       height={progressSize}
@@ -40,9 +40,9 @@ export function ScrollProgress({
         width: progressSize,
         height: progressSize,
         transform: 'rotate(-90deg)',
-        color: (theme) => theme.vars.palette.text.primary,
+        color: (theme: any) => theme.vars.palette.text.primary,
         ...(color !== 'inherit' && {
-          color: (theme) => theme.vars.palette[color].main,
+          color: (theme: any) => theme.vars.palette[color].main,
         }),
         circle: {
           fill: 'none',
@@ -54,7 +54,7 @@ export function ScrollProgress({
       }}
       {...other}
     >
-      <Box
+      <MuiBox
         component="circle"
         cx={progressSize / 2}
         cy={progressSize / 2}
@@ -62,7 +62,7 @@ export function ScrollProgress({
         strokeOpacity="0.2"
         pathLength="1"
       />
-      <Box
+      <MuiBox
         component={m.circle}
         cx={progressSize / 2}
         cy={progressSize / 2}
@@ -70,11 +70,11 @@ export function ScrollProgress({
         pathLength="1"
         style={{ pathLength: progress }}
       />
-    </Box>
+    </MuiBox>
   );
 
   const renderLinear = (
-    <Box
+    <MuiBox
       component={m.div}
       sx={{
         top: 0,
@@ -85,7 +85,7 @@ export function ScrollProgress({
         transformOrigin: '0%',
         bgcolor: 'text.primary',
         ...(color !== 'inherit' && {
-          background: (theme) =>
+          background: (theme: any) =>
             `linear-gradient(135deg, ${theme.vars.palette[color].light}, ${theme.vars.palette[color].main})`,
         }),
         ...sx,
@@ -96,6 +96,8 @@ export function ScrollProgress({
   );
 
   return (
-    <Box sx={{ overflow: 'hidden' }}>{variant === 'circular' ? renderCircular : renderLinear}</Box>
+    <MuiBox sx={{ overflow: 'hidden' }}>
+      {variant === 'circular' ? renderCircular : renderLinear}
+    </MuiBox>
   );
 }

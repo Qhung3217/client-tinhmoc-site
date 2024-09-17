@@ -1,12 +1,12 @@
 import type { BoxProps } from '@mui/material/Box';
+import type { Theme } from '@mui/material/styles';
 
 import { m } from 'framer-motion';
-
-import Box from '@mui/material/Box';
 
 import { varAlpha } from 'src/theme/styles';
 
 import { Logo } from '../logo';
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ export type AnimateLogoProps = BoxProps & {
 
 export function AnimateLogo1({ logo, sx, ...other }: AnimateLogoProps) {
   return (
-    <Box
+    <MuiBox
       sx={{
         width: 120,
         height: 120,
@@ -28,7 +28,7 @@ export function AnimateLogo1({ logo, sx, ...other }: AnimateLogoProps) {
       }}
       {...other}
     >
-      <Box
+      <MuiBox
         component={m.div}
         animate={{ scale: [1, 0.9, 0.9, 1, 1], opacity: [1, 0.48, 0.48, 1, 1] }}
         transition={{
@@ -40,9 +40,9 @@ export function AnimateLogo1({ logo, sx, ...other }: AnimateLogoProps) {
         sx={{ display: 'inline-flex' }}
       >
         {logo ?? <Logo disableLink width={64} height={64} />}
-      </Box>
+      </MuiBox>
 
-      <Box
+      <MuiBox
         component={m.div}
         animate={{
           scale: [1.6, 1, 1, 1.6, 1.6],
@@ -55,11 +55,12 @@ export function AnimateLogo1({ logo, sx, ...other }: AnimateLogoProps) {
           position: 'absolute',
           width: 'calc(100% - 20px)',
           height: 'calc(100% - 20px)',
-          border: (theme) => `solid 3px ${varAlpha(theme.vars.palette.primary.darkChannel, 0.24)}`,
+          border: (theme: Theme) =>
+            `solid 3px ${varAlpha(theme.vars.palette.primary.darkChannel, 0.24)}`,
         }}
       />
 
-      <Box
+      <MuiBox
         component={m.div}
         animate={{
           scale: [1, 1.2, 1.2, 1, 1],
@@ -72,10 +73,11 @@ export function AnimateLogo1({ logo, sx, ...other }: AnimateLogoProps) {
           width: 1,
           height: 1,
           position: 'absolute',
-          border: (theme) => `solid 8px ${varAlpha(theme.vars.palette.primary.darkChannel, 0.24)}`,
+          border: (theme: Theme) =>
+            `solid 8px ${varAlpha(theme.vars.palette.primary.darkChannel, 0.24)}`,
         }}
       />
-    </Box>
+    </MuiBox>
   );
 }
 
@@ -83,7 +85,7 @@ export function AnimateLogo1({ logo, sx, ...other }: AnimateLogoProps) {
 
 export function AnimateLogo2({ logo, sx, ...other }: AnimateLogoProps) {
   return (
-    <Box
+    <MuiBox
       alignItems="center"
       justifyContent="center"
       sx={{
@@ -99,7 +101,7 @@ export function AnimateLogo2({ logo, sx, ...other }: AnimateLogoProps) {
     >
       {logo ?? <Logo sx={{ zIndex: 9 }} />}
 
-      <Box
+      <MuiBox
         component={m.div}
         animate={{ rotate: 360 }}
         transition={{ duration: 10, ease: 'linear', repeat: Infinity }}
@@ -109,15 +111,15 @@ export function AnimateLogo2({ logo, sx, ...other }: AnimateLogoProps) {
           opacity: 0.16,
           borderRadius: '50%',
           position: 'absolute',
-          transition: (theme) =>
+          transition: (theme: Theme) =>
             theme.transitions.create(['opacity'], {
               easing: theme.transitions.easing.easeInOut,
               duration: theme.transitions.duration.shorter,
             }),
-          background: (theme) =>
+          background: (theme: Theme) =>
             `linear-gradient(135deg, ${varAlpha(theme.vars.palette.primary.mainChannel, 0)} 50%, ${theme.vars.palette.primary.main} 100%)`,
         }}
       />
-    </Box>
+    </MuiBox>
   );
 }

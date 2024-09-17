@@ -2,9 +2,8 @@ import type { IProductItem } from 'src/types/product';
 
 import { useEffect } from 'react';
 
-import Box from '@mui/material/Box';
-
 import { Image } from 'src/components/image';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { Lightbox, useLightBox } from 'src/components/lightbox';
 import {
   Carousel,
@@ -42,8 +41,8 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
 
   return (
     <>
-      <Box component="div">
-        <Box sx={{ mb: 2.5, position: 'relative' }}>
+      <MuiBox component="div">
+        <MuiBox sx={{ mb: 2.5, position: 'relative' }}>
           <CarouselArrowNumberButtons
             {...carousel.arrows}
             options={carousel.options}
@@ -51,7 +50,7 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
             selectedIndex={carousel.dots.selectedIndex + 1}
             sx={{ right: 16, bottom: 16, position: 'absolute' }}
           />
-          <Box
+          <MuiBox
             sx={{
               bottom: 64,
               right: 16,
@@ -60,7 +59,7 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
             }}
           >
             <ProductDetal3D link3d={link3d} />
-          </Box>
+          </MuiBox>
 
           <Carousel carousel={carousel} sx={{ maxWidth: 500, mx: 'auto' }}>
             {slides.map((slide) => (
@@ -86,7 +85,7 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
               />
             ))}
           </Carousel>
-        </Box>
+        </MuiBox>
 
         <CarouselThumbs
           ref={carousel.thumbs.thumbsRef}
@@ -109,7 +108,7 @@ export function ProductDetailsCarousel({ images, link3d }: Props) {
             />
           ))}
         </CarouselThumbs>
-      </Box>
+      </MuiBox>
 
       <Lightbox
         index={lightbox.selected}

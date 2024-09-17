@@ -3,7 +3,6 @@ import type { AppBarProps } from '@mui/material/AppBar';
 import type { ToolbarProps } from '@mui/material/Toolbar';
 import type { ContainerProps } from '@mui/material/Container';
 
-import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -15,6 +14,8 @@ import { usePathname } from 'src/routes/hooks';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { bgBlur, varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { layoutClasses } from '../classes';
 
@@ -133,9 +134,9 @@ export function HeaderSection({
         >
           {slots?.leftArea}
 
-          <Box sx={{ display: 'flex', flex: '1 1 auto', justifyContent: 'center' }}>
+          <MuiBox sx={{ display: 'flex', flex: '1 1 auto', justifyContent: 'center' }}>
             {slots?.centerArea}
-          </Box>
+          </MuiBox>
 
           {slots?.rightArea}
         </Container>

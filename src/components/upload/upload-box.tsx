@@ -1,10 +1,11 @@
-import { useDropzone } from 'react-dropzone';
+import type { Theme } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
+import { useDropzone } from 'react-dropzone';
 
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from '../iconify';
+import { MuiBox } from '../@mui/mui-box';
 
 import type { UploadProps } from './types';
 
@@ -19,7 +20,7 @@ export function UploadBox({ placeholder, error, disabled, sx, ...other }: Upload
   const hasError = isDragReject || error;
 
   return (
-    <Box
+    <MuiBox
       {...getRootProps()}
       sx={{
         width: 64,
@@ -31,14 +32,15 @@ export function UploadBox({ placeholder, error, disabled, sx, ...other }: Upload
         alignItems: 'center',
         color: 'text.disabled',
         justifyContent: 'center',
-        bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-        border: (theme) => `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
+        bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+        border: (theme: Theme) =>
+          `dashed 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
         ...(isDragActive && { opacity: 0.72 }),
         ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
         ...(hasError && {
           color: 'error.main',
           borderColor: 'error.main',
-          bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
+          bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
         }),
         '&:hover': { opacity: 0.72 },
         ...sx,
@@ -47,6 +49,6 @@ export function UploadBox({ placeholder, error, disabled, sx, ...other }: Upload
       <input {...getInputProps()} />
 
       {placeholder || <Iconify icon="eva:cloud-upload-fill" width={28} />}
-    </Box>
+    </MuiBox>
   );
 }

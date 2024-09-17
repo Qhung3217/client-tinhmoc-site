@@ -1,9 +1,10 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 
 import { varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { Iconify } from '../../iconify';
 
@@ -17,7 +18,7 @@ export function SingleFilePreview({ file }: SingleFilePreviewProps) {
   const previewUrl = typeof file === 'string' ? file : URL.createObjectURL(file);
 
   return (
-    <Box
+    <MuiBox
       sx={{
         p: 1,
         top: 0,
@@ -27,7 +28,7 @@ export function SingleFilePreview({ file }: SingleFilePreviewProps) {
         position: 'absolute',
       }}
     >
-      <Box
+      <MuiBox
         component="img"
         alt={fileName}
         src={previewUrl}
@@ -38,7 +39,7 @@ export function SingleFilePreview({ file }: SingleFilePreviewProps) {
           objectFit: 'cover',
         }}
       />
-    </Box>
+    </MuiBox>
   );
 }
 

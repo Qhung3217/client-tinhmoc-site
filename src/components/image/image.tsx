@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import { CONFIG } from 'src/config-global';
 
 import { imageClasses } from './classes';
+import { MuiBox } from '../@mui/mui-box';
 
 import type { ImageProps } from './types';
 
@@ -64,7 +65,7 @@ export const Image = forwardRef<HTMLSpanElement, ImageProps>(
     ref
   ) => {
     const content = (
-      <Box
+      <MuiBox
         component={LazyLoadImage}
         alt={alt}
         src={src}

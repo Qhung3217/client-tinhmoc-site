@@ -1,9 +1,10 @@
 import { memo } from 'react';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { CONFIG } from 'src/config-global';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { BackgroundShape } from './background-shape';
 
@@ -21,7 +22,7 @@ function ComingSoonIllustration({ hideBackground, sx, ...other }: any) {
   const PRIMARY_DARKER = theme.vars.palette.primary.darker;
 
   return (
-    <Box
+    <MuiBox
       component="svg"
       width="100%"
       height="100%"
@@ -119,7 +120,7 @@ function ComingSoonIllustration({ hideBackground, sx, ...other }: any) {
           <stop offset="1" stopColor={PRIMARY_DARK} />
         </linearGradient>
       </defs>
-    </Box>
+    </MuiBox>
   );
 }
 

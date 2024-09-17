@@ -4,13 +4,14 @@ import { Canvas } from '@react-three/fiber';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useGLTF, Environment, ContactShadows, PresentationControls } from '@react-three/drei';
 
-import { Box, Modal, IconButton, Typography, LinearProgress } from '@mui/material';
+import { Modal, IconButton, Typography, LinearProgress } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 
 type Props = {
@@ -93,7 +94,7 @@ function MD({ onClose, link3d }: MProps) {
 
   return (
     <Modal open onClose={onClose}>
-      <Box
+      <MuiBox
         sx={{
           backgroundColor: 'white',
           maxWidth: 500,
@@ -106,7 +107,7 @@ function MD({ onClose, link3d }: MProps) {
         }}
       >
         {content}
-      </Box>
+      </MuiBox>
     </Modal>
   );
 }

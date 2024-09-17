@@ -1,12 +1,13 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha, bgGradient } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +37,7 @@ export function Section({
   const theme = useTheme();
 
   return (
-    <Box
+    <MuiBox
       sx={{
         ...bgGradient({
           color: `0deg, ${varAlpha(theme.vars.palette.background.defaultChannel, 0.92)}, ${varAlpha(theme.vars.palette.background.defaultChannel, 0.92)}`,
@@ -72,50 +73,12 @@ export function Section({
         )}
       </div>
 
-      <Box
+      <MuiBox
         component="img"
         alt="Dashboard illustration"
         src={imgUrl}
         sx={{ width: 432, height: 324 }}
       />
-
-      {/* {!!methods?.length && method && (
-        <Box component="ul" gap={2} display="flex">
-          {methods.map((option) => {
-            const selected = method === option.label.toLowerCase();
-
-            return (
-              <Box
-                key={option.label}
-                component="li"
-                sx={{
-                  ...(!selected && {
-                    cursor: 'not-allowed',
-                    filter: 'grayscale(1)',
-                  }),
-                }}
-              >
-                <Tooltip title={option.label} placement="top">
-                  <Link
-                    component={RouterLink}
-                    href={option.path}
-                    sx={{
-                      ...(!selected && { pointerEvents: 'none' }),
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      alt={option.label}
-                      src={option.icon}
-                      sx={{ width: 32, height: 32 }}
-                    />
-                  </Link>
-                </Tooltip>
-              </Box>
-            );
-          })}
-        </Box>
-      )} */}
-    </Box>
+    </MuiBox>
   );
 }

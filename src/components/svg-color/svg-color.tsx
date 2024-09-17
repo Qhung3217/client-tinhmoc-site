@@ -1,7 +1,6 @@
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
-
+import { MuiBox } from '../@mui/mui-box';
 import { svgColorClasses } from './classes';
 
 import type { SvgColorProps } from './types';
@@ -10,7 +9,7 @@ import type { SvgColorProps } from './types';
 
 export const SvgColor = forwardRef<HTMLSpanElement, SvgColorProps>(
   ({ src, className, sx, ...other }, ref) => (
-    <Box
+    <MuiBox
       ref={ref}
       component="span"
       className={svgColorClasses.root.concat(className ? ` ${className}` : '')}

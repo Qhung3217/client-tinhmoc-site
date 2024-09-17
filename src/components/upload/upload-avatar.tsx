@@ -1,13 +1,15 @@
+import type { Theme } from '@mui/material/styles';
+
 import { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import { varAlpha } from 'src/theme/styles';
 
 import { Image } from '../image';
 import { Iconify } from '../iconify';
+import { MuiBox } from '../@mui/mui-box';
 import { RejectionFiles } from './components/rejection-files';
 
 import type { UploadProps } from './types';
@@ -41,7 +43,7 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, ...other 
   );
 
   const renderPlaceholder = (
-    <Box
+    <MuiBox
       className="upload-placeholder"
       sx={{
         top: 0,
@@ -57,30 +59,30 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, ...other 
         color: 'text.disabled',
         flexDirection: 'column',
         justifyContent: 'center',
-        bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-        transition: (theme) =>
+        bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+        transition: (theme: Theme) =>
           theme.transitions.create(['opacity'], { duration: theme.transitions.duration.shorter }),
         '&:hover': { opacity: 0.72 },
         ...(hasError && {
           color: 'error.main',
-          bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
+          bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
         }),
         ...(hasFile && {
           zIndex: 9,
           opacity: 0,
           color: 'common.white',
-          bgcolor: (theme) => varAlpha(theme.vars.palette.grey['900Channel'], 0.64),
+          bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.grey['900Channel'], 0.64),
         }),
       }}
     >
       <Iconify icon="solar:camera-add-bold" width={32} />
 
       <Typography variant="caption">{hasFile ? 'Update photo' : 'Upload photo'}</Typography>
-    </Box>
+    </MuiBox>
   );
 
   const renderContent = (
-    <Box
+    <MuiBox
       sx={{
         width: 1,
         height: 1,
@@ -91,12 +93,12 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, ...other 
     >
       {renderPreview}
       {renderPlaceholder}
-    </Box>
+    </MuiBox>
   );
 
   return (
     <>
-      <Box
+      <MuiBox
         {...getRootProps()}
         sx={{
           p: 1,
@@ -106,13 +108,14 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, ...other 
           cursor: 'pointer',
           overflow: 'hidden',
           borderRadius: '50%',
-          border: (theme) => `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
+          border: (theme: Theme) =>
+            `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
           ...(isDragActive && { opacity: 0.72 }),
           ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
           ...(hasError && { borderColor: 'error.main' }),
           ...(hasFile && {
             ...(hasError && {
-              bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
+              bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
             }),
             '&:hover .upload-placeholder': { opacity: 1 },
           }),
@@ -122,7 +125,7 @@ export function UploadAvatar({ sx, error, value, disabled, helperText, ...other 
         <input {...getInputProps()} />
 
         {renderContent}
-      </Box>
+      </MuiBox>
 
       {helperText && helperText}
 

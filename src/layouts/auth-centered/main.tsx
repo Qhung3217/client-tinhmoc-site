@@ -1,10 +1,11 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { layoutClasses } from 'src/layouts/classes';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +17,7 @@ export function Main({ sx, children, layoutQuery, ...other }: MainProps) {
   const theme = useTheme();
 
   const renderContent = (
-    <Box
+    <MuiBox
       sx={{
         py: 5,
         px: 3,
@@ -30,11 +31,11 @@ export function Main({ sx, children, layoutQuery, ...other }: MainProps) {
       }}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 
   return (
-    <Box
+    <MuiBox
       component="main"
       className={layoutClasses.main}
       sx={{
@@ -55,6 +56,6 @@ export function Main({ sx, children, layoutQuery, ...other }: MainProps) {
       {...other}
     >
       {renderContent}
-    </Box>
+    </MuiBox>
   );
 }

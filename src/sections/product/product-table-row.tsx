@@ -1,6 +1,5 @@
 import type { GridCellParams } from '@mui/x-data-grid';
 
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
@@ -8,6 +7,8 @@ import ListItemText from '@mui/material/ListItemText';
 
 import { fCurrency } from 'src/utils/format-number';
 import { fTime, fDate } from 'src/utils/format-time';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -21,7 +22,7 @@ export function RenderCellSlug({ params }: ParamsProps) {
 
 export function RenderCellPriority({ params }: ParamsProps) {
   return (
-    <Box
+    <MuiBox
       sx={{
         display: 'inline-block',
         padding: '2px 8px',
@@ -33,7 +34,7 @@ export function RenderCellPriority({ params }: ParamsProps) {
       }}
     >
       {params.row.priority}
-    </Box>
+    </MuiBox>
   );
 }
 
@@ -52,10 +53,10 @@ export function RenderCellCreateBy({ params }: ParamsProps) {
 export function RenderCellCreatedAt({ params }: ParamsProps) {
   return (
     <Stack spacing={0.5}>
-      <Box component="span">{fDate(params.row.createdAt)}</Box>
-      <Box component="span" sx={{ typography: 'caption', color: 'text.secondary' }}>
+      <MuiBox component="span">{fDate(params.row.createdAt)}</MuiBox>
+      <MuiBox component="span" sx={{ typography: 'caption', color: 'text.secondary' }}>
         {fTime(params.row.createdAt)}
-      </Box>
+      </MuiBox>
     </Stack>
   );
 }
@@ -89,9 +90,9 @@ export function RenderCellProduct({
           </Link>
         }
         secondary={
-          <Box component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
+          <MuiBox component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
             {params.row.category.name}
-          </Box>
+          </MuiBox>
         }
         sx={{ display: 'flex', flexDirection: 'column' }}
       />

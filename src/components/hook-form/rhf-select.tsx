@@ -9,7 +9,6 @@ import type { FormHelperTextProps } from '@mui/material/FormHelperText';
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -18,6 +17,8 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -131,12 +132,12 @@ export function RHFMultiSelect({
               );
 
               if (!selectedItems.length && placeholder) {
-                return <Box sx={{ color: 'text.disabled' }}>{placeholder}</Box>;
+                return <MuiBox sx={{ color: 'text.disabled' }}>{placeholder}</MuiBox>;
               }
 
               if (chip) {
                 return (
-                  <Box sx={{ gap: 0.5, display: 'flex', flexWrap: 'wrap' }}>
+                  <MuiBox sx={{ gap: 0.5, display: 'flex', flexWrap: 'wrap' }}>
                     {selectedItems.map((item) => (
                       <Chip
                         key={item.value}
@@ -146,7 +147,7 @@ export function RHFMultiSelect({
                         {...slotProps?.chip}
                       />
                     ))}
-                  </Box>
+                  </MuiBox>
                 );
               }
 

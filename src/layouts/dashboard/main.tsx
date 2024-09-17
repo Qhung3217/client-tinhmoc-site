@@ -2,12 +2,12 @@ import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 import type { ContainerProps } from '@mui/material/Container';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 
 import { layoutClasses } from 'src/layouts/classes';
 
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { useSettingsContext } from 'src/components/settings';
 
 // ----------------------------------------------------------------------
@@ -18,7 +18,7 @@ type MainProps = BoxProps & {
 
 export function Main({ children, isNavHorizontal, sx, ...other }: MainProps) {
   return (
-    <Box
+    <MuiBox
       component="main"
       className={layoutClasses.main}
       sx={{
@@ -33,7 +33,7 @@ export function Main({ children, isNavHorizontal, sx, ...other }: MainProps) {
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 }
 

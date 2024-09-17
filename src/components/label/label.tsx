@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { StyledLabel } from './styles';
 import { labelClasses } from './classes';
+import { MuiBox } from '../@mui/mui-box';
 
 import type { LabelProps } from './types';
 
@@ -35,17 +35,17 @@ export const Label = forwardRef<HTMLSpanElement, LabelProps>(
         {...other}
       >
         {startIcon && (
-          <Box component="span" className={labelClasses.icon} sx={{ mr: 0.75, ...iconStyles }}>
+          <MuiBox component="span" className={labelClasses.icon} sx={{ mr: 0.75, ...iconStyles }}>
             {startIcon}
-          </Box>
+          </MuiBox>
         )}
 
         {typeof children === 'string' ? sentenceCase(children) : children}
 
         {endIcon && (
-          <Box component="span" className={labelClasses.icon} sx={{ ml: 0.75, ...iconStyles }}>
+          <MuiBox component="span" className={labelClasses.icon} sx={{ ml: 0.75, ...iconStyles }}>
             {endIcon}
-          </Box>
+          </MuiBox>
         )}
       </StyledLabel>
     );

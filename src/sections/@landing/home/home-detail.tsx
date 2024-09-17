@@ -3,12 +3,13 @@ import './style.css';
 import { m } from 'framer-motion';
 import { useRef, useState } from 'react';
 
-import { Box, Stack, Container } from '@mui/material';
+import { Stack, Container } from '@mui/material';
 
 import useOnScreen from 'src/hooks/use-on-screen';
 import { useClientRect } from 'src/hooks/use-client-rect';
 
 import { Image } from 'src/components/image';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { CustomModal } from 'src/components/custom-modal';
 
 import DoorDetailTooltips from './_partials/door-detail-tooltips';
@@ -54,7 +55,7 @@ const POPUPS = [
   {
     thumbnail: '/assets/landing/detail/cover.jpg',
     popupLink: () => (
-      <Box
+      <MuiBox
         component="iframe"
         src="https://www.youtube.com/embed/jq4FICAUsGU?autoplay=1"
         title="Tinhmoc"
@@ -86,12 +87,12 @@ export default function HomeDetail() {
   } | null>(null);
 
   return (
-    <Box
+    <MuiBox
       component="section"
       sx={{ pt: 20, backgroundColor: { xs: 'black', md: '#1a1a1a' }, pb: 14.375 }}
     >
       <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
-        <Box
+        <MuiBox
           width={1}
           display={{
             xs: 'block',
@@ -99,8 +100,8 @@ export default function HomeDetail() {
           }}
         >
           <Image src="/assets/landing/detail/second-door-mobile.jpg" alt="door" />
-        </Box>
-        <Box
+        </MuiBox>
+        <MuiBox
           width={1}
           display={{
             md: 'block',
@@ -117,7 +118,7 @@ export default function HomeDetail() {
           className={isIntersecting ? 'videoOnOpen' : 'videoOnClose'}
           ref={elementRef}
         >
-          <Box
+          <MuiBox
             width={1}
             sx={{
               position: 'absolute',
@@ -132,9 +133,9 @@ export default function HomeDetail() {
             animate={isIntersecting ? 'visible' : 'hidden'}
           >
             <Image src="/assets/landing/detail/second-door.png" alt="door" />
-          </Box>
+          </MuiBox>
           <DoorDetailTooltips />
-        </Box>
+        </MuiBox>
       </Container>
 
       <Container sx={{ pt: 2.5, pb: 2.5, '&.MuiContainer-root': { px: 0 } }}>
@@ -153,7 +154,7 @@ export default function HomeDetail() {
           sx={{ mt: 2.5, maxWidth: 1120, mx: 'auto' }}
         >
           {POPUPS.map((popup, index) => (
-            <Box
+            <MuiBox
               key={popup.thumbnail + index}
               onClick={() => {
                 setModalValue(popup);
@@ -184,7 +185,7 @@ export default function HomeDetail() {
                   },
                 }}
               />
-            </Box>
+            </MuiBox>
           ))}
         </Stack>
       </Container>
@@ -192,11 +193,11 @@ export default function HomeDetail() {
         {modalValue?.isNode ? (
           modalValue?.popupLink && modalValue.popupLink()
         ) : (
-          <Box width={1} height={1}>
+          <MuiBox width={1} height={1}>
             <Image src={modalValue?.popupLink as string} alt="Kết cấu cánh cửa" />
-          </Box>
+          </MuiBox>
         )}
       </CustomModal>
-    </Box>
+    </MuiBox>
   );
 }

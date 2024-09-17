@@ -2,7 +2,6 @@ import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import { useMemo } from 'react';
 
-import { Box } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
@@ -14,6 +13,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { NavSectionHorizontal } from 'src/components/nav-section';
 
 import { useCategoryContext } from 'src/sections/@landing/_common/category-context';
@@ -251,9 +251,9 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                 ),
 
                 rightAreaEnd: (
-                  <Box sx={{ width: 60 }}>
+                  <MuiBox sx={{ width: 60 }}>
                     <LandingSearch offsetTop={offsetTop} theme={theme} />
-                  </Box>
+                  </MuiBox>
                 ),
               }}
             />

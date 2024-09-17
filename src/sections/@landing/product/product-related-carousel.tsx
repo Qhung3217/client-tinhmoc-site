@@ -1,9 +1,8 @@
-import { Box } from '@mui/material';
-
 import { useParams } from 'src/routes/hooks';
 
 import { useGetProducts } from 'src/actions/product';
 
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { Carousel, useCarousel } from 'src/components/carousel';
 
 import { ProductItem } from './product-item';
@@ -24,7 +23,7 @@ export default function ProductRelatedCarousel({ category }: Props) {
     // axis: mdUp ? 'y' : 'x',
   });
   return (
-    <Box sx={{ pt: { xs: 5, md: 10 } }}>
+    <MuiBox sx={{ pt: { xs: 5, md: 10 } }}>
       <SectionTitle
         sx={{
           textAlign: 'left',
@@ -33,7 +32,7 @@ export default function ProductRelatedCarousel({ category }: Props) {
       >
         Sản phẩm liên quan
       </SectionTitle>
-      <Box
+      <MuiBox
         component="div"
         width={1}
         sx={{
@@ -41,7 +40,7 @@ export default function ProductRelatedCarousel({ category }: Props) {
           px: 1,
         }}
       >
-        <Box sx={{ mb: 2.5, position: 'relative' }} width={1}>
+        <MuiBox sx={{ mb: 2.5, position: 'relative' }} width={1}>
           <Carousel carousel={carousel}>
             {products.map((product) => {
               if (product.id === slug) return '';
@@ -57,8 +56,8 @@ export default function ProductRelatedCarousel({ category }: Props) {
               );
             })}
           </Carousel>
-        </Box>
-      </Box>
-    </Box>
+        </MuiBox>
+      </MuiBox>
+    </MuiBox>
   );
 }

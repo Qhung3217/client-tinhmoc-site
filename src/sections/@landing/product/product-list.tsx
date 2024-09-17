@@ -1,6 +1,8 @@
 import type { IProductListItem } from 'src/types/product';
 
-import { Box, Pagination, paginationClasses } from '@mui/material';
+import { Pagination, paginationClasses } from '@mui/material';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { ProductItem } from './product-item';
 import { ProductItemSkeleton } from './product-skeleton';
@@ -27,7 +29,7 @@ export default function ProductList({
 
   return (
     <>
-      <Box
+      <MuiBox
         display="grid"
         gridTemplateColumns={{
           xs: 'repeat(1, 1fr)',
@@ -41,7 +43,7 @@ export default function ProductList({
         }}
       >
         {loading ? renderLoading : renderList}
-      </Box>
+      </MuiBox>
 
       {products.length > 0 && (
         <Pagination

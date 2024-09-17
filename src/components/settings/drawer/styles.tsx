@@ -1,11 +1,11 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ type Props = {
 
 export function Block({ title, tooltip, children, sx }: Props) {
   return (
-    <Box
+    <MuiBox
       sx={{
         px: 2,
         pb: 2,
@@ -27,11 +27,12 @@ export function Block({ title, tooltip, children, sx }: Props) {
         display: 'flex',
         position: 'relative',
         flexDirection: 'column',
-        border: (theme) => `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
+        border: (theme: Theme) =>
+          `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.12)}`,
         ...sx,
       }}
     >
-      <Box
+      <MuiBox
         component="span"
         sx={{
           px: 1.25,
@@ -59,9 +60,9 @@ export function Block({ title, tooltip, children, sx }: Props) {
             />
           </Tooltip>
         )}
-      </Box>
+      </MuiBox>
 
       {children}
-    </Box>
+    </MuiBox>
   );
 }

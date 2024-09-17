@@ -2,7 +2,6 @@ import type { IProductItem } from 'src/types/product';
 
 import { useMemo } from 'react';
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
@@ -13,6 +12,7 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { EmptyContent } from 'src/components/empty-content';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
@@ -120,7 +120,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
             }}
           />
           {product && <ProductDetailsSummary product={product} />}
-          <Box
+          <MuiBox
             gap={1}
             gridTemplateColumns={{ md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }}
             sx={{
@@ -132,7 +132,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
             }}
           >
             {SUMMARY.map((item) => (
-              <Box key={item.title} sx={{ textAlign: 'left', px: 1 }}>
+              <MuiBox key={item.title} sx={{ textAlign: 'left', px: 1 }}>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <Iconify icon={item.icon} width={32} sx={{ color: 'primary.main' }} />
 
@@ -142,13 +142,13 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   {item.description}
                 </Typography>
-              </Box>
+              </MuiBox>
             ))}
-          </Box>
+          </MuiBox>
         </Grid>
       </Grid>
 
-      <Box
+      <MuiBox
         gap={5}
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
         sx={{
@@ -160,7 +160,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
         }}
       >
         {SUMMARY.map((item) => (
-          <Box key={item.title} sx={{ textAlign: 'center', px: 5 }}>
+          <MuiBox key={item.title} sx={{ textAlign: 'center', px: 5 }}>
             <Iconify icon={item.icon} width={32} sx={{ color: 'primary.main' }} />
 
             <Typography variant="subtitle1" sx={{ mb: 1, mt: 2 }}>
@@ -170,28 +170,15 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {item.description}
             </Typography>
-          </Box>
+          </MuiBox>
         ))}
-      </Box>
+      </MuiBox>
       <Card sx={{ mt: 10 }}>
         <CardHeader title="Mô tả" />
 
         <ProductDetailsDescription description={product?.content} />
       </Card>
       <ProductRelatedCarousel category={product?.category?.name || ''} />
-
-      {/* <Grid container spacing={3}>
-        <Grid xs={12} md={8}>
-          <Card sx={{ mt: 10 }}>
-            <CardHeader title="Mô tả" />
-
-            <ProductDetailsDescription description={product?.content} />
-          </Card>
-        </Grid>
-        <Grid xs={12} md={4}>
-          <ProductRelatedCarousel category={product?.category?.name || ''} />
-        </Grid>
-      </Grid> */}
     </Container>
   );
 }

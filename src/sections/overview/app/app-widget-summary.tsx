@@ -1,12 +1,12 @@
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
 
 import { fNumber } from 'src/utils/format-number';
 
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { Chart, useChart } from 'src/components/chart';
 
 // ----------------------------------------------------------------------
@@ -50,11 +50,11 @@ export function AppWidgetSummary({ title, percent, total, chart, sx, ...other }:
       }}
       {...other}
     >
-      <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ typography: 'subtitle2' }}>{title}</Box>
-        <Box sx={{ mt: 1.5, mb: 1, typography: 'h3' }}>{fNumber(total)}</Box>
+      <MuiBox sx={{ flexGrow: 1 }}>
+        <MuiBox sx={{ typography: 'subtitle2' }}>{title}</MuiBox>
+        <MuiBox sx={{ mt: 1.5, mb: 1, typography: 'h3' }}>{fNumber(total)}</MuiBox>
         {/* {renderTrending} */}
-      </Box>
+      </MuiBox>
 
       <Chart
         type="bar"

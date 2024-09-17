@@ -2,7 +2,6 @@ import type { BoxProps } from '@mui/material/Box';
 
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
 import NoSsr from '@mui/material/NoSsr';
 
 import { RouterLink } from 'src/routes/components';
@@ -10,6 +9,7 @@ import { RouterLink } from 'src/routes/components';
 import { CONFIG } from 'src/config-global';
 
 import { logoClasses } from './classes';
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
      */
 
     const logo = (
-      <Box
+      <MuiBox
         alt="logo"
         component="img"
         src={`${CONFIG.site.basePath}/logo/logo-single.svg`}
@@ -38,7 +38,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
     return (
       <NoSsr
         fallback={
-          <Box
+          <MuiBox
             width={width}
             height={height}
             className={logoClasses.root.concat(className ? ` ${className}` : '')}
@@ -46,7 +46,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
           />
         }
       >
-        <Box
+        <MuiBox
           ref={ref}
           component={RouterLink}
           href={href}
@@ -64,7 +64,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
           {...other}
         >
           {logo}
-        </Box>
+        </MuiBox>
       </NoSsr>
     );
   }

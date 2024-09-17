@@ -1,9 +1,9 @@
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 
+import { MuiBox } from '../@mui/mui-box';
 import { BreadcrumbsLink } from './breadcrumb-link';
 
 import type { CustomBreadcrumbsProps } from './types';
@@ -39,28 +39,28 @@ export function CustomBreadcrumbs({
     </Breadcrumbs>
   );
 
-  const renderAction = <Box sx={{ flexShrink: 0, ...slotProps?.action }}> {action} </Box>;
+  const renderAction = <MuiBox sx={{ flexShrink: 0, ...slotProps?.action }}> {action} </MuiBox>;
 
   const renderMoreLink = (
-    <Box component="ul">
+    <MuiBox component="ul">
       {moreLink?.map((href) => (
-        <Box key={href} component="li" sx={{ display: 'flex' }}>
+        <MuiBox key={href} component="li" sx={{ display: 'flex' }}>
           <Link href={href} variant="body2" target="_blank" rel="noopener" sx={slotProps?.moreLink}>
             {href}
           </Link>
-        </Box>
+        </MuiBox>
       ))}
-    </Box>
+    </MuiBox>
   );
 
   return (
     <Stack spacing={2} sx={sx}>
       <Stack direction="row" alignItems="center">
-        <Box sx={{ flexGrow: 1 }}>
+        <MuiBox sx={{ flexGrow: 1 }}>
           {heading && renderHeading}
 
           {!!links.length && renderLinks}
-        </Box>
+        </MuiBox>
 
         {action && renderAction}
       </Stack>
@@ -74,8 +74,8 @@ export function CustomBreadcrumbs({
 
 function Separator() {
   return (
-    <Box component="span" sx={{}}>
+    <MuiBox component="span" sx={{}}>
       /
-    </Box>
+    </MuiBox>
   );
 }

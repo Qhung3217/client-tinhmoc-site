@@ -2,9 +2,8 @@ import type { IProductItem } from 'src/types/product';
 
 import { useEffect } from 'react';
 
-import Box from '@mui/material/Box';
-
 import { Image } from 'src/components/image';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { Lightbox, useLightBox } from 'src/components/lightbox';
 import {
   Carousel,
@@ -40,7 +39,7 @@ export function ProductDetailsCarousel({ images }: Props) {
   return (
     <>
       <div>
-        <Box sx={{ mb: 2.5, position: 'relative' }}>
+        <MuiBox sx={{ mb: 2.5, position: 'relative' }}>
           <CarouselArrowNumberButtons
             {...carousel.arrows}
             options={carousel.options}
@@ -61,7 +60,7 @@ export function ProductDetailsCarousel({ images }: Props) {
               />
             ))}
           </Carousel>
-        </Box>
+        </MuiBox>
 
         <CarouselThumbs
           ref={carousel.thumbs.thumbsRef}

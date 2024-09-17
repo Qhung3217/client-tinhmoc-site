@@ -2,7 +2,6 @@ import type { CardProps } from '@mui/material/Card';
 import type { IProductListItem } from 'src/types/product';
 import type { TableHeadCustomProps } from 'src/components/table';
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
@@ -20,6 +19,7 @@ import { fCurrency } from 'src/utils/format-number';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { TableHeadCustom } from 'src/components/table';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
@@ -51,7 +51,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
-      <Box sx={{ p: 2, textAlign: 'right' }}>
+      <MuiBox sx={{ p: 2, textAlign: 'right' }}>
         <Button
           size="small"
           color="inherit"
@@ -60,7 +60,7 @@ export function AppNewInvoice({ title, subheader, tableData, headLabel, ...other
         >
           Xem thêm
         </Button>
-      </Box>
+      </MuiBox>
     </Card>
   );
 }
@@ -107,7 +107,7 @@ function RowItem({ row }: RowItemProps) {
             alignItems: 'center',
           }}
         >
-          <Box
+          <MuiBox
             sx={{
               display: 'inline-block',
               padding: '2px 8px',
@@ -120,19 +120,19 @@ function RowItem({ row }: RowItemProps) {
             }}
           >
             {row.priority}
-          </Box>
+          </MuiBox>
         </TableCell>
 
         <TableCell>{fCurrency(row.price)}</TableCell>
 
         <TableCell>
-          <Box
+          <MuiBox
             sx={{
               marginLeft: '25px',
             }}
           >
             {row.salePercent}%
-          </Box>
+          </MuiBox>
         </TableCell>
       </TableRow>
 

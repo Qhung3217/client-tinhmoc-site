@@ -1,15 +1,16 @@
 import type { BoxProps } from '@mui/material/Box';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 
 import { UploadIllustration } from 'src/assets/illustrations';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
 export function UploadPlaceholder({ ...other }: BoxProps) {
   return (
-    <Box
+    <MuiBox
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -21,18 +22,18 @@ export function UploadPlaceholder({ ...other }: BoxProps) {
       <UploadIllustration hideBackground sx={{ width: 200 }} />
 
       <Stack spacing={1} sx={{ textAlign: 'center' }}>
-        <Box sx={{ typography: 'h6' }}>Drop or select file</Box>
-        <Box sx={{ typography: 'body2', color: 'text.secondary' }}>
+        <MuiBox sx={{ typography: 'h6' }}>Drop or select file</MuiBox>
+        <MuiBox sx={{ typography: 'body2', color: 'text.secondary' }}>
           Drop files here or click to
-          <Box
+          <MuiBox
             component="span"
             sx={{ mx: 0.5, color: 'primary.main', textDecoration: 'underline' }}
           >
             browse
-          </Box>
+          </MuiBox>
           through your machine.
-        </Box>
+        </MuiBox>
       </Stack>
-    </Box>
+    </MuiBox>
   );
 }

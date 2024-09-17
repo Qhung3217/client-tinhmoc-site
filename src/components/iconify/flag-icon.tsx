@@ -2,10 +2,11 @@ import type { Theme, SxProps } from '@mui/material/styles';
 
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
 import NoSsr from '@mui/material/NoSsr';
 
 import { CONFIG } from 'src/config-global';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ export const FlagIcon = forwardRef<HTMLSpanElement, FlagIconProps>(
       bgcolor: 'background.neutral',
     };
 
-    const renderFallback = <Box component="span" sx={{ ...baseStyles, ...sx }} />;
+    const renderFallback = <MuiBox component="span" sx={{ ...baseStyles, ...sx }} />;
 
     if (!code) {
       return null;
@@ -34,14 +35,14 @@ export const FlagIcon = forwardRef<HTMLSpanElement, FlagIconProps>(
 
     return (
       <NoSsr fallback={renderFallback}>
-        <Box ref={ref} component="span" sx={{ ...baseStyles, ...sx }} {...other}>
-          <Box
+        <MuiBox ref={ref} component="span" sx={{ ...baseStyles, ...sx }} {...other}>
+          <MuiBox
             component="img"
             alt={code}
             src={`${CONFIG.site.basePath}/assets/icons/flagpack/${code?.toLowerCase()}.webp`}
             sx={{ width: 1, height: 1, objectFit: 'cover' }}
           />
-        </Box>
+        </MuiBox>
       </NoSsr>
     );
   }

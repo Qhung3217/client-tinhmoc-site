@@ -1,7 +1,7 @@
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 
+import { MuiBox } from '../@mui/mui-box';
 import { fileThumbnailClasses } from './classes';
 import { fileData, fileThumb, fileFormat } from './utils';
 import { RemoveButton, DownloadButton } from './action-buttons';
@@ -27,7 +27,7 @@ export function FileThumbnail({
   const format = fileFormat(path || previewUrl);
 
   const renderImg = (
-    <Box
+    <MuiBox
       component="img"
       src={previewUrl}
       className={fileThumbnailClasses.img}
@@ -42,7 +42,7 @@ export function FileThumbnail({
   );
 
   const renderIcon = (
-    <Box
+    <MuiBox
       component="img"
       src={fileThumb(format)}
       className={fileThumbnailClasses.icon}

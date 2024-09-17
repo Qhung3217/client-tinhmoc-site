@@ -1,11 +1,12 @@
+import type { Theme } from 'src/theme/types';
 import type { Breakpoint } from '@mui/material/styles';
 import type { NavSectionProps } from 'src/components/nav-section';
 
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
 import { varAlpha } from 'src/theme/styles';
 
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { NavSectionHorizontal } from 'src/components/nav-section';
 
 // ----------------------------------------------------------------------
@@ -16,13 +17,13 @@ export type NavHorizontalProps = NavSectionProps & {
 
 export function NavHorizontal({ data, layoutQuery, sx, ...other }: NavHorizontalProps) {
   return (
-    <Box
+    <MuiBox
       sx={{
         width: 1,
         position: 'relative',
         flexDirection: 'column',
         display: { xs: 'none', [layoutQuery]: 'flex' },
-        borderBottom: (theme) =>
+        borderBottom: (theme: Theme) =>
           `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.08)}`,
         ...sx,
       }}
@@ -31,7 +32,7 @@ export function NavHorizontal({ data, layoutQuery, sx, ...other }: NavHorizontal
         sx={{ top: 0, left: 0, width: 1, zIndex: 9, position: 'absolute', borderStyle: 'dashed' }}
       />
 
-      <Box
+      <MuiBox
         sx={{
           px: 1.5,
           height: 'var(--layout-nav-horizontal-height)',
@@ -41,7 +42,7 @@ export function NavHorizontal({ data, layoutQuery, sx, ...other }: NavHorizontal
         }}
       >
         <NavSectionHorizontal data={data} {...other} />
-      </Box>
-    </Box>
+      </MuiBox>
+    </MuiBox>
   );
 }

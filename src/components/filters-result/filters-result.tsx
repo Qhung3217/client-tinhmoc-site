@@ -1,10 +1,11 @@
 import type { ChipProps } from '@mui/material/Chip';
 import type { Theme, SxProps } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 import { Iconify } from 'src/components/iconify';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -22,15 +23,15 @@ type FiltersResultProps = {
 
 export function FiltersResult({ totalResults, onReset, sx, children }: FiltersResultProps) {
   return (
-    <Box sx={sx}>
-      <Box sx={{ mb: 1.5, typography: 'body2' }}>
+    <MuiBox sx={sx}>
+      <MuiBox sx={{ mb: 1.5, typography: 'body2' }}>
         <strong>{totalResults}</strong>
-        <Box component="span" sx={{ color: 'text.secondary', ml: 0.25 }}>
+        <MuiBox component="span" sx={{ color: 'text.secondary', ml: 0.25 }}>
           results found
-        </Box>
-      </Box>
+        </MuiBox>
+      </MuiBox>
 
-      <Box flexGrow={1} gap={1} display="flex" flexWrap="wrap" alignItems="center">
+      <MuiBox flexGrow={1} gap={1} display="flex" flexWrap="wrap" alignItems="center">
         {children}
 
         <Button
@@ -40,7 +41,7 @@ export function FiltersResult({ totalResults, onReset, sx, children }: FiltersRe
         >
           Clear
         </Button>
-      </Box>
-    </Box>
+      </MuiBox>
+    </MuiBox>
   );
 }

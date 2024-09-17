@@ -4,10 +4,9 @@ import type { BoxProps } from '@mui/material/Box';
 import { m } from 'framer-motion';
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
-
 import { useResponsive } from 'src/hooks/use-responsive';
 
+import { MuiBox } from '../@mui/mui-box';
 import { varContainer } from './variants';
 
 // ----------------------------------------------------------------------
@@ -34,9 +33,9 @@ export const MotionViewport = forwardRef<HTMLDivElement, MotionViewportProps>(
         };
 
     return (
-      <Box ref={ref} {...props} {...other}>
+      <MuiBox ref={ref} {...props} {...other}>
         {children}
-      </Box>
+      </MuiBox>
     );
   }
 );

@@ -1,8 +1,9 @@
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { Iconify } from '../../iconify';
 import { useNavItem, stateClasses, sharedStyles, navSectionClasses } from '../../nav-section';
@@ -66,28 +67,28 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
         {...other}
       >
         {icon && (
-          <Box component="span" className={navSectionClasses.item.icon}>
+          <MuiBox component="span" className={navSectionClasses.item.icon}>
             {navItem.renderIcon}
-          </Box>
+          </MuiBox>
         )}
 
         {title && (
-          <Box component="span" className={navSectionClasses.item.texts}>
-            <Box component="span" className={navSectionClasses.item.title}>
+          <MuiBox component="span" className={navSectionClasses.item.texts}>
+            <MuiBox component="span" className={navSectionClasses.item.title}>
               {title}
-            </Box>
+            </MuiBox>
             {caption && navItem.subItem && (
-              <Box component="span" className={navSectionClasses.item.caption}>
+              <MuiBox component="span" className={navSectionClasses.item.caption}>
                 {caption}
-              </Box>
+              </MuiBox>
             )}
-          </Box>
+          </MuiBox>
         )}
 
         {info && (
-          <Box component="span" className={navSectionClasses.item.info}>
+          <MuiBox component="span" className={navSectionClasses.item.info}>
             {navItem.renderInfo}
-          </Box>
+          </MuiBox>
         )}
 
         {hasChild && (

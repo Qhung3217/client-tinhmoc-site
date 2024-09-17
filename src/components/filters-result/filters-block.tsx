@@ -1,6 +1,6 @@
-import type { Theme, SxProps } from '@mui/material/styles';
+import { type Theme, type SxProps } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -17,31 +17,31 @@ export function FiltersBlock({ label, children, isShow, sx }: FilterBlockProps) 
   }
 
   return (
-    <Box
+    <MuiBox
       gap={1}
       display="flex"
       sx={{
         p: 1,
         borderRadius: 1,
         overflow: 'hidden',
-        border: (theme) => `dashed 1px ${theme.vars.palette.divider}`,
+        border: (theme: Theme) => `dashed 1px ${theme.vars.palette.divider}`,
         ...sx,
       }}
     >
-      <Box
+      <MuiBox
         component="span"
         sx={{
           height: 24,
           lineHeight: '24px',
-          fontSize: (theme) => theme.typography.subtitle2.fontSize,
-          fontWeight: (theme) => theme.typography.subtitle2.fontWeight,
+          fontSize: (theme: Theme) => theme.typography.subtitle2.fontSize,
+          fontWeight: (theme: Theme) => theme.typography.subtitle2.fontWeight,
         }}
       >
         {label}
-      </Box>
-      <Box gap={1} display="flex" flexWrap="wrap">
+      </MuiBox>
+      <MuiBox gap={1} display="flex" flexWrap="wrap">
         {children}
-      </Box>
-    </Box>
+      </MuiBox>
+    </MuiBox>
   );
 }

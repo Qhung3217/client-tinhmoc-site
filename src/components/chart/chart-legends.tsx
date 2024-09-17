@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 
+import { MuiBox } from '../@mui/mui-box';
+
 // ----------------------------------------------------------------------
 
 export const StyledLegend = styled(Box)(({ theme }) => ({
@@ -51,23 +53,23 @@ export function ChartLegends({
         <Stack key={series} spacing={1}>
           <StyledLegend>
             {icons?.length ? (
-              <Box
+              <MuiBox
                 component="span"
                 sx={{ color: colors[index], '& svg, & img': { width: 20, height: 20 } }}
               >
                 {icons?.[index]}
-              </Box>
+              </MuiBox>
             ) : (
               <StyledDot component="span" sx={{ color: colors[index] }} />
             )}
 
-            <Box component="span" sx={{ flexShrink: 0 }}>
+            <MuiBox component="span" sx={{ flexShrink: 0 }}>
               {series}
               {sublabels && <> {` (${sublabels[index]})`}</>}
-            </Box>
+            </MuiBox>
           </StyledLegend>
 
-          {values && <Box sx={{ typography: 'h6' }}>{values[index]}</Box>}
+          {values && <MuiBox sx={{ typography: 'h6' }}>{values[index]}</MuiBox>}
         </Stack>
       ))}
     </Stack>

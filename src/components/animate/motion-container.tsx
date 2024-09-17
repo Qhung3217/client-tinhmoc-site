@@ -4,8 +4,7 @@ import type { BoxProps } from '@mui/material/Box';
 import { m } from 'framer-motion';
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
-
+import { MuiBox } from '../@mui/mui-box';
 import { varContainer } from './variants';
 
 // ----------------------------------------------------------------------
@@ -28,6 +27,6 @@ export const MotionContainer = forwardRef<HTMLDivElement, MotionContainerProps>(
       ...other,
     };
 
-    return <Box {...commonProps}>{children}</Box>;
+    return <MuiBox {...commonProps}>{children}</MuiBox>;
   }
 );

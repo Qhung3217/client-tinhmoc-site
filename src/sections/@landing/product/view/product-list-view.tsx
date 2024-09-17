@@ -1,12 +1,13 @@
+import type { Theme } from '@mui/material/styles';
 import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
 import { isEqual } from 'lodash';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
+import { Link, Button } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { Box, Link, Button } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -20,6 +21,7 @@ import { useGetProducts } from 'src/actions/product';
 
 import { Grid } from 'src/components/Grid/mui';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { EmptyContent } from 'src/components/empty-content';
 
 import ProductList from '../product-list';
@@ -219,9 +221,9 @@ export default function ProductListView() {
 
   return (
     <>
-      <Box
+      <MuiBox
         sx={{
-          backgroundColor: (theme) => theme.palette.background.neutral,
+          backgroundColor: (theme: Theme) => theme.palette.background.neutral,
           // backgroundColor: '#28323d',
           py: { xs: 3, md: 5 },
         }}
@@ -233,7 +235,7 @@ export default function ProductListView() {
           <Scrollbar fillContent>
             <Stack direction="row" spacing={3} minWidth={0} maxWidth={1} width={1}>
               {categoryCountList.map((c) => (
-                <Box key={c.id} minWidth="fit-content">
+                <MuiBox key={c.id} minWidth="fit-content">
                   <CategoryLink
                     title={c.name}
                     href={
@@ -250,12 +252,12 @@ export default function ProductListView() {
                   <Typography variant="caption" sx={{}}>
                     {c.count} sản phẩm
                   </Typography>
-                </Box>
+                </MuiBox>
               ))}
             </Stack>
           </Scrollbar>
         </Container>
-      </Box>
+      </MuiBox>
       <Container sx={{ mb: 15, mt: 3 }}>
         <Grid container>
           <Grid

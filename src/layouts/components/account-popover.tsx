@@ -1,6 +1,5 @@
 import type { IconButtonProps } from '@mui/material/IconButton';
 
-import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,6 +9,7 @@ import { paths } from 'src/routes/paths';
 import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { Label } from 'src/components/label';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 import { useMockedUser } from 'src/auth/hooks';
@@ -62,7 +62,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
           arrow: { offset: 20 },
         }}
       >
-        <Box sx={{ p: 2, pb: 1.5 }}>
+        <MuiBox sx={{ p: 2, pb: 1.5 }}>
           <Typography variant="subtitle2" noWrap>
             {user?.displayName}
           </Typography>
@@ -70,7 +70,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {user?.email}
           </Typography>
-        </Box>
+        </MuiBox>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -93,7 +93,9 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
               >
                 {option.icon}
 
-                <Box component="span">{option.label === 'Home' ? rootLabel : option.label}</Box>
+                <MuiBox component="span">
+                  {option.label === 'Home' ? rootLabel : option.label}
+                </MuiBox>
 
                 {option.info && (
                   <Label color="error" sx={{ ml: 1 }}>
@@ -107,14 +109,14 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Box sx={{ p: 1 }}>
+        <MuiBox sx={{ p: 1 }}>
           <SignOutButton
             size="medium"
             variant="text"
             onClose={popover.onClose}
             sx={{ display: 'block', textAlign: 'left' }}
           />
-        </Box>
+        </MuiBox>
       </CustomPopover>
     </>
   );

@@ -1,9 +1,9 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
@@ -36,9 +36,9 @@ export function ProductSort({ sort, onSort, sortOptions }: Props) {
         sx={{ fontWeight: 'fontWeightSemiBold' }}
       >
         Sắp xếp:
-        <Box component="span" sx={{ ml: 0.5, fontWeight: 'fontWeightBold' }}>
+        <MuiBox component="span" sx={{ ml: 0.5, fontWeight: 'fontWeightBold' }}>
           {sortLabel}
-        </Box>
+        </MuiBox>
       </Button>
 
       <CustomPopover open={popover.open} anchorEl={popover.anchorEl} onClose={popover.onClose}>

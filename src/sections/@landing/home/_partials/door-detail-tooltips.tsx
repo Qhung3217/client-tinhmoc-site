@@ -1,8 +1,10 @@
 import type { TooltipProps } from '@mui/material';
 
-import { Box, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
 import { useResponsive } from 'src/hooks/use-responsive';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 export default function DoorDetailTooltips() {
   const style = {
@@ -12,13 +14,13 @@ export default function DoorDetailTooltips() {
   };
   const mdUp = useResponsive('up', 990);
   return (
-    <Box
+    <MuiBox
       sx={{
         position: 'absolute',
         inset: 0,
       }}
     >
-      <Box
+      <MuiBox
         sx={{
           position: 'relative',
           width: 1,
@@ -28,7 +30,7 @@ export default function DoorDetailTooltips() {
         {/* -------------------- LEFT ------------------- */}
 
         <CTooltip title="Nẹp L. Đứng" offset={[0, -20]}>
-          <Box sx={{ position: 'absolute', top: '30%', left: '23.2%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '30%', left: '23.2%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Nẹp L. Đứng"
@@ -37,7 +39,7 @@ export default function DoorDetailTooltips() {
             width: 227,
           }}
         >
-          <Box sx={{ position: 'absolute', top: '35%', left: '29.8%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '35%', left: '29.8%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Nẹp T. đứng"
@@ -46,7 +48,7 @@ export default function DoorDetailTooltips() {
             width: 295,
           }}
         >
-          <Box sx={{ position: 'absolute', top: '40.5%', left: '35.5%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '40.5%', left: '35.5%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Mặt khoá"
@@ -55,7 +57,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 320 : 290,
           }}
         >
-          <Box sx={{ position: 'absolute', top: '55.5%', left: '37.5%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '55.5%', left: '37.5%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Ngạch cửa. Nẹp"
@@ -64,7 +66,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 400 : 350,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '9%', left: '44.5%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '9%', left: '44.5%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Thanh ngạch cửa"
@@ -73,7 +75,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 413 : 380,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '4%', left: '45%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '4%', left: '45%', ...style }} />
         </CTooltip>
         {/* -------------------- RIGHT ------------------- */}
 
@@ -85,7 +87,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 460 : 390,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '43%', right: '49.3%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '43%', right: '49.3%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Nẹp L. Đứng"
@@ -95,7 +97,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 410 : 350,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '37%', right: '45.3%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '37%', right: '45.3%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Bản lề"
@@ -105,7 +107,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 375 : 330,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '48.5%', right: '41.8%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '48.5%', right: '41.8%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Cánh cửa"
@@ -115,7 +117,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 290 : 260,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '54%', right: '35%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '54%', right: '35%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Tay nắm khoá"
@@ -125,7 +127,7 @@ export default function DoorDetailTooltips() {
             width: 205,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '37%', right: '28.2%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '37%', right: '28.2%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Khoá cửa"
@@ -135,7 +137,7 @@ export default function DoorDetailTooltips() {
             width: 110,
           }}
         >
-          <Box sx={{ position: 'absolute', bottom: '40.3%', right: '20.2%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', bottom: '40.3%', right: '20.2%', ...style }} />
         </CTooltip>
 
         {/* -------------------- TOP ------------------- */}
@@ -147,7 +149,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 486 : 400,
           }}
         >
-          <Box sx={{ position: 'absolute', top: '4.3%', right: '50.7%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '4.3%', right: '50.7%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Khung bao. Thanh ngang"
@@ -156,7 +158,7 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 400 : 350,
           }}
         >
-          <Box sx={{ position: 'absolute', top: '6%', right: '54.1%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '6%', right: '54.1%', ...style }} />
         </CTooltip>
         <CTooltip
           title="Nẹp T ngang"
@@ -165,10 +167,10 @@ export default function DoorDetailTooltips() {
             width: mdUp ? 400 : 350,
           }}
         >
-          <Box sx={{ position: 'absolute', top: '13%', right: '54.1%', ...style }} />
+          <MuiBox sx={{ position: 'absolute', top: '13%', right: '54.1%', ...style }} />
         </CTooltip>
-      </Box>
-    </Box>
+      </MuiBox>
+    </MuiBox>
   );
 }
 
@@ -182,7 +184,7 @@ function CTooltip({ title, children, sx, offset, position = 'left', ...other }: 
       placement={position === 'left' ? 'left-end' : 'right-end'}
       sx={{}}
       title={
-        <Box
+        <MuiBox
           sx={{
             width: 155,
 
@@ -225,7 +227,7 @@ function CTooltip({ title, children, sx, offset, position = 'left', ...other }: 
           }}
         >
           {title}
-        </Box>
+        </MuiBox>
       }
       slotProps={{
         popper: {

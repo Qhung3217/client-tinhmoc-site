@@ -1,10 +1,11 @@
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import { fData } from 'src/utils/format-number';
 
 import { varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { Iconify } from '../../iconify';
 import { fileData, FileThumbnail } from '../../file-thumbnail';
@@ -23,7 +24,7 @@ export function MultiFilePreview({
   files = [],
 }: MultiFilePreviewProps) {
   const renderFirstNode = firstNode && (
-    <Box
+    <MuiBox
       component="li"
       sx={{
         ...(thumbnail && {
@@ -33,22 +34,22 @@ export function MultiFilePreview({
       }}
     >
       {firstNode}
-    </Box>
+    </MuiBox>
   );
 
   const renderLastNode = lastNode && (
-    <Box
+    <MuiBox
       component="li"
       sx={{
         ...(thumbnail && { width: 'auto', display: 'inline-flex' }),
       }}
     >
       {lastNode}
-    </Box>
+    </MuiBox>
   );
 
   return (
-    <Box
+    <MuiBox
       component="ul"
       sx={{
         gap: 1,
@@ -68,7 +69,7 @@ export function MultiFilePreview({
 
         if (thumbnail) {
           return (
-            <Box component="li" key={name} sx={{ display: 'inline-flex' }}>
+            <MuiBox component="li" key={name} sx={{ display: 'inline-flex' }}>
               <FileThumbnail
                 tooltip
                 imageView
@@ -83,12 +84,12 @@ export function MultiFilePreview({
                 slotProps={{ icon: { width: 36, height: 36 } }}
                 {...slotProps?.thumbnail}
               />
-            </Box>
+            </MuiBox>
           );
         }
 
         return (
-          <Box
+          <MuiBox
             component="li"
             key={name}
             sx={{
@@ -99,7 +100,7 @@ export function MultiFilePreview({
               display: 'flex',
               borderRadius: 1,
               alignItems: 'center',
-              border: (theme) =>
+              border: (theme: any) =>
                 `solid 1px ${varAlpha(theme.vars.palette.grey['500Channel'], 0.16)}`,
             }}
           >
@@ -116,11 +117,11 @@ export function MultiFilePreview({
                 <Iconify icon="mingcute:close-line" width={16} />
               </IconButton>
             )}
-          </Box>
+          </MuiBox>
         );
       })}
 
       {renderLastNode}
-    </Box>
+    </MuiBox>
   );
 }

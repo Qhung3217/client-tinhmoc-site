@@ -2,7 +2,6 @@ import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
 import { useMemo } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import Drawer from '@mui/material/Drawer';
@@ -16,6 +15,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import CategoryFilter from './category-filter';
 
@@ -34,7 +34,7 @@ export function ProductFiltersMobile({ filters, options, onFilters, onReset }: P
 
   const renderHead = (
     <>
-      <Box display="flex" alignItems="center" sx={{ py: 2, pr: 1, pl: 2.5 }}>
+      <MuiBox display="flex" alignItems="center" sx={{ py: 2, pr: 1, pl: 2.5 }}>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Bộ lọc
         </Typography>
@@ -50,7 +50,7 @@ export function ProductFiltersMobile({ filters, options, onFilters, onReset }: P
         <IconButton onClick={open.onFalse}>
           <Iconify icon="mingcute:close-line" />
         </IconButton>
-      </Box>
+      </MuiBox>
 
       <Divider sx={{ borderStyle: 'dashed' }} />
     </>

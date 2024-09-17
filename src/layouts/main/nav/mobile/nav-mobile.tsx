@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
@@ -8,6 +7,7 @@ import { usePathname } from 'src/routes/hooks';
 import { Logo } from 'src/components/logo';
 import { NavUl } from 'src/components/nav-section';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { NavList } from './nav-mobile-list';
 
@@ -48,19 +48,25 @@ export function NavMobile({ data, open, onClose, slots, sx }: NavMobileProps) {
       }}
     >
       {slots?.topArea ?? (
-        <Box display="flex" sx={{ pt: 3, pb: 2, pl: 2.5 }}>
+        <MuiBox display="flex" sx={{ pt: 3, pb: 2, pl: 2.5 }}>
           <Logo />
-        </Box>
+        </MuiBox>
       )}
 
       <Scrollbar fillContent>
-        <Box component="nav" display="flex" flexDirection="column" flex="1 1 auto" sx={{ pb: 3 }}>
+        <MuiBox
+          component="nav"
+          display="flex"
+          flexDirection="column"
+          flex="1 1 auto"
+          sx={{ pb: 3 }}
+        >
           <NavUl>
             {data.map((list) => (
               <NavList key={list.title} data={list} />
             ))}
           </NavUl>
-        </Box>
+        </MuiBox>
       </Scrollbar>
     </Drawer>
   );

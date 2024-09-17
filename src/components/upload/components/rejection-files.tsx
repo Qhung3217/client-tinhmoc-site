@@ -1,12 +1,13 @@
 import type { FileRejection } from 'react-dropzone';
 
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 import { fData } from 'src/utils/format-number';
 
 import { varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { fileData } from '../../file-thumbnail';
 
@@ -38,17 +39,17 @@ export function RejectionFiles({ files }: Props) {
         const { path, size } = fileData(file);
 
         return (
-          <Box key={path} sx={{ my: 1 }}>
+          <MuiBox key={path} sx={{ my: 1 }}>
             <Typography variant="subtitle2" noWrap>
               {path} - {size ? fData(size) : ''}
             </Typography>
 
             {errors.map((error) => (
-              <Box key={error.code} component="span" sx={{ typography: 'caption' }}>
+              <MuiBox key={error.code} component="span" sx={{ typography: 'caption' }}>
                 - {error.message}
-              </Box>
+              </MuiBox>
             ))}
-          </Box>
+          </MuiBox>
         );
       })}
     </Paper>

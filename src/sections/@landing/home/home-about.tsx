@@ -1,9 +1,10 @@
 import { m, useAnimationControls } from 'framer-motion';
 
-import { Box, ButtonBase } from '@mui/material';
+import { ButtonBase } from '@mui/material';
 
 import { Image } from 'src/components/image';
 import { SvgColor } from 'src/components/svg-color';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { Carousel, useCarousel } from 'src/components/carousel';
 
 import { SubTitle, SectionTitle } from '../_common/section-title';
@@ -37,7 +38,7 @@ export default function HomeAbout() {
     x: [0, -10, -20, -10, 0],
   };
   return (
-    <Box
+    <MuiBox
       component="section"
       sx={{
         backgroundImage: 'url(/assets/landing/about/bg-intro-2.jpg)',
@@ -46,7 +47,7 @@ export default function HomeAbout() {
         pb: 12.5,
       }}
     >
-      <Box
+      <MuiBox
         sx={{
           pt: 15.625,
           px: '10px',
@@ -72,8 +73,8 @@ export default function HomeAbout() {
         >
           Thành lập năm 2009
         </SubTitle>
-      </Box>
-      <Box
+      </MuiBox>
+      <MuiBox
         sx={{
           position: 'relative',
 
@@ -87,7 +88,7 @@ export default function HomeAbout() {
           mx: 'auto',
         }}
       >
-        <Box
+        <MuiBox
           sx={{
             position: 'absolute',
             top: '50%',
@@ -122,7 +123,7 @@ export default function HomeAbout() {
               <SvgColor src="/assets/landing/icons/prv.svg" />
             </ButtonBase>
           </m.div>
-        </Box>
+        </MuiBox>
         <Carousel
           carousel={carousel}
           sx={{
@@ -131,12 +132,12 @@ export default function HomeAbout() {
           }}
         >
           {slides.map((slide, index) => (
-            <Box sx={{ position: 'relative' }} key={slide + index}>
+            <MuiBox sx={{ position: 'relative' }} key={slide + index}>
               <Image visibleByDefault alt={slide} src={slide} ratio="1/1" />
-            </Box>
+            </MuiBox>
           ))}
         </Carousel>
-        <Box
+        <MuiBox
           sx={{
             position: 'absolute',
             top: '50%',
@@ -171,12 +172,12 @@ export default function HomeAbout() {
               <SvgColor src="/assets/landing/icons/next.svg" />
             </ButtonBase>
           </m.div>
-        </Box>
-      </Box>
+        </MuiBox>
+      </MuiBox>
 
       <SubTitle>
         Giá trị của sản phẩm Tinh Mộc được tạo thành
-        <Box
+        <MuiBox
           component="br"
           sx={{
             display: {
@@ -186,7 +187,7 @@ export default function HomeAbout() {
           }}
         />
         từ vật liệu gỗ tự nhiên có chất lượng cao,
-        <Box
+        <MuiBox
           component="br"
           sx={{
             display: {
@@ -196,7 +197,7 @@ export default function HomeAbout() {
           }}
         />
         công nghệ hiện đại, qui trình sản xuất khép kín
-        <Box
+        <MuiBox
           component="br"
           sx={{
             display: {
@@ -207,6 +208,6 @@ export default function HomeAbout() {
         />
         và đội ngũ chuyên viên kỹ thuật.
       </SubTitle>
-    </Box>
+    </MuiBox>
   );
 }

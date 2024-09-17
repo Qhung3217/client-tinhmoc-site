@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Fade from '@mui/material/Fade';
 import Stack from '@mui/material/Stack';
 import Portal from '@mui/material/Portal';
@@ -13,6 +12,7 @@ import { isExternalLink, removeLastSlash } from 'src/routes/utils';
 
 import { paper } from 'src/theme/styles';
 
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { NavLi, NavUl } from 'src/components/nav-section';
 
 import { NavItem, NavItemDashboard } from './nav-desktop-item';
@@ -95,7 +95,7 @@ export function NavList({ data }: NavListProps) {
         {openMenu && (
           <Portal>
             <Fade in>
-              <Box
+              <MuiBox
                 onMouseEnter={handleOpenMenu}
                 onMouseLeave={handleCloseMenu}
                 sx={{
@@ -109,7 +109,7 @@ export function NavList({ data }: NavListProps) {
                   top: Math.round(clientRect.top + clientRect.height),
                 }}
               >
-                <Box
+                <MuiBox
                   component="nav"
                   sx={{
                     ...paper({ theme, dropdown: true }),
@@ -126,8 +126,8 @@ export function NavList({ data }: NavListProps) {
                       />
                     ))}
                   </NavUl>
-                </Box>
-              </Box>
+                </MuiBox>
+              </MuiBox>
             </Fade>
           </Portal>
         )}

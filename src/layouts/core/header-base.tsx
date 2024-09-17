@@ -1,9 +1,9 @@
 import type { NavSectionProps } from 'src/components/nav-section';
 
-import Box from '@mui/material/Box';
 import { styled, useTheme } from '@mui/material/styles';
 
 import { Logo } from 'src/components/logo';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { HeaderSection } from './header-section';
 import { MenuButton } from '../components/menu-button';
@@ -135,7 +135,7 @@ export function HeaderBase({
           <>
             {slots?.rightAreaStart}
 
-            <Box
+            <MuiBox
               data-area="right"
               sx={{
                 display: 'flex',
@@ -145,7 +145,7 @@ export function HeaderBase({
             >
               {/* -- Account drawer -- */}
               {account && <AccountDrawer data-slot="account" data={data?.account} />}
-            </Box>
+            </MuiBox>
 
             {slots?.rightAreaEnd}
           </>

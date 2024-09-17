@@ -1,14 +1,15 @@
 import type { ModalProps } from '@mui/material';
 
-import { Box, Modal, IconButton } from '@mui/material';
+import { Modal, IconButton } from '@mui/material';
 
 import { Iconify } from '../iconify';
+import { MuiBox } from '../@mui/mui-box';
 
 type Props = ModalProps;
 export default function CustomModal({ children, sx, onClose, ...rest }: Props) {
   return (
     <Modal disableAutoFocus onClose={onClose} {...rest}>
-      <Box
+      <MuiBox
         sx={{
           position: 'absolute',
           top: '50%',
@@ -34,14 +35,14 @@ export default function CustomModal({ children, sx, onClose, ...rest }: Props) {
         >
           <Iconify icon="rivet-icons:close" />
         </IconButton>
-        <Box
+        <MuiBox
           sx={{
             bgcolor: 'background.paper',
           }}
         >
           {children}
-        </Box>
-      </Box>
+        </MuiBox>
+      </MuiBox>
     </Modal>
   );
 }

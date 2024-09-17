@@ -2,11 +2,11 @@ import { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Carousel from 'react-spring-3d-carousel';
 
-import { Box } from '@mui/material';
-
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import { uuidv4 } from 'src/utils/uuidv4';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { SubTitle, SectionTitle } from '../_common/section-title';
 
@@ -49,14 +49,14 @@ export default function HomeDoors() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <Box
+    <MuiBox
       component="section"
       sx={{
         pt: 25,
         backgroundColor: '#1a1a1a',
       }}
     >
-      <Box
+      <MuiBox
         position="relative"
         width={{
           md: 673,
@@ -72,8 +72,8 @@ export default function HomeDoors() {
           animationConfig={{ tension: 210, friction: 30 }}
           offsetRadius={mdUp ? 3 : 2}
         />
-      </Box>
-      <Box
+      </MuiBox>
+      <MuiBox
         sx={{
           py: 7.5,
           px: 2.5,
@@ -85,7 +85,7 @@ export default function HomeDoors() {
           Có nhiều kiểu dáng để chọn <br /> Có hoạ sĩ thiết kế theo mẫu riêng <br />& có cả một đội
           ngũ phục vụ quý khách
         </SubTitle>
-      </Box>
-    </Box>
+      </MuiBox>
+    </MuiBox>
   );
 }

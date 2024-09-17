@@ -4,9 +4,9 @@ import type { Easing, RepeatType } from 'framer-motion';
 import { m } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
-
 import { borderGradient } from 'src/theme/styles';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ export function AnimateBorder({ animate, sx }: AnimateBorderProps) {
   };
 
   return (
-    <Box
+    <MuiBox
       ref={rootRef}
       sx={{
         minWidth: 40,
@@ -123,7 +123,7 @@ export function AnimateBorder({ animate, sx }: AnimateBorderProps) {
         ...sx,
       }}
     >
-      <Box
+      <MuiBox
         ref={animateRef}
         component={m.span}
         transition={transition}
@@ -142,7 +142,7 @@ export function AnimateBorder({ animate, sx }: AnimateBorderProps) {
       />
 
       {!values.disable && !values.disableDoubleline && (
-        <Box
+        <MuiBox
           component={m.span}
           transition={transition}
           animate={{
@@ -166,6 +166,6 @@ export function AnimateBorder({ animate, sx }: AnimateBorderProps) {
           }}
         />
       )}
-    </Box>
+    </MuiBox>
   );
 }

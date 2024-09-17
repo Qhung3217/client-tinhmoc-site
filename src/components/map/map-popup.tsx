@@ -1,13 +1,13 @@
 import { Popup } from 'react-map-gl';
 
-import Box from '@mui/material/Box';
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
 export function MapPopup({ sx, children, ...other }: any) {
   return (
-    <Box component={Popup} anchor="bottom" sx={sx} {...other}>
+    <MuiBox component={Popup} anchor="bottom" sx={sx} {...other}>
       {children}
-    </Box>
+    </MuiBox>
   );
 }

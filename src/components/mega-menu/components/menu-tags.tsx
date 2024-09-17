@@ -1,8 +1,9 @@
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import type { MenuTagsProps } from '../types';
 
@@ -10,7 +11,7 @@ import type { MenuTagsProps } from '../types';
 
 export function MenuTags({ tags, ...other }: MenuTagsProps) {
   return (
-    <Box {...other}>
+    <MuiBox {...other}>
       <Typography variant="caption" sx={{ mr: 0.5, fontWeight: 'fontWeightBold' }}>
         Hot products:
       </Typography>
@@ -30,6 +31,6 @@ export function MenuTags({ tags, ...other }: MenuTagsProps) {
           {index === 0 ? tag.title : `, ${tag.title} `}
         </Link>
       ))}
-    </Box>
+    </MuiBox>
   );
 }

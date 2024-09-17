@@ -1,6 +1,6 @@
 import type { BoxProps } from '@mui/material/Box';
 
-import Box from '@mui/material/Box';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { layoutClasses } from '../classes';
 
@@ -8,7 +8,7 @@ import { layoutClasses } from '../classes';
 
 export function Main({ children, sx, ...other }: BoxProps) {
   return (
-    <Box
+    <MuiBox
       component="main"
       className={layoutClasses.main}
       sx={{
@@ -20,7 +20,7 @@ export function Main({ children, sx, ...other }: BoxProps) {
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 }
 
@@ -28,7 +28,7 @@ export function Main({ children, sx, ...other }: BoxProps) {
 
 export function CompactContent({ children, sx, ...other }: BoxProps) {
   return (
-    <Box
+    <MuiBox
       className={layoutClasses.content}
       sx={{
         width: 1,
@@ -45,6 +45,6 @@ export function CompactContent({ children, sx, ...other }: BoxProps) {
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 }

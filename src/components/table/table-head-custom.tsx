@@ -1,11 +1,12 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import TableSortLabel from '@mui/material/TableSortLabel';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -80,9 +81,9 @@ export function TableHeadCustom({
                 {headCell.label}
 
                 {orderBy === headCell.id ? (
-                  <Box sx={{ ...visuallyHidden }}>
+                  <MuiBox sx={{ ...visuallyHidden }}>
                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </Box>
+                  </MuiBox>
                 ) : null}
               </TableSortLabel>
             ) : (

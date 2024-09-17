@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 
-import { Box, Checkbox, Typography, FormControlLabel } from '@mui/material';
+import { Checkbox, Typography, FormControlLabel } from '@mui/material';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 type Props = {
   options: string[];
@@ -23,7 +25,7 @@ export default function CategoryFilter({ options, filters, title, onFilters }: P
     [onFilters, filters]
   );
   return (
-    <Box display="flex" flexDirection="column">
+    <MuiBox display="flex" flexDirection="column">
       <Typography
         variant="body1"
         sx={{ mb: 1, width: 1, backgroundColor: 'primary.dark', p: 1, fontWeight: 600 }}
@@ -38,6 +40,6 @@ export default function CategoryFilter({ options, filters, title, onFilters }: P
           label={option}
         />
       ))}
-    </Box>
+    </MuiBox>
   );
 }

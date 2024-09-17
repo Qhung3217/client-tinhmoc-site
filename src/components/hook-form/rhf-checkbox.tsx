@@ -7,13 +7,14 @@ import type { FormControlLabelProps } from '@mui/material/FormControlLabel';
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControlLabel from '@mui/material/FormControlLabel';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +38,7 @@ export function RHFCheckbox({ name, helperText, label, slotProps, ...other }: RH
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
-        <Box sx={slotProps?.wrap}>
+        <MuiBox sx={slotProps?.wrap}>
           <FormControlLabel
             control={
               <Checkbox
@@ -59,7 +60,7 @@ export function RHFCheckbox({ name, helperText, label, slotProps, ...other }: RH
               {error ? error?.message : helperText}
             </FormHelperText>
           )}
-        </Box>
+        </MuiBox>
       )}
     />
   );

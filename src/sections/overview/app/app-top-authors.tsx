@@ -1,7 +1,6 @@
-import type { BoxProps } from '@mui/material/Box';
+import type { BoxProps } from '@mui/material';
 import type { CardProps } from '@mui/material/Card';
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
@@ -12,6 +11,7 @@ import { fShortenNumber } from 'src/utils/format-number';
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ export function AppTopAuthors({ title, subheader, list, ...other }: Props) {
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} />
 
-      <Box
+      <MuiBox
         sx={{
           p: 3,
           gap: 3,
@@ -42,7 +42,7 @@ export function AppTopAuthors({ title, subheader, list, ...other }: Props) {
         {orderBy(list, ['totalFavorites'], ['desc']).map((item, index) => (
           <Item key={item.id} item={item} index={index} />
         ))}
-      </Box>
+      </MuiBox>
     </Card>
   );
 }
@@ -56,7 +56,7 @@ type ItemProps = BoxProps & {
 
 function Item({ item, index, sx, ...other }: ItemProps) {
   return (
-    <Box
+    <MuiBox
       sx={{
         gap: 2,
         display: 'flex',
@@ -67,9 +67,9 @@ function Item({ item, index, sx, ...other }: ItemProps) {
     >
       <Avatar alt={item.name} src={item.avatarUrl} />
 
-      <Box flexGrow={1}>
-        <Box sx={{ typography: 'subtitle2' }}>{item.name}</Box>
-        <Box
+      <MuiBox flexGrow={1}>
+        <MuiBox sx={{ typography: 'subtitle2' }}>{item.name}</MuiBox>
+        <MuiBox
           sx={{
             gap: 0.5,
             mt: 0.5,
@@ -81,10 +81,10 @@ function Item({ item, index, sx, ...other }: ItemProps) {
         >
           <Iconify icon="solar:heart-bold" width={14} />
           {fShortenNumber(item.totalFavorites)}
-        </Box>
-      </Box>
+        </MuiBox>
+      </MuiBox>
 
-      <Box
+      <MuiBox
         sx={{
           width: 40,
           height: 40,
@@ -105,7 +105,7 @@ function Item({ item, index, sx, ...other }: ItemProps) {
         }}
       >
         <Iconify width={24} icon="solar:cup-star-bold" />
-      </Box>
-    </Box>
+      </MuiBox>
+    </MuiBox>
   );
 }

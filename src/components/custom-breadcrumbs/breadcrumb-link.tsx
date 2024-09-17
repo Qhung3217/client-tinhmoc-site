@@ -1,7 +1,8 @@
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
 import { RouterLink } from 'src/routes/components';
+
+import { MuiBox } from '../@mui/mui-box';
 
 import type { BreadcrumbsLinkProps } from './types';
 
@@ -26,7 +27,7 @@ export function BreadcrumbsLink({ link, activeLast, disabled }: Props) {
   const renderContent = (
     <>
       {link.icon && (
-        <Box
+        <MuiBox
           component="span"
           sx={{
             mr: 1,
@@ -38,7 +39,7 @@ export function BreadcrumbsLink({ link, activeLast, disabled }: Props) {
           }}
         >
           {link.icon}
-        </Box>
+        </MuiBox>
       )}
 
       {link.name}
@@ -53,5 +54,5 @@ export function BreadcrumbsLink({ link, activeLast, disabled }: Props) {
     );
   }
 
-  return <Box sx={styles}> {renderContent} </Box>;
+  return <MuiBox sx={styles}> {renderContent} </MuiBox>;
 }

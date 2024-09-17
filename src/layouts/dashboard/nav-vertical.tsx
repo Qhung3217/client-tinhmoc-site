@@ -1,13 +1,13 @@
 import type { Breakpoint } from '@mui/material/styles';
 import type { NavSectionProps } from 'src/components/nav-section';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { varAlpha, hideScrollY } from 'src/theme/styles';
 
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { NavSectionMini, NavSectionVertical } from 'src/components/nav-section';
 
 import { NavToggleButton } from '../components/nav-toggle-button';
@@ -38,9 +38,9 @@ export function NavVertical({
   const renderNavVertical = (
     <>
       {slots?.topArea ?? (
-        <Box sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
+        <MuiBox sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
           <Logo />
-        </Box>
+        </MuiBox>
       )}
 
       <Scrollbar fillContent>
@@ -54,9 +54,9 @@ export function NavVertical({
   const renderNavMini = (
     <>
       {slots?.topArea ?? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', py: 2.5 }}>
+        <MuiBox sx={{ display: 'flex', justifyContent: 'center', py: 2.5 }}>
           <Logo />
-        </Box>
+        </MuiBox>
       )}
 
       <NavSectionMini
@@ -70,7 +70,7 @@ export function NavVertical({
   );
 
   return (
-    <Box
+    <MuiBox
       sx={{
         top: 0,
         left: 0,
@@ -103,6 +103,6 @@ export function NavVertical({
         }}
       />
       {isNavMini ? renderNavMini : renderNavVertical}
-    </Box>
+    </MuiBox>
   );
 }

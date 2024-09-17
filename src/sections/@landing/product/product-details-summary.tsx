@@ -1,6 +1,5 @@
 import type { IProductItem } from 'src/types/product';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -15,6 +14,7 @@ import { fCurrency } from 'src/utils/format-number';
 import { Label } from 'src/components/label';
 import { toast } from 'src/components/snackbar';
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { useGetSaleInfo } from './@utils';
 
@@ -55,9 +55,9 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
   };
 
   const renderPrice = (
-    <Box sx={{ typography: 'h5', color: 'primary.light' }}>
+    <MuiBox sx={{ typography: 'h5', color: 'primary.light' }}>
       {!!salePercent && (
-        <Box
+        <MuiBox
           component="span"
           sx={{
             color: 'text.disabled',
@@ -67,11 +67,11 @@ export function ProductDetailsSummary({ product, ...other }: Props) {
           }}
         >
           {fCurrency(price)}
-        </Box>
+        </MuiBox>
       )}
 
       {priceSale !== '' && fCurrency(priceSale)}
-    </Box>
+    </MuiBox>
   );
 
   const renderShare = (

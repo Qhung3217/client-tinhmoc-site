@@ -1,6 +1,7 @@
+import type { Theme } from '@mui/material/styles';
+
 import { useDropzone } from 'react-dropzone';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -8,6 +9,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from '../iconify';
+import { MuiBox } from '../@mui/mui-box';
 import { UploadPlaceholder } from './components/placeholder';
 import { RejectionFiles } from './components/rejection-files';
 import { MultiFilePreview } from './components/preview-multi-file';
@@ -73,8 +75,8 @@ export function Upload({
   );
 
   return (
-    <Box sx={{ width: 1, position: 'relative', ...sx }}>
-      <Box
+    <MuiBox sx={{ width: 1, position: 'relative', ...sx }}>
+      <MuiBox
         {...getRootProps()}
         sx={{
           p: 5,
@@ -83,16 +85,17 @@ export function Upload({
           cursor: 'pointer',
           overflow: 'hidden',
           position: 'relative',
-          bgcolor: (theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
-          border: (theme) => `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
-          transition: (theme) => theme.transitions.create(['opacity', 'padding']),
+          bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.grey['500Channel'], 0.08),
+          border: (theme: Theme) =>
+            `1px dashed ${varAlpha(theme.vars.palette.grey['500Channel'], 0.2)}`,
+          transition: (theme: Theme) => theme.transitions.create(['opacity', 'padding']),
           '&:hover': { opacity: 0.72 },
           ...(isDragActive && { opacity: 0.72 }),
           ...(disabled && { opacity: 0.48, pointerEvents: 'none' }),
           ...(hasError && {
             color: 'error.main',
             borderColor: 'error.main',
-            bgcolor: (theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
+            bgcolor: (theme: Theme) => varAlpha(theme.vars.palette.error.mainChannel, 0.08),
           }),
           ...(hasFile && { padding: '28% 0' }),
         }}
@@ -101,7 +104,7 @@ export function Upload({
 
         {/* Single file */}
         {hasFile ? <SingleFilePreview file={value as File} /> : <UploadPlaceholder />}
-      </Box>
+      </MuiBox>
 
       {/* Single file */}
       {hasFile && <DeleteButton onClick={onDelete} />}
@@ -116,6 +119,6 @@ export function Upload({
 
       {/* Multi files */}
       {renderMultiPreview}
-    </Box>
+    </MuiBox>
   );
 }

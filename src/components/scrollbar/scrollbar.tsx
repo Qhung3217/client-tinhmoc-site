@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 import SimpleBar from 'simplebar-react';
 
-import Box from '@mui/material/Box';
-
+import { MuiBox } from '../@mui/mui-box';
 import { scrollbarClasses } from './classes';
 
 import type { ScrollbarProps } from './types';
@@ -11,7 +10,7 @@ import type { ScrollbarProps } from './types';
 
 export const Scrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
   ({ slotProps, children, fillContent, naturalScroll, sx, ...other }, ref) => (
-    <Box
+    <MuiBox
       component={SimpleBar}
       scrollableNodeProps={{ ref }}
       clickOnTrack={false}
@@ -38,6 +37,6 @@ export const Scrollbar = forwardRef<HTMLDivElement, ScrollbarProps>(
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   )
 );

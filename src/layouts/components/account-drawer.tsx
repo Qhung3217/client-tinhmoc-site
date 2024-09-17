@@ -2,7 +2,6 @@ import type { IconButtonProps } from '@mui/material/IconButton';
 
 import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import { useTheme } from '@mui/material/styles';
@@ -13,6 +12,7 @@ import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { AnimateAvatar } from 'src/components/animate';
 
 import { STORAGE_KEY_USER } from 'src/auth/context/jwt/constant';
@@ -98,9 +98,9 @@ export function AccountDrawer({ data = [], sx, ...other }: AccountDrawerProps) {
           </Stack>
         </Scrollbar>
 
-        <Box sx={{ p: 2.5 }}>
+        <MuiBox sx={{ p: 2.5 }}>
           <SignOutButton onClose={handleCloseDrawer} />
-        </Box>
+        </MuiBox>
       </Drawer>
     </>
   );

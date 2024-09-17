@@ -2,7 +2,6 @@ import type { BoxProps } from '@mui/material/Box';
 
 import { forwardRef, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import ButtonBase from '@mui/material/ButtonBase';
 import { alpha as hexAlpha } from '@mui/material/styles';
@@ -10,6 +9,7 @@ import { alpha as hexAlpha } from '@mui/material/styles';
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from '../iconify';
+import { MuiBox } from '../@mui/mui-box';
 
 import type { ColorPickerProps } from './types';
 
@@ -37,7 +37,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, BoxProps & ColorPickerProp
     );
 
     return (
-      <Box
+      <MuiBox
         ref={ref}
         component="ul"
         sx={{
@@ -56,7 +56,7 @@ export const ColorPicker = forwardRef<HTMLDivElement, BoxProps & ColorPickerProp
           const hasSelected = singleSelect ? selected === color : selected.includes(color);
 
           return (
-            <Box component="li" key={color} sx={{ display: 'inline-flex' }}>
+            <MuiBox component="li" key={color} sx={{ display: 'inline-flex' }}>
               <ButtonBase
                 aria-label={color}
                 onClick={() => handleSelect(color)}
@@ -101,10 +101,10 @@ export const ColorPicker = forwardRef<HTMLDivElement, BoxProps & ColorPickerProp
                   />
                 </Stack>
               </ButtonBase>
-            </Box>
+            </MuiBox>
           );
         })}
-      </Box>
+      </MuiBox>
     );
   }
 );

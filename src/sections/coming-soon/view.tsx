@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -15,6 +14,7 @@ import { varAlpha } from 'src/theme/styles';
 import { ComingSoonIllustration } from 'src/assets/illustrations';
 
 import { SocialIcon } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ export function ComingSoonView() {
       <Stack
         direction="row"
         justifyContent="center"
-        divider={<Box sx={{ mx: { xs: 1, sm: 2.5 } }}>:</Box>}
+        divider={<MuiBox sx={{ mx: { xs: 1, sm: 2.5 } }}>:</MuiBox>}
         sx={{ typography: 'h2' }}
       >
         <TimeBlock label="days" value={countdown.days} />
@@ -61,7 +61,7 @@ export function ComingSoonView() {
             [`&.${outlinedInputClasses.focused}`]: {
               boxShadow: (theme) => theme.customShadows.z20,
               transition: (theme) =>
-                theme.transitions.create(['box-shadow'], {
+                theme.transitions.create(['MuiBox-shadow'], {
                   duration: theme.transitions.duration.shorter,
                 }),
               [`& .${outlinedInputClasses.notchedOutline}`]: {
@@ -96,7 +96,7 @@ function TimeBlock({ label, value }: TimeBlockProps) {
   return (
     <div>
       <div> {value} </div>
-      <Box sx={{ color: 'text.secondary', typography: 'body1' }}>{label}</Box>
+      <MuiBox sx={{ color: 'text.secondary', typography: 'body1' }}>{label}</MuiBox>
     </div>
   );
 }

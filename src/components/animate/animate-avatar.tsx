@@ -4,8 +4,9 @@ import type { AvatarProps } from '@mui/material/Avatar';
 
 import { m } from 'framer-motion';
 
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +34,7 @@ export function AnimateAvatar({
   const spacing = slotProps?.overlay?.spacing ?? 2;
 
   return (
-    <Box
+    <MuiBox
       sx={{
         width,
         height: width,
@@ -61,7 +62,7 @@ export function AnimateAvatar({
         {children}
       </Avatar>
 
-      <Box
+      <MuiBox
         component={m.span}
         animate={{ rotate: 360 }}
         transition={{
@@ -85,6 +86,6 @@ export function AnimateAvatar({
           p: `${borderWidth}px`,
         }}
       />
-    </Box>
+    </MuiBox>
   );
 }

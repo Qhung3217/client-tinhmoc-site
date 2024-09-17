@@ -3,7 +3,6 @@ import type { LinkProps } from '@mui/material/Link';
 import { m } from 'framer-motion';
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -14,6 +13,7 @@ import { RouterLink } from 'src/routes/components';
 import { CONFIG } from 'src/config-global';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { useNavItem } from 'src/components/nav-section/hooks';
 
 import type { NavItemProps, NavItemStateProps } from '../types';
@@ -131,7 +131,7 @@ export function NavItemDashboard({ path, sx, ...other }: NavItemDashboardProps) 
           whileHover="hover"
           variants={{ hover: { scale: 1.02 }, tap: { scale: 0.98 } }}
         >
-          <Box
+          <MuiBox
             component="img"
             alt="illustration-dashboard"
             src={`${CONFIG.site.basePath}/assets/illustrations/illustration-dashboard.webp`}

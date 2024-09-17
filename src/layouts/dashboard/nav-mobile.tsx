@@ -2,13 +2,13 @@ import type { NavSectionProps } from 'src/components/nav-section';
 
 import { useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Drawer, { drawerClasses } from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
 
 import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { NavSectionVertical } from 'src/components/nav-section';
 
 // ----------------------------------------------------------------------
@@ -46,9 +46,9 @@ export function NavMobile({ data, open, onClose, slots, sx, ...other }: NavMobil
       }}
     >
       {slots?.topArea ?? (
-        <Box sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
+        <MuiBox sx={{ pl: 3.5, pt: 2.5, pb: 1 }}>
           <Logo />
-        </Box>
+        </MuiBox>
       )}
 
       <Scrollbar fillContent>

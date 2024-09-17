@@ -1,6 +1,6 @@
+import type { Theme } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
-import Box from '@mui/material/Box';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -9,6 +9,7 @@ import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { SvgColor } from '../../svg-color';
 
@@ -40,7 +41,7 @@ export function BaseOption({ icon, label, tooltip, selected, ...other }: Props) 
       }}
       {...other}
     >
-      <Box
+      <MuiBox
         display="flex"
         alignItems="center"
         justifyContent="space-between"
@@ -48,19 +49,19 @@ export function BaseOption({ icon, label, tooltip, selected, ...other }: Props) 
       >
         <SvgColor src={`${CONFIG.site.basePath}/assets/icons/setting/ic-${icon}.svg`} />
         <Switch name={label} size="small" color="default" checked={selected} sx={{ mr: -0.75 }} />
-      </Box>
+      </MuiBox>
 
-      <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ width: 1 }}>
-        <Box
+      <MuiBox display="flex" alignItems="center" justifyContent="space-between" sx={{ width: 1 }}>
+        <MuiBox
           component="span"
           sx={{
             lineHeight: '18px',
             fontWeight: 'fontWeightSemiBold',
-            fontSize: (theme) => theme.typography.pxToRem(13),
+            fontSize: (theme: Theme) => theme.typography.pxToRem(13),
           }}
         >
           {label}
-        </Box>
+        </MuiBox>
 
         {tooltip && (
           <Tooltip
@@ -77,7 +78,7 @@ export function BaseOption({ icon, label, tooltip, selected, ...other }: Props) 
             />
           </Tooltip>
         )}
-      </Box>
+      </MuiBox>
     </ButtonBase>
   );
 }

@@ -1,7 +1,8 @@
 import { memo } from 'react';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { BackgroundShape } from './background-shape';
 
@@ -26,7 +27,7 @@ function UploadIllustration({ hideBackground, sx, ...other }: any) {
     ...other,
   };
   return (
-    <Box component="div" {...props}>
+    <MuiBox component="div" {...props}>
       <svg width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
         {!hideBackground && <BackgroundShape />}
 
@@ -614,7 +615,7 @@ function UploadIllustration({ hideBackground, sx, ...other }: any) {
           d="M200.058 225.406l-.699-.681a.721.721 0 010-1.065l6.127-5.984a.753.753 0 01.546-.231c.206 0 .404.083.545.231l6.127 5.978a.733.733 0 010 1.065l-.699.682a.768.768 0 01-1.091 0l-3.622-3.727v8.843a.725.725 0 01-.219.523.76.76 0 01-.534.217h-1.009a.75.75 0 01-.759-.74v-8.832l-3.622 3.726a.768.768 0 01-1.091-.005z"
         />
       </svg>
-    </Box>
+    </MuiBox>
   );
 }
 

@@ -1,9 +1,10 @@
-import Box from '@mui/material/Box';
 import NoSsr from '@mui/material/NoSsr';
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { carouselClasses } from '../classes';
 
@@ -37,7 +38,7 @@ export function CarouselDotButtons({
   };
 
   const renderFallback = (
-    <Box
+    <MuiBox
       sx={{
         height: SIZES.circular,
         width: `calc(${fallbackCount * SIZES.circular + GAPS.circular * (fallbackCount - 1)}px )`,
@@ -102,7 +103,7 @@ export function CarouselDotButtons({
 
   return (
     <NoSsr fallback={fallback ? renderFallback : null}>
-      <Box
+      <MuiBox
         component="ul"
         className={carouselClasses.dots}
         sx={{
@@ -119,7 +120,7 @@ export function CarouselDotButtons({
           const selected = index === selectedIndex;
 
           return (
-            <Box component="li" key={index} sx={{ display: 'inline-flex' }}>
+            <MuiBox component="li" key={index} sx={{ display: 'inline-flex' }}>
               <ButtonBase
                 disableRipple
                 aria-label={`dot-${index}`}
@@ -139,10 +140,10 @@ export function CarouselDotButtons({
               >
                 {variant === 'number' && index + 1}
               </ButtonBase>
-            </Box>
+            </MuiBox>
           );
         })}
-      </Box>
+      </MuiBox>
     </NoSsr>
   );
 }

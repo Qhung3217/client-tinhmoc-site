@@ -5,7 +5,7 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 
-import { Box, Button, TextField, IconButton, Typography, Autocomplete } from '@mui/material';
+import { Button, TextField, IconButton, Typography, Autocomplete } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -16,6 +16,7 @@ import useQueryParams from 'src/hooks/use-query-params';
 import { useSearchProducts } from 'src/actions/product';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 type Props = {
@@ -197,7 +198,7 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
             const parts = parse(option.label, matches);
 
             return option.value === VIEW_MORE_VALUE ? (
-              <Box component="li" {...props}>
+              <MuiBox component="li" {...props}>
                 <Button
                   fullWidth
                   variant="text"
@@ -211,9 +212,9 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
                 >
                   {option.label}
                 </Button>
-              </Box>
+              </MuiBox>
             ) : (
-              <Box component="li" {...props} onClick={handleClick} key={option.value}>
+              <MuiBox component="li" {...props} onClick={handleClick} key={option.value}>
                 <div key={inputValue}>
                   {parts.map((part, index) => (
                     <Typography
@@ -229,7 +230,7 @@ export default function LandingSearch({ offsetTop, theme }: Props) {
                     </Typography>
                   ))}
                 </div>
-              </Box>
+              </MuiBox>
             );
           }}
         />

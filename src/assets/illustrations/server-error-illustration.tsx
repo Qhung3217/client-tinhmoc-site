@@ -1,9 +1,10 @@
 import { memo } from 'react';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { CONFIG } from 'src/config-global';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { BackgroundShape } from './background-shape';
 
@@ -32,7 +33,7 @@ function ServerErrorIllustration({ hideBackground, sx, ...other }: any) {
     ...other,
   };
   return (
-    <Box component="div" {...props}>
+    <MuiBox component="div" {...props}>
       <svg width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
         {!hideBackground && <BackgroundShape />}
 
@@ -152,7 +153,7 @@ function ServerErrorIllustration({ hideBackground, sx, ...other }: any) {
           </linearGradient>
         </defs>
       </svg>
-    </Box>
+    </MuiBox>
   );
 }
 

@@ -1,8 +1,9 @@
-import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { CONFIG } from 'src/config-global';
 import { setFont, varAlpha, stylesMode } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { Block } from './styles';
 import { SvgColor } from '../../svg-color';
@@ -18,12 +19,12 @@ type Props = {
 export function FontOptions({ value, options, onClickOption }: Props) {
   return (
     <Block title="Font">
-      <Box component="ul" gap={1.5} display="grid" gridTemplateColumns="repeat(2, 1fr)">
+      <MuiBox component="ul" gap={1.5} display="grid" gridTemplateColumns="repeat(2, 1fr)">
         {options.map((option) => {
           const selected = value === option;
 
           return (
-            <Box component="li" key={option} sx={{ display: 'inline-flex' }}>
+            <MuiBox component="li" key={option} sx={{ display: 'inline-flex' }}>
               <ButtonBase
                 disableRipple
                 onClick={() => onClickOption(option)}
@@ -68,10 +69,10 @@ export function FontOptions({ value, options, onClickOption }: Props) {
 
                 {option}
               </ButtonBase>
-            </Box>
+            </MuiBox>
           );
         })}
-      </Box>
+      </MuiBox>
     </Block>
   );
 }

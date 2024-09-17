@@ -6,9 +6,8 @@ import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import ReactLightbox, { useLightboxState } from 'yet-another-react-lightbox';
 
-import Box from '@mui/material/Box';
-
 import { Iconify } from '../iconify';
+import { MuiBox } from '../@mui/mui-box';
 import { lightboxClasses } from './classes';
 
 import type { LightBoxProps } from './types';
@@ -122,7 +121,7 @@ export function DisplayTotal({ totalItems, disableTotal }: DisplayTotalProps) {
   }
 
   return (
-    <Box
+    <MuiBox
       component="span"
       className="yarl__button"
       sx={{
@@ -133,6 +132,6 @@ export function DisplayTotal({ totalItems, disableTotal }: DisplayTotalProps) {
       }}
     >
       <strong> {currentIndex + 1} </strong> / {totalItems}
-    </Box>
+    </MuiBox>
   );
 }

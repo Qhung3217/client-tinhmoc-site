@@ -1,9 +1,10 @@
 import { m, useAnimationControls } from 'framer-motion';
 
-import { Box, Stack, ButtonBase } from '@mui/material';
+import { Stack, ButtonBase } from '@mui/material';
 
 import { Image } from 'src/components/image';
 import { SvgColor } from 'src/components/svg-color';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { Carousel, useCarousel } from 'src/components/carousel';
 
 import { SubTitle, SectionTitle } from '../_common/section-title';
@@ -34,16 +35,16 @@ export default function HomeFeatured() {
     x: [0, -10, -20, -10, 0],
   };
   return (
-    <Box sx={{ position: 'relative' }} component="section">
+    <MuiBox sx={{ position: 'relative' }} component="section">
       <Carousel carousel={carousel}>
         {slides.map((slide, index) => (
-          <Box sx={{ position: 'relative' }} key={slide + index}>
+          <MuiBox sx={{ position: 'relative' }} key={slide + index}>
             <Image visibleByDefault alt={slide} src={slide} ratio={{ xs: '4/3', sm: '16/10' }} />
-          </Box>
+          </MuiBox>
         ))}
       </Carousel>
       <Stack direction="row" alignItems="center" sx={{ py: 6.25, backgroundColor: '#1a1a1a' }}>
-        <Box
+        <MuiBox
           component={m.div}
           sx={{
             display: {
@@ -71,8 +72,8 @@ export default function HomeFeatured() {
           <ButtonBase sx={buttonStyles} onClick={carousel.arrows.onClickPrev}>
             <SvgColor src="/assets/landing/icons/prv.svg" />
           </ButtonBase>
-        </Box>
-        <Box
+        </MuiBox>
+        <MuiBox
           flexGrow={1}
           display="flex"
           alignItems="center"
@@ -104,8 +105,8 @@ export default function HomeFeatured() {
             Mỗi cánh cửa sẽ mở ra một không gian mới,
             <br /> mang lại niềm vui, hạnh phúc và sự an lành.
           </SubTitle>
-        </Box>
-        <Box
+        </MuiBox>
+        <MuiBox
           component={m.div}
           sx={{
             display: {
@@ -133,8 +134,8 @@ export default function HomeFeatured() {
           <ButtonBase sx={buttonStyles} onClick={carousel.arrows.onClickNext}>
             <SvgColor src="/assets/landing/icons/next.svg" />
           </ButtonBase>
-        </Box>
+        </MuiBox>
       </Stack>
-    </Box>
+    </MuiBox>
   );
 }

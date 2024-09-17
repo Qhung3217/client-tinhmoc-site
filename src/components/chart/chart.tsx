@@ -2,7 +2,7 @@ import type { BoxProps } from '@mui/material/Box';
 
 import ApexChart from 'react-apexcharts';
 
-import Box from '@mui/material/Box';
+import { MuiBox } from '../@mui/mui-box';
 
 import type { ChartProps } from './types';
 
@@ -18,7 +18,7 @@ export function Chart({
   ...other
 }: BoxProps & ChartProps) {
   return (
-    <Box
+    <MuiBox
       dir="ltr"
       sx={{
         width,
@@ -31,6 +31,6 @@ export function Chart({
       {...other}
     >
       <ApexChart type={type} series={series} options={options} width="100%" height="100%" />
-    </Box>
+    </MuiBox>
   );
 }

@@ -1,6 +1,5 @@
 import type { IProductListItem } from 'src/types/product';
 
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -13,6 +12,7 @@ import { fCurrency } from 'src/utils/format-number';
 
 import { Label } from 'src/components/label';
 import { Image } from 'src/components/image';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { useGetSaleInfo } from './@utils';
 
@@ -60,7 +60,7 @@ export function ProductItem({ product, sx }: Props) {
   );
 
   const renderImg = (
-    <Box sx={{ position: 'relative', p: 0, flexShrink: 0 }}>
+    <MuiBox sx={{ position: 'relative', p: 0, flexShrink: 0 }}>
       <Image
         alt={title}
         src={`${thumbnail}`}
@@ -76,13 +76,13 @@ export function ProductItem({ product, sx }: Props) {
           },
         }}
       />
-    </Box>
+    </MuiBox>
   );
 
   const renderContent = (
     <Stack spacing={2} sx={{ pt: 0, justifyContent: 'space-between', height: 1 }}>
       {renderImg}
-      <Box
+      <MuiBox
         sx={{
           flex: 1,
           px: 2,
@@ -121,7 +121,7 @@ export function ProductItem({ product, sx }: Props) {
         >
           {title}
         </Link>
-      </Box>
+      </MuiBox>
       <Stack
         direction="row"
         spacing={0.5}
@@ -137,13 +137,13 @@ export function ProductItem({ product, sx }: Props) {
           pb: 2,
         }}
       >
-        <Box component="span" color={isSale || priceSale === '' ? 'error.main' : 'inherit'}>
+        <MuiBox component="span" color={isSale || priceSale === '' ? 'error.main' : 'inherit'}>
           {priceSale === '' ? 'Liên hệ' : fCurrency(priceSale)}
-        </Box>
+        </MuiBox>
         {isSale && (
-          <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
+          <MuiBox component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
             {fCurrency(price)}
-          </Box>
+          </MuiBox>
         )}
       </Stack>
     </Stack>

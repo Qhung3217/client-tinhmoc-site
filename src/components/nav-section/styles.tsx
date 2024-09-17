@@ -2,12 +2,12 @@ import type { BoxProps } from '@mui/material/Box';
 import type { CollapseProps } from '@mui/material/Collapse';
 import type { ListSubheaderProps } from '@mui/material/ListSubheader';
 
-import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import ListSubheader from '@mui/material/ListSubheader';
 
 import { stylesMode } from 'src/theme/styles';
 
+import { MuiBox } from '../@mui/mui-box';
 import { navSectionClasses } from './classes';
 import { svgColorClasses } from '../svg-color';
 import { Iconify, iconifyClasses } from '../iconify';
@@ -183,7 +183,7 @@ export function NavLi({
   disabled?: boolean;
 }) {
   return (
-    <Box
+    <MuiBox
       component="li"
       className={navSectionClasses.li}
       sx={{
@@ -195,7 +195,7 @@ export function NavLi({
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 }
 
@@ -203,7 +203,7 @@ export function NavLi({
 
 export function NavUl({ children, sx, ...other }: BoxProps) {
   return (
-    <Box
+    <MuiBox
       component="ul"
       className={navSectionClasses.ul}
       sx={{
@@ -214,6 +214,6 @@ export function NavUl({ children, sx, ...other }: BoxProps) {
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 }

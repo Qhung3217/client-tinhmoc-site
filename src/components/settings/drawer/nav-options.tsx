@@ -1,12 +1,14 @@
+import type { Theme } from 'src/theme/types';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha, stylesMode } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { Block } from './styles';
 import { SvgColor, svgColorClasses } from '../../svg-color';
@@ -54,10 +56,10 @@ export function NavOptions({ options, value, onClickOption, hideNavColor, hideNa
 
   const renderLayout = (
     <div>
-      <Box component="span" sx={labelStyles}>
+      <MuiBox component="span" sx={labelStyles}>
         Layout
-      </Box>
-      <Box gap={1.5} display="flex" sx={{ mt: 1.5 }}>
+      </MuiBox>
+      <MuiBox gap={1.5} display="flex" sx={{ mt: 1.5 }}>
         {options.layouts.map((option) => (
           <LayoutOption
             key={option}
@@ -66,16 +68,16 @@ export function NavOptions({ options, value, onClickOption, hideNavColor, hideNa
             onClick={() => onClickOption.layout(option)}
           />
         ))}
-      </Box>
+      </MuiBox>
     </div>
   );
 
   const renderColor = (
     <div>
-      <Box component="span" sx={labelStyles}>
+      <MuiBox component="span" sx={labelStyles}>
         Color
-      </Box>
-      <Box gap={1.5} display="flex" sx={{ mt: 1.5 }}>
+      </MuiBox>
+      <MuiBox gap={1.5} display="flex" sx={{ mt: 1.5 }}>
         {options.colors.map((option) => (
           <ColorOption
             key={option}
@@ -84,7 +86,7 @@ export function NavOptions({ options, value, onClickOption, hideNavColor, hideNa
             onClick={() => onClickOption.color(option)}
           />
         ))}
-      </Box>
+      </MuiBox>
     </div>
   );
 
@@ -108,7 +110,7 @@ export function LayoutOption({ option, selected, sx, ...other }: OptionProps) {
     const baseStyles = { flexShrink: 0, borderRadius: 1, bgcolor: 'var(--item-bg)' };
 
     const circle = (
-      <Box
+      <MuiBox
         sx={{
           ...baseStyles,
           width: 10,
@@ -120,7 +122,7 @@ export function LayoutOption({ option, selected, sx, ...other }: OptionProps) {
     );
 
     const primaryItem = (
-      <Box
+      <MuiBox
         sx={{
           ...baseStyles,
           width: 1,
@@ -133,7 +135,7 @@ export function LayoutOption({ option, selected, sx, ...other }: OptionProps) {
     );
 
     const secondaryItem = (
-      <Box
+      <MuiBox
         sx={{
           ...baseStyles,
           width: 1,
@@ -180,8 +182,8 @@ export function LayoutOption({ option, selected, sx, ...other }: OptionProps) {
   };
 
   const renderContent = (
-    <Box sx={{ p: 0.5, width: 1, height: 1, flexGrow: 1 }}>
-      <Box
+    <MuiBox sx={{ p: 0.5, width: 1, height: 1, flexGrow: 1 }}>
+      <MuiBox
         sx={{
           width: 1,
           height: 1,
@@ -191,7 +193,7 @@ export function LayoutOption({ option, selected, sx, ...other }: OptionProps) {
           ...(selected && { background: 'var(--item-active-color)' }),
         }}
       />
-    </Box>
+    </MuiBox>
   );
 
   return (
@@ -254,17 +256,17 @@ export function ColorOption({ option, selected, sx, ...other }: OptionProps) {
         src={`${CONFIG.site.basePath}/assets/icons/setting/ic-sidebar-${option === 'integrate' ? 'outline' : 'filled'}.svg`}
       />
 
-      <Box
+      <MuiBox
         component="span"
         sx={{
           lineHeight: '18px',
           textTransform: 'capitalize',
           fontWeight: 'fontWeightSemiBold',
-          fontSize: (theme) => theme.typography.pxToRem(13),
+          fontSize: (theme: Theme) => theme.typography.pxToRem(13),
         }}
       >
         {option}
-      </Box>
+      </MuiBox>
     </ButtonBase>
   );
 }

@@ -1,7 +1,8 @@
 import type { BoxProps } from '@mui/material/Box';
 
-import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
+
+import { MuiBox } from '../@mui/mui-box';
 
 import type { ChartBaseProps } from './types';
 
@@ -15,7 +16,7 @@ export function ChartLoading({ sx, type, ...other }: Props) {
   const circularTypes = ['donut', 'radialBar', 'pie', 'polarArea'];
 
   return (
-    <Box
+    <MuiBox
       alignItems="center"
       justifyContent="center"
       sx={{
@@ -43,6 +44,6 @@ export function ChartLoading({ sx, type, ...other }: Props) {
           }),
         }}
       />
-    </Box>
+    </MuiBox>
   );
 }

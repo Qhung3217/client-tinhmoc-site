@@ -4,12 +4,13 @@ import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
 import { Children, forwardRef, isValidElement } from 'react';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { carouselClasses } from '../classes';
 import { CarouselSlide } from './carousel-slide';
@@ -106,12 +107,12 @@ export function CarouselThumb({
       }}
       {...other}
     >
-      <Box
+      <MuiBox
         component="img"
         alt={`carousel-thumb-${index}`}
         src={src}
         className={carouselClasses.thumbImage}
-        onError={({ currentTarget }) => {
+        onError={({ currentTarget }: any) => {
           currentTarget.onerror = null;
           currentTarget.src = `${CONFIG.site.basePath}/assets/default-image.png`;
         }}

@@ -2,9 +2,9 @@ import type { BoxProps } from '@mui/material/Box';
 
 import { forwardRef } from 'react';
 
-import Box from '@mui/material/Box';
-
 import { varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from '../@mui/mui-box';
 
 import type { ColorPreviewProps } from './types';
 
@@ -17,7 +17,7 @@ export const ColorPreview = forwardRef<HTMLDivElement, BoxProps & ColorPreviewPr
     const restColors = colors.length - limit;
 
     return (
-      <Box
+      <MuiBox
         ref={ref}
         sx={{
           display: 'flex',
@@ -29,7 +29,7 @@ export const ColorPreview = forwardRef<HTMLDivElement, BoxProps & ColorPreviewPr
         {...other}
       >
         {colorsRange.map((color, index) => (
-          <Box
+          <MuiBox
             key={color + index}
             sx={{
               ml: -0.75,
@@ -37,17 +37,17 @@ export const ColorPreview = forwardRef<HTMLDivElement, BoxProps & ColorPreviewPr
               height: 16,
               bgcolor: color,
               borderRadius: '50%',
-              border: (theme) => `solid 2px ${theme.vars.palette.background.paper}`,
-              boxShadow: (theme) =>
+              border: (theme: any) => `solid 2px ${theme.vars.palette.background.paper}`,
+              boxShadow: (theme: any) =>
                 `inset -1px 1px 2px ${varAlpha(theme.vars.palette.common.blackChannel, 0.24)}`,
             }}
           />
         ))}
 
         {colors.length > limit && (
-          <Box component="span" sx={{ typography: 'subtitle2' }}>{`+${restColors}`}</Box>
+          <MuiBox component="span" sx={{ typography: 'subtitle2' }}>{`+${restColors}`}</MuiBox>
         )}
-      </Box>
+      </MuiBox>
     );
   }
 );

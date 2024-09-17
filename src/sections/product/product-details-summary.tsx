@@ -1,11 +1,12 @@
 /* eslint-disable react/no-danger */
 import type { IProductItem } from 'src/types/product';
 
-import { Box } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { fCurrency } from 'src/utils/format-number';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -16,21 +17,6 @@ type Props = {
 export function ProductDetailsSummary({ product }: Props) {
   const { slug, title, content, category, price, salePercent } = product;
 
-  //   const renderPrice = (
-  //     <Box sx={{ typography: 'h5' }}>
-  //       {priceSale && (
-  //         <Box
-  //           component="span"
-  //           sx={{ color: 'text.disabled', textDecoration: 'line-through', mr: 0.5 }}
-  //         >
-  //           {fCurrency(priceSale)}
-  //         </Box>
-  //       )}
-
-  //       {fCurrency(price)}
-  //     </Box>
-  //   );
-
   const renderDescription = (
     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
       <div dangerouslySetInnerHTML={{ __html: content }} />
@@ -38,7 +24,7 @@ export function ProductDetailsSummary({ product }: Props) {
   );
 
   const renderInventoryType = (
-    <Box
+    <MuiBox
       component="span"
       sx={{
         typography: 'overline',
@@ -46,7 +32,7 @@ export function ProductDetailsSummary({ product }: Props) {
       }}
     >
       {category.name}
-    </Box>
+    </MuiBox>
   );
 
   return (
@@ -56,7 +42,7 @@ export function ProductDetailsSummary({ product }: Props) {
 
         <Typography variant="h6">{slug}</Typography>
 
-        <Box sx={{ position: 'relative', typography: 'h5' }}>
+        <MuiBox sx={{ position: 'relative', typography: 'h5' }}>
           {salePercent !== 0 && (
             <Typography
               component="span"
@@ -72,7 +58,7 @@ export function ProductDetailsSummary({ product }: Props) {
             </Typography>
           )}
           {salePercent !== 0 && (
-            <Box
+            <MuiBox
               component="span"
               sx={{
                 color: 'text.disabled',
@@ -81,18 +67,18 @@ export function ProductDetailsSummary({ product }: Props) {
               }}
             >
               {fCurrency(price)}
-            </Box>
+            </MuiBox>
           )}
 
-          <Box
+          <MuiBox
             component="span"
             sx={{
               mr: 0.5,
             }}
           >
             {fCurrency(Number(price) * ((100 - salePercent) / 100))}
-          </Box>
-        </Box>
+          </MuiBox>
+        </MuiBox>
 
         <Typography variant="h5">{title}</Typography>
 

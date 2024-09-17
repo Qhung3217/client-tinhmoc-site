@@ -2,13 +2,14 @@ import type { StackProps } from '@mui/material/Stack';
 import type { CSSObject } from '@mui/material/styles';
 import type { ButtonBaseProps } from '@mui/material/ButtonBase';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import { useTheme } from '@mui/material/styles';
 import ButtonBase, { buttonBaseClasses } from '@mui/material/ButtonBase';
 
 import { varAlpha, stylesMode } from 'src/theme/styles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { carouselClasses } from '../classes';
 
@@ -110,13 +111,13 @@ export function CarouselArrowNumberButtons({
         svgSize={slotProps?.prevBtn?.svgSize ?? 16}
       />
 
-      <Box
+      <MuiBox
         component="span"
         className={carouselClasses.arrowsLabel}
         sx={{ mx: 0.5, typography: 'subtitle2' }}
       >
         {selectedIndex}/{totalSlides}
-      </Box>
+      </MuiBox>
 
       <ArrowButton
         variant="next"

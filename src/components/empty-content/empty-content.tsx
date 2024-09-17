@@ -1,12 +1,13 @@
 import type { StackProps } from '@mui/material/Stack';
 import type { Theme, SxProps } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { CONFIG } from 'src/config-global';
 import { varAlpha } from 'src/theme/styles';
+
+import { MuiBox } from '../@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -50,7 +51,7 @@ export function EmptyContent({
       }}
       {...other}
     >
-      <Box
+      <MuiBox
         component="img"
         alt="empty content"
         src={imgUrl ?? `${CONFIG.site.basePath}/assets/icons/empty/ic-content.svg`}

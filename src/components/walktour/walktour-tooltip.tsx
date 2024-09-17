@@ -1,4 +1,5 @@
-import Box from '@mui/material/Box';
+import type { Theme } from '@mui/material/styles';
+
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -7,6 +8,8 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+
+import { MuiBox } from '../@mui/mui-box';
 
 import type { WalktourTooltipProps } from './types';
 
@@ -97,17 +100,17 @@ export function WalktourTooltip({
   );
 
   return (
-    <Box
+    <MuiBox
       {...tooltipProps}
       sx={{
         width: 360,
         borderRadius: 2,
         bgcolor: 'background.paper',
-        boxShadow: (theme) => theme.customShadows.dialog,
+        boxShadow: (theme: Theme) => theme.customShadows.dialog,
         ...slotProps?.root,
       }}
     >
-      <Box sx={{ px: 3, pt: 3, position: 'relative' }}>
+      <MuiBox sx={{ px: 3, pt: 3, position: 'relative' }}>
         {title && (
           <Typography variant="h6" sx={slotProps?.title}>
             {title}
@@ -115,31 +118,31 @@ export function WalktourTooltip({
         )}
 
         {!hideCloseButton && renderCloseBtn}
-      </Box>
+      </MuiBox>
 
-      {content && <Box sx={{ px: 3, pt: 2, pb: 4, ...slotProps?.content }}>{content}</Box>}
+      {content && <MuiBox sx={{ px: 3, pt: 2, pb: 4, ...slotProps?.content }}>{content}</MuiBox>}
 
       {showProgress && renderProgress}
 
       {!hideFooter && (
-        <Box
+        <MuiBox
           sx={{
             p: 2.5,
             gap: 1.5,
             display: 'flex',
             justifyContent: 'flex-end',
-            borderTop: (theme) => `solid 1px ${theme.vars.palette.divider}`,
+            borderTop: (theme: Theme) => `solid 1px ${theme.vars.palette.divider}`,
           }}
         >
           {showSkipButton && renderSkipBtn}
 
-          <Box sx={{ flexGrow: 1 }} />
+          <MuiBox sx={{ flexGrow: 1 }} />
 
           {!hideBackButton && renderBackBtn}
 
           {renderNextBtn}
-        </Box>
+        </MuiBox>
       )}
-    </Box>
+    </MuiBox>
   );
 }

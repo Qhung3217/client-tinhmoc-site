@@ -1,7 +1,8 @@
 import type { Theme, SxProps, CSSObject } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import GlobalStyles from '@mui/material/GlobalStyles';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { layoutClasses } from '../classes';
 
@@ -44,11 +45,11 @@ export function LayoutSection({
     <>
       {inputGlobalStyles}
 
-      <Box id="root__layout" className={layoutClasses.root} sx={sx}>
+      <MuiBox id="root__layout" className={layoutClasses.root} sx={sx}>
         {sidebarSection ? (
           <>
             {sidebarSection}
-            <Box
+            <MuiBox
               display="flex"
               flex="1 1 auto"
               flexDirection="column"
@@ -57,7 +58,7 @@ export function LayoutSection({
               {headerSection}
               {children}
               {footerSection}
-            </Box>
+            </MuiBox>
           </>
         ) : (
           <>
@@ -66,7 +67,7 @@ export function LayoutSection({
             {footerSection}
           </>
         )}
-      </Box>
+      </MuiBox>
     </>
   );
 }

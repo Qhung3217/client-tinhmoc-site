@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
@@ -11,6 +10,8 @@ import COLORS from 'src/theme/core/colors.json';
 import { paper, varAlpha } from 'src/theme/styles';
 import { defaultFont } from 'src/theme/core/typography';
 import PRIMARY_COLOR from 'src/theme/with-settings/primary-color.json';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { Iconify } from '../../iconify';
 import { BaseOption } from './base-option';
@@ -44,7 +45,7 @@ export function SettingsDrawer({
   const { mode, setMode } = useColorScheme();
 
   const renderHead = (
-    <Box display="flex" alignItems="center" sx={{ py: 2, pr: 1, pl: 2.5 }}>
+    <MuiBox display="flex" alignItems="center" sx={{ py: 2, pr: 1, pl: 2.5 }}>
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
         Settings
       </Typography>
@@ -69,7 +70,7 @@ export function SettingsDrawer({
           <Iconify icon="mingcute:close-line" />
         </IconButton>
       </Tooltip>
-    </Box>
+    </MuiBox>
   );
 
   const renderMode = (
@@ -179,12 +180,12 @@ export function SettingsDrawer({
 
       <Scrollbar>
         <Stack spacing={6} sx={{ px: 2.5, pb: 5 }}>
-          <Box gap={2} display="grid" gridTemplateColumns="repeat(2, 1fr)">
+          <MuiBox gap={2} display="grid" gridTemplateColumns="repeat(2, 1fr)">
             {!hideColorScheme && renderMode}
             {!hideContrast && renderContrast}
             {!hideDirection && renderRTL}
             {!hideCompact && renderCompact}
-          </Box>
+          </MuiBox>
           {!(hideNavLayout && hideNavColor) && renderNav}
           {!hidePresets && renderPresets}
           {!hideFont && renderFont}

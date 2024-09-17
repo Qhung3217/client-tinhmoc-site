@@ -1,6 +1,5 @@
 import type { StackProps } from '@mui/material/Stack';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -11,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import { RouterLink } from 'src/routes/components';
 
 import { Iconify } from 'src/components/iconify';
+import { MuiBox } from 'src/components/@mui/mui-box';
 import { usePopover, CustomPopover } from 'src/components/custom-popover';
 
 // ----------------------------------------------------------------------
@@ -50,7 +50,7 @@ export function ProductDetailsToolbar({
           Quay lại
         </Button>
 
-        <Box sx={{ flexGrow: 1 }} />
+        <MuiBox sx={{ flexGrow: 1 }} />
 
         {publish === 'published' && liveLink !== undefined && (
           <Tooltip title="Go Live">

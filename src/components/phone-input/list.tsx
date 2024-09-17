@@ -2,7 +2,6 @@ import type { Country } from 'react-phone-number-input/input';
 
 import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
@@ -17,6 +16,7 @@ import { countries } from 'src/assets/data/countries';
 import { Iconify, FlagIcon } from 'src/components/iconify';
 import { SearchNotFound } from 'src/components/search-not-found';
 
+import { MuiBox } from '../@mui/mui-box';
 import { usePopover } from '../custom-popover';
 import { getCountry, applyFilter } from './utils';
 
@@ -113,7 +113,7 @@ export function CountryListPopover({ countryCode, onClickCountry }: CountryListP
           },
         }}
       >
-        <Box sx={{ px: 1, py: 1.5 }}>
+        <MuiBox sx={{ px: 1, py: 1.5 }}>
           <TextField
             autoFocus
             fullWidth
@@ -128,11 +128,11 @@ export function CountryListPopover({ countryCode, onClickCountry }: CountryListP
               ),
             }}
           />
-        </Box>
+        </MuiBox>
 
-        <Box sx={{ flex: '1 1 auto', overflowX: 'hidden' }}>
+        <MuiBox sx={{ flex: '1 1 auto', overflowX: 'hidden' }}>
           {notFound ? <SearchNotFound query={searchCountry} sx={{ px: 2, pt: 5 }} /> : renderList}
-        </Box>
+        </MuiBox>
       </Popover>
     </>
   );

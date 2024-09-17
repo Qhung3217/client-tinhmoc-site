@@ -1,10 +1,11 @@
 import type { BoxProps } from '@mui/material/Box';
 import type { Breakpoint } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 import { layoutClasses } from 'src/layouts/classes';
+
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 // ----------------------------------------------------------------------
 
@@ -16,7 +17,7 @@ export function Main({ sx, children, layoutQuery, ...other }: MainProps) {
   const theme = useTheme();
 
   return (
-    <Box
+    <MuiBox
       component="main"
       className={layoutClasses.main}
       sx={{
@@ -31,7 +32,7 @@ export function Main({ sx, children, layoutQuery, ...other }: MainProps) {
       {...other}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 }
 
@@ -41,7 +42,7 @@ export function Content({ sx, children, layoutQuery, ...other }: MainProps) {
   const theme = useTheme();
 
   const renderContent = (
-    <Box
+    <MuiBox
       sx={{
         width: 1,
         display: 'flex',
@@ -50,11 +51,11 @@ export function Content({ sx, children, layoutQuery, ...other }: MainProps) {
       }}
     >
       {children}
-    </Box>
+    </MuiBox>
   );
 
   return (
-    <Box
+    <MuiBox
       className={layoutClasses.content}
       sx={{
         px: 2,
@@ -73,6 +74,6 @@ export function Content({ sx, children, layoutQuery, ...other }: MainProps) {
       {...other}
     >
       {renderContent}
-    </Box>
+    </MuiBox>
   );
 }

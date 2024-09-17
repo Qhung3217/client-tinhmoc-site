@@ -4,13 +4,14 @@ import { useRef } from 'react';
 import { m } from 'framer-motion';
 import { Snowfall } from 'react-snowfall';
 
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
 
 import { useClientRect } from 'src/hooks/use-client-rect';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
 import { Image } from 'src/components/image';
+import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { SubTitle, SectionTitle } from '../_common/section-title';
 
@@ -30,15 +31,15 @@ export default function HomeHero() {
   const { width } = useClientRect(ref);
   console.log(width);
   return (
-    <Box
+    <MuiBox
       sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5, pt: 1 }}
       component="section"
     >
-      <Box width={1} textAlign="center" sx={{ ml: { xs: 0, sm: 0, md: 0 } }}>
+      <MuiBox width={1} textAlign="center" sx={{ ml: { xs: 0, sm: 0, md: 0 } }}>
         <Logo disableLink width={70} height={80} />
-      </Box>
+      </MuiBox>
       <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
-        <Box
+        <MuiBox
           width={1}
           display={{
             xs: 'block',
@@ -46,8 +47,8 @@ export default function HomeHero() {
           }}
         >
           <Image src="/assets/landing/hero/first-door.png" alt="door" />
-        </Box>
-        <Box
+        </MuiBox>
+        <MuiBox
           component={m.div}
           variants={variants}
           // initial="close"
@@ -69,7 +70,7 @@ export default function HomeHero() {
           className={offsetTop ? 'videoOnOpen' : 'videoOnClose'}
         />
       </Container>
-      <Box
+      <MuiBox
         width={1}
         textAlign="center"
         component={m.div}
@@ -86,8 +87,8 @@ export default function HomeHero() {
       >
         <SubTitle>Chào mừng quý khách đến với chúng tôi</SubTitle>
         <SectionTitle>TINH MỘC DOORS</SectionTitle>
-      </Box>
+      </MuiBox>
       <Snowfall snowflakeCount={30} color="#caa87d" radius={[0.5, 1.3]} />
-    </Box>
+    </MuiBox>
   );
 }
