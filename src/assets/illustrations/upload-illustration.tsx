@@ -13,7 +13,7 @@ type Props = BoxProps & {
   hideBackground?: boolean;
 };
 
-function UploadIllustration({ hideBackground, sx, ...other }: Props) {
+function UploadIllustration({ hideBackground, sx, ...other }: any) {
   const theme = useTheme();
 
   const PRIMARY_MAIN = theme.vars.palette.primary.main;

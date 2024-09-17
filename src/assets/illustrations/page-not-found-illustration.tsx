@@ -15,7 +15,7 @@ type Props = BoxProps & {
   hideBackground?: boolean;
 };
 
-function PageNotFoundIllustration({ hideBackground, sx, ...other }: Props) {
+function PageNotFoundIllustration({ hideBackground, sx, ...other }: any) {
   const theme = useTheme();
 
   const PRIMARY_LIGHT = theme.vars.palette.primary.light;

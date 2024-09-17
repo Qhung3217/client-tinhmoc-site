@@ -1,24 +1,26 @@
 /* eslint-disable react/no-unknown-property */
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useGLTF, Environment, ContactShadows, PresentationControls } from '@react-three/drei';
 
-import { Box, Modal, IconButton, LinearProgress } from '@mui/material';
+import { Box, Modal, IconButton, Typography, LinearProgress } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import { varAlpha } from 'src/theme/styles';
 
 import { Iconify } from 'src/components/iconify';
+import { ConfirmDialog } from 'src/components/custom-dialog';
 
 type Props = {
   link3d: string | undefined | null;
 };
 export default function ProductDetal3D({ link3d }: Props) {
   const isOpen = useBoolean();
-  if (!link3d) return <></>;
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  if (!link3d || !link3d.toLowerCase().endsWith('.glb')) return <></>;
+
   return (
     <>
       <IconButton
@@ -34,10 +36,11 @@ export default function ProductDetal3D({ link3d }: Props) {
       >
         <Iconify icon="material-symbols:3d-rotation-outline-rounded" width={28} />
       </IconButton>
-
-      <Suspense fallback={<Loading />}>
-        {isOpen.value && <MD onClose={isOpen.onFalse} link3d={link3d} />}
-      </Suspense>
+      <ErrorBoundary fallback={<ModalError />}>
+        <Suspense fallback={<Loading />}>
+          {isOpen.value && <MD onClose={isOpen.onFalse} link3d={link3d} />}
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }
@@ -105,5 +108,25 @@ function MD({ onClose, link3d }: MProps) {
         {content}
       </Box>
     </Modal>
+  );
+}
+
+function ModalError() {
+  const open = useBoolean(true);
+  return (
+    <ConfirmDialog
+      open={open.value}
+      title={
+        <Typography color="error" variant="h6">
+          Đã có lỗi xảy ra!
+        </Typography>
+      }
+      content="Đã xảy ra lỗi khi xử lý dữ liệu 3D!"
+      // eslint-disable-next-line react/jsx-no-useless-fragment
+      action={<></>}
+      onClose={open.onFalse}
+      disableEscapeKeyDown
+      disableRestoreFocus
+    />
   );
 }
