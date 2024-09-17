@@ -1,10 +1,10 @@
 import type { MotionValue } from 'framer-motion';
 import type { BoxProps } from '@mui/material/Box';
+import type { Theme, SxProps } from '@mui/system';
 
 import { m, useSpring } from 'framer-motion';
 
 import Box from '@mui/material/Box';
-
 // ----------------------------------------------------------------------
 
 export interface ScrollProgressProps extends BoxProps {
@@ -13,6 +13,7 @@ export interface ScrollProgressProps extends BoxProps {
   progress: MotionValue<number>;
   variant: 'linear' | 'circular';
   color?: 'inherit' | 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
+  sx?: SxProps<Theme>;
 }
 
 export function ScrollProgress({

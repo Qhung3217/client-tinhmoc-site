@@ -1,5 +1,3 @@
-import type { BoxProps } from '@mui/material/Box';
-
 import { memo } from 'react';
 
 import Box from '@mui/material/Box';
@@ -11,11 +9,7 @@ import { BackgroundShape } from './background-shape';
 
 // ----------------------------------------------------------------------
 
-type Props = BoxProps & {
-  hideBackground?: boolean;
-};
-
-function ComingSoonIllustration({ hideBackground, sx, ...other }: Props) {
+function ComingSoonIllustration({ hideBackground, sx, ...other }: any) {
   const theme = useTheme();
 
   const PRIMARY_LIGHT = theme.vars.palette.primary.light;

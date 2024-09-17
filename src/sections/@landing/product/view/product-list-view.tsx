@@ -1,5 +1,6 @@
 import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
+import { isEqual } from 'lodash';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -62,6 +63,40 @@ export default function ProductListView() {
     category: category || '',
     subCategory: subCategory ? subCategory.split(',') : [],
   }));
+
+  useEffect(() => {
+    if (
+      category &&
+      subCategory &&
+      category !== filters.category &&
+      !isEqual(subCategory, filters.subCategory)
+    ) {
+      setFilters({
+        ...filters,
+        subCategory: subCategory.split(','),
+        category: category || '',
+      });
+
+      setPage(1);
+      return;
+    }
+    if (category && category !== filters.category) {
+      setFilters({
+        ...filters,
+        category: category || '',
+      });
+      setPage(1);
+      return;
+    }
+    if (subCategory && !isEqual(subCategory, filters.subCategory)) {
+      setFilters({
+        ...filters,
+        subCategory: subCategory.split(','),
+      });
+      setPage(1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, subCategory]);
 
   const onFilter = useCallback(
     (key: keyof IProductFilters, value: any) => {
@@ -128,7 +163,8 @@ export default function ProductListView() {
     }
 
     return result;
-  }, [categoriesData, filters.category]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoriesData, filters.category, filters.subCategory]);
 
   const handleSortBy = useCallback((newValue: string) => {
     setSortBy(newValue);
@@ -186,6 +222,7 @@ export default function ProductListView() {
       <Box
         sx={{
           backgroundColor: (theme) => theme.palette.background.neutral,
+          // backgroundColor: '#28323d',
           py: { xs: 3, md: 5 },
         }}
       >

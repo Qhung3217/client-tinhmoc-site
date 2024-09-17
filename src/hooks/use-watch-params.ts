@@ -5,7 +5,6 @@ import { useSearchParams } from 'src/routes/hooks';
 
 export default function useWatchParams(params: string | string[]) {
   const searchParams = useSearchParams();
-
   const [state] = useState<{
     [key: string]: string | null;
   }>(() => {
@@ -23,9 +22,11 @@ export default function useWatchParams(params: string | string[]) {
     keys.forEach((key) => {
       newObj[key] = searchParams.get(key);
     });
+
     if (!isEqual(state, newObj)) {
       return newObj;
     }
+
     return state;
   }, [state, searchParams]);
 
