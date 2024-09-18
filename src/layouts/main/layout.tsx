@@ -154,7 +154,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                         enabledRootRedirect
                         cssVars={{
                           '--nav-item-gap': '4px',
-                          '--nav-item-radius': '2px',
+                          '--nav-item-radius': '6px',
                           '--nav-item-color': offsetTop
                             ? '#ddd'
                             : theme.vars.palette.text.secondary,
