@@ -36,7 +36,7 @@ export default function HomeHero() {
       component="section"
     >
       <MuiBox width={1} textAlign="center" sx={{ ml: { xs: 0, sm: 0, md: 0 } }}>
-        <Logo disableLink width={70} height={80} />
+        <Logo disableLink width={90} height={90} />
       </MuiBox>
       <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
         <MuiBox

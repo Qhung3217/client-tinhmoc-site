@@ -29,7 +29,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
       <MuiBox
         alt="logo"
         component="img"
-        src={`${CONFIG.site.basePath}/logo/logo-single.svg`}
+        src={`${CONFIG.site.basePath}/logo/logo-single.png`}
         width={width}
         height={height}
       />
