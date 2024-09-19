@@ -40,7 +40,7 @@ export function NavSectionHorizontal({
         className={navSectionClasses.horizontal.root}
         sx={{
           ...cssVars,
-          mx: 'auto',
+          ml: 'auto',
           height: 1,
           minHeight: 'var(--nav-height)',
           ...sx,

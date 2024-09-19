@@ -13,7 +13,6 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
-import { MuiBox } from 'src/components/@mui/mui-box';
 import { NavSectionHorizontal } from 'src/components/nav-section';
 
 import { useCategoryContext } from 'src/sections/@landing/_common/category-context';
@@ -23,7 +22,6 @@ import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
-import { LandingSearch } from '../components/landing-search';
 
 import type { NavMainProps } from './nav/types';
 
@@ -135,6 +133,11 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                 container: {
                   sx: {},
                 },
+                toolbar: {
+                  sx: {
+                    // backgroundColor: theme.palette.primary.light,
+                  },
+                },
               }}
               sx={{
                 // backgroundColor: '#1a1a1a',
@@ -146,7 +149,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                     This is an info Alert.
                   </Alert>
                 ),
-                rightAreaStart: (
+                rightAreaEnd: (
                   <>
                     {mdUp && (
                       <NavSectionHorizontal
@@ -154,7 +157,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                         enabledRootRedirect
                         cssVars={{
                           '--nav-item-gap': '4px',
-                          '--nav-item-radius': '6px',
+                          '--nav-item-radius': '4px',
                           '--nav-item-color': offsetTop
                             ? '#ddd'
                             : theme.vars.palette.text.secondary,
@@ -196,7 +199,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                           rootItem: {
                             sx: {
                               typography: 'subtitle1',
-                              textTransform: 'uppercase',
+                              // textTransform: 'uppercase',
                               fontFamily: (th) => th.typography.fontSecondaryFamily,
                             },
                             icon: {},
@@ -248,12 +251,6 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                       }),
                     }}
                   />
-                ),
-
-                rightAreaEnd: (
-                  <MuiBox sx={{ width: 60 }}>
-                    <LandingSearch offsetTop={offsetTop} theme={theme} />
-                  </MuiBox>
                 ),
               }}
             />
