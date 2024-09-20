@@ -96,7 +96,7 @@ export function HeaderSection({
     offset: {
       ...bgBlur({
         color: isLandingPages
-          ? varAlpha(theme.vars.palette.primary.darkChannel, 1)
+          ? varAlpha(theme.vars.palette.primary.darkerChannel, 1)
           : varAlpha(theme.vars.palette.background.defaultChannel, 0.8),
       }),
     },
