@@ -68,32 +68,33 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
       nav.push({
         title: category.name,
         path: paths.landing.product.category(category.name),
-        children: [
-          {
-            subheader: '',
-            items: [],
-          },
-        ],
+        // children: [
+        //   {
+        //     subheader: '',
+        //     items: [],
+        //   },
+        // ],
       });
       desktop.push({
         items: [
           {
             title: category.name,
             path: paths.landing.product.category(category.name),
-            children: [],
+            // children: [],
           },
         ],
       });
-      category.categories.forEach((subCategory) => {
-        nav[index + 1].children[0].items.push({
-          title: subCategory.name,
-          path: paths.landing.product.subCategory(category.name, subCategory.name),
-        });
-        desktop[index + 1].items[0].children.push({
-          title: subCategory.name,
-          path: paths.landing.product.subCategory(category.name, subCategory.name),
-        });
-      });
+
+      // category.categories.forEach((subCategory) => {
+      //   nav[index + 1].children[0].items.push({
+      //     title: subCategory.name,
+      //     path: paths.landing.product.subCategory(category.name, subCategory.name),
+      //   });
+      //   desktop[index + 1].items[0].children.push({
+      //     title: subCategory.name,
+      //     path: paths.landing.product.subCategory(category.name, subCategory.name),
+      //   });
+      // });
     });
     return {
       mobile: nav,
@@ -227,30 +228,20 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                         }}
                       />
                     )}
-                    {/* <Logo
+                    <Logo
                       data-slot="logo"
                       width={50}
                       height={50}
                       sx={{
-                        [theme.breakpoints.up(layoutQuery)]: { display: 'none' },
+                        [theme.breakpoints.up(layoutQuery)]: {
+                          display: 'none',
+                        },
+                        ...(!offsetTop && {
+                          display: 'none',
+                        }),
                       }}
-                    /> */}
+                    />
                   </>
-                ),
-                centerArea: (
-                  <Logo
-                    data-slot="logo"
-                    width={50}
-                    height={50}
-                    sx={{
-                      [theme.breakpoints.up(layoutQuery)]: {
-                        display: 'none',
-                      },
-                      ...(!offsetTop && {
-                        display: 'none',
-                      }),
-                    }}
-                  />
                 ),
               }}
             />
