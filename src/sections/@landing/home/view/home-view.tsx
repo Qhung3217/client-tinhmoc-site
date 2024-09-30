@@ -8,6 +8,7 @@ import HomeDoors from '../home-doors';
 import HomeBrief from '../home-brief';
 import HomeDetail from '../home-detail';
 import HomeContact from '../home-contact';
+import HomeIntroduce from '../home-introduce';
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +30,7 @@ export function HomeView() {
       <Stack sx={{ position: 'relative' }}>
         {/* <HomeFeatured /> */}
         <HomeBrief />
+        <HomeIntroduce />
         {/* <HomeAbout /> */}
         <HomeDetail />
         <HomeDoors />
