@@ -41,12 +41,10 @@ import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 import { ProductTableToolbar } from '../product-table-toolbar';
 import {
   RenderCellSlug,
-  RenderCellPrice,
   RenderCellProduct,
   RenderCellCreateBy,
   RenderCellPriority,
   RenderCellCreatedAt,
-  RenderCellSalePercent,
 } from '../product-table-row';
 
 // ----------------------------------------------------------------------
@@ -175,28 +173,28 @@ export function ProductListView() {
       disableColumnMenu: true,
       renderCell: (params) => <RenderCellPriority params={params} />,
     },
-    {
-      field: 'price',
-      headerName: 'Giá',
-      width: 140,
-      editable: true,
-      sortable: false,
-      filterable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => <RenderCellPrice params={params} />,
-    },
-    {
-      field: 'salePercent',
-      headerName: 'Giảm giá',
-      headerAlign: 'center',
-      align: 'center',
-      width: 100,
-      editable: true,
-      sortable: false,
-      filterable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => <RenderCellSalePercent params={params} />,
-    },
+    // {
+    //   field: 'price',
+    //   headerName: 'Giá',
+    //   width: 140,
+    //   editable: true,
+    //   sortable: false,
+    //   filterable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => <RenderCellPrice params={params} />,
+    // },
+    // {
+    //   field: 'salePercent',
+    //   headerName: 'Giảm giá',
+    //   headerAlign: 'center',
+    //   align: 'center',
+    //   width: 100,
+    //   editable: true,
+    //   sortable: false,
+    //   filterable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => <RenderCellSalePercent params={params} />,
+    // },
     {
       field: 'createdAt',
       headerName: 'Ngày tạo',

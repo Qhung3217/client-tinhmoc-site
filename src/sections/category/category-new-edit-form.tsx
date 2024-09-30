@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useMemo, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoadingIcon } from 'yet-another-react-lightbox';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -26,7 +25,6 @@ export type NewCategorySchemaType = z.infer<typeof NewCategorySchema>;
 
 export const NewCategorySchema = z.object({
   name: z.string().min(1, { message: 'Tên sản phẩm là bắt buộc!' }),
-  parentId: z.string().nullable(),
 });
 
 // ----------------------------------------------------------------------
@@ -42,7 +40,6 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
   const defaultValues = useMemo(
     () => ({
       name: currentCategory?.name || '',
-      parentId: typeof currentCategory?.parentId === 'string' ? currentCategory?.parentId : null,
     }),
     [currentCategory]
   );
@@ -72,12 +69,6 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
   const values = watch();
 
   useEffect(() => {
-    setValue('parentId', values.parentId, {
-      shouldValidate: true,
-    });
-  }, [setValue, values.parentId]);
-
-  useEffect(() => {
     if (currentCategory) {
       reset(defaultValues);
     }
@@ -86,9 +77,6 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       console.log('DATA after upload', data);
-      if (data.parentId === '') {
-        data.parentId = null;
-      }
       if (!currentCategory) {
         await addCategory(data);
       } else {
@@ -110,27 +98,6 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
 
       <Stack spacing={3} sx={{ p: 3 }}>
         <Field.Text name="name" label="Tên loại sản phẩm *" />
-
-        {/* {currentCategory && currentCategory.parentId === null ? <></> : <div />} */}
-        {categoriesLoading ? (
-          <LoadingIcon />
-        ) : (
-          <Field.Select
-            native
-            name="parentId"
-            label="Loại sản phẩm cấp 1"
-            InputLabelProps={{ shrink: true }}
-          >
-            <option key="" value="">
-              Không có
-            </option>
-            {categories.map((category: any) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </Field.Select>
-        )}
       </Stack>
     </Card>
   );

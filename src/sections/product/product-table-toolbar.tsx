@@ -8,7 +8,6 @@ import React, { useCallback } from 'react';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { ListSubheader } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -63,23 +62,16 @@ export function ProductTableToolbar({ filters, options }: Props) {
 
   const categoryMenuItems: (JSX.Element | React.ReactFragment)[] = options.categories.reduce(
     (acc: (JSX.Element | React.ReactFragment)[], option) => {
-      acc.push(<ListSubheader key={option.name}>{option.name}</ListSubheader>);
-      option.categories.forEach((category) => {
-        acc.push(
-          <MenuItem
-            key={category.name}
-            value={category.name}
-            onClick={handleToggleCategory(category.name)}
-          >
-            <Checkbox
-              disableRipple
-              size="small"
-              checked={local.state.categories.includes(category.name)}
-            />
-            {category.name}
-          </MenuItem>
-        );
-      });
+      acc.push(
+        <MenuItem key={option.name} value={option.name} onClick={handleToggleCategory(option.name)}>
+          <Checkbox
+            disableRipple
+            size="small"
+            checked={local.state.categories.includes(option.name)}
+          />
+          {option.name}
+        </MenuItem>
+      );
       return acc;
     },
     []

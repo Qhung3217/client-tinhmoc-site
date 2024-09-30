@@ -86,7 +86,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
         typeof currentProduct?.categoryId === 'string'
           ? currentProduct?.categoryId
           : categories.length > 0
-            ? categories[0].categories[0].id
+            ? categories[0].id
             : '',
     }),
     [currentProduct, categories]
@@ -259,8 +259,8 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
         <Field.Text name="slug" label="Mã sản phẩm *" />
         <Field.Text name="title" label="Tên sản phẩm *" />
         <Field.Text type="number" name="priority" label="Độ ưu tiên" />
-        <Field.Text name="price" label="Giá sản phẩm" />
-        <Field.Text type="number" name="salePercent" label="Giảm giá" />
+        {/* <Field.Text name="price" label="Giá sản phẩm" />
+        <Field.Text type="number" name="salePercent" label="Giảm giá" /> */}
 
         <Stack spacing={1.5}>
           <Typography variant="subtitle2">Mô tả *</Typography>
@@ -280,7 +280,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
           </Form>
         </Stack>
 
-        <Stack spacing={1.5}>
+        {/* <Stack spacing={1.5}>
           <Typography variant="subtitle2">Ảnh mô tả</Typography>
           <Form methods={imagesMethods}>
             <Field.Upload
@@ -307,7 +307,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
               onRemoveAll={handleRemoveAllLink3d}
             />
           </Form>
-        </Stack>
+        </Stack> */}
 
         {categoriesLoading ? (
           <LoadingIcon />
@@ -319,13 +319,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
             InputLabelProps={{ shrink: true }}
           >
             {categories.map((category: any) => (
-              <optgroup key={category.name} label={category.name}>
-                {category.categories.map((c: any) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </optgroup>
+              <option key={category.name} label={category.name} value={category.id} />
             ))}
           </Field.Select>
         )}
