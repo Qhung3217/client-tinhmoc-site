@@ -86,7 +86,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
         typeof currentProduct?.categoryId === 'string'
           ? currentProduct?.categoryId
           : categories.length > 0
-            ? categories[0].categories[0].id
+            ? categories[0].id
             : '',
     }),
     [currentProduct, categories]
