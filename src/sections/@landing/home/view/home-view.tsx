@@ -7,6 +7,7 @@ import HomeHero from '../home-hero';
 import HomeAbout from '../home-about';
 import HomeDoors from '../home-doors';
 import HomeDetail from '../home-detail';
+import HomeContact from '../home-contact';
 import HomeFeatured from '../home-featured';
 
 // ----------------------------------------------------------------------
@@ -31,6 +32,7 @@ export function HomeView() {
         <HomeAbout />
         <HomeDetail />
         <HomeDoors />
+        <HomeContact />
       </Stack>
     </>
   );
