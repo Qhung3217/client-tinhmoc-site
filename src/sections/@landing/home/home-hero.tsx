@@ -31,7 +31,14 @@ export default function HomeHero() {
 
   return (
     <MuiBox
-      sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5, pt: 1 }}
+      sx={{
+        position: 'relative',
+        width: 1,
+        backgroundColor: '#1a1a1a',
+        pb: 12.5,
+        pt: 1,
+        overflow: 'hidden',
+      }}
       component="section"
     >
       <MuiBox width={1} textAlign="center" sx={{ ml: { xs: 0, sm: 0, md: 0 } }}>
