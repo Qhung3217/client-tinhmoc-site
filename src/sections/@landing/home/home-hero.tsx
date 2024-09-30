@@ -10,7 +10,6 @@ import { useClientRect } from 'src/hooks/use-client-rect';
 import { useScrollOffSetTop } from 'src/hooks/use-scroll-offset-top';
 
 import { Logo } from 'src/components/logo';
-import { Image } from 'src/components/image';
 import { MuiBox } from 'src/components/@mui/mui-box';
 
 import { SubTitle, SectionTitle } from '../_common/section-title';
@@ -29,7 +28,7 @@ export default function HomeHero() {
   const { offsetTop } = useScrollOffSetTop();
   const ref = useRef<any>();
   const { width } = useClientRect(ref);
-  console.log(width);
+
   return (
     <MuiBox
       sx={{ position: 'relative', width: 1, backgroundColor: '#1a1a1a', pb: 12.5, pt: 1 }}
@@ -38,26 +37,14 @@ export default function HomeHero() {
       <MuiBox width={1} textAlign="center" sx={{ ml: { xs: 0, sm: 0, md: 0 } }}>
         <Logo disableLink width={90} height={90} />
       </MuiBox>
-      <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 } }} ref={ref}>
-        <MuiBox
-          width={1}
-          display={{
-            xs: 'block',
-            sm: 'none',
-          }}
-        >
-          <Image src="/assets/landing/hero/first-door.png" alt="door" />
-        </MuiBox>
+      <Container sx={{ pb: 2.5, '&.MuiContainer-root': { px: 0 }, overflow: 'hidden' }} ref={ref}>
         <MuiBox
           component={m.div}
           variants={variants}
-          // initial="close"
-          // animate={offsetTop ? 'open' : 'close'}
-          // animate={controls}
-          display={{
-            sm: 'block',
-            xs: 'none',
-          }}
+          // display={{
+          //   sm: 'block',
+          //   xs: 'none',
+          // }}
           width={1}
           sx={{
             backgroundImage: 'url(/assets/landing/hero/firstVideo.png)',

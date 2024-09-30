@@ -15,7 +15,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
 
-import { addCategory, updateCategory, useGetCategories } from 'src/actions/category';
+import { addCategory, updateCategory } from 'src/actions/category';
 
 import { Form, Field } from 'src/components/hook-form';
 
@@ -35,7 +35,6 @@ type Props = {
 
 export function CategoryNewEditForm({ currentCategory }: Props) {
   const router = useRouter();
-  const { categories, categoriesLoading } = useGetCategories();
 
   const defaultValues = useMemo(
     () => ({
@@ -43,10 +42,6 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
     }),
     [currentCategory]
   );
-
-  console.dir(currentCategory);
-
-  console.dir(defaultValues);
 
   const methods = useForm<NewCategorySchemaType>({
     mode: 'all',
@@ -60,13 +55,9 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
 
   const {
     reset,
-    watch,
-    setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
-  const values = watch();
 
   useEffect(() => {
     if (currentCategory) {
@@ -76,7 +67,6 @@ export function CategoryNewEditForm({ currentCategory }: Props) {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      console.log('DATA after upload', data);
       if (!currentCategory) {
         await addCategory(data);
       } else {

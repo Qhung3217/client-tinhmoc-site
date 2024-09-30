@@ -14,6 +14,6 @@ export type ICategoryItem = {
 export type ICategoryCountItem = {
   id: string;
   name: string;
-  level: number;
+  // level: number;
   count: number;
 };
