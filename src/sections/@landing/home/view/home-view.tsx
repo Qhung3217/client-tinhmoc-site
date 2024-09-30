@@ -4,11 +4,10 @@ import { BackToTop } from 'src/components/animate/back-to-top';
 import { ScrollProgress, useScrollProgress } from 'src/components/animate/scroll-progress';
 
 import HomeHero from '../home-hero';
-import HomeAbout from '../home-about';
 import HomeDoors from '../home-doors';
+import HomeBrief from '../home-brief';
 import HomeDetail from '../home-detail';
 import HomeContact from '../home-contact';
-import HomeFeatured from '../home-featured';
 
 // ----------------------------------------------------------------------
 
@@ -28,8 +27,9 @@ export function HomeView() {
       <HomeHero />
 
       <Stack sx={{ position: 'relative' }}>
-        <HomeFeatured />
-        <HomeAbout />
+        {/* <HomeFeatured /> */}
+        <HomeBrief />
+        {/* <HomeAbout /> */}
         <HomeDetail />
         <HomeDoors />
         <HomeContact />
