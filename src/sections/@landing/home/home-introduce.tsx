@@ -1,6 +1,6 @@
 import type { BoxProps, TypographyProps } from '@mui/material';
 
-import { Stack, Container, Typography } from '@mui/material';
+import { useTheme, Container, Typography } from '@mui/material';
 
 import { shadows } from 'src/theme/core';
 
@@ -9,122 +9,189 @@ import { Grid } from 'src/components/Grid/mui';
 import { MuiBox } from 'src/components/@mui/mui-box';
 
 export default function HomeIntroduce() {
+  const theme = useTheme();
   return (
     <Container
       maxWidth={false}
       sx={{
-        mt: 3,
-        mb: 10,
+        py: 8,
         backgroundImage: 'url(/assets/landing/about/bg-intro-2.jpg)',
         backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% 100%',
+        px: {
+          lg: '0px !important',
+        },
       }}
     >
-      <Grid container spacing={1}>
+      <Grid
+        container
+        spacing={{
+          xs: 3,
+          sm: 3,
+          md: 2,
+          lg: 0,
+        }}
+      >
         {/* ------------------- ROW 1 ------------------  */}
 
-        <Grid xs={12} md={5} lg={6}>
-          <MuiBox>
-            <Image
-              src="/assets/landing/about/company-6.jpg"
-              alt="About Tinh Moc"
+        <Grid
+          xs={12}
+          md={6}
+          lg={6}
+          sx={{
+            position: 'relative',
+          }}
+        >
+          <MuiBox
+            sx={{
+              display: 'block',
+            }}
+          >
+            <MuiBox>
+              <Image
+                src="/assets/landing/about/company-6.jpg"
+                alt="About Tinh Moc"
+                minWidth={200}
+                sx={{
+                  boxShadow: shadows('light'),
+                  aspectRatio: { xs: 'auto 800 / 639', lg: 'auto 970 / 640' },
+                }}
+              />
+            </MuiBox>
+            <TextBox
+              maxWidth={{ lg: 200, xl: 270 }}
               sx={{
-                boxShadow: shadows('light'),
+                position: { xs: 'static', lg: 'absolute' },
+                top: 0,
+                right: { lg: -20, xl: -47 },
+                transform: { xs: 'auto 800 / 639', lg: 'translateX(100%)' },
               }}
+              title={
+                <>
+                  Kinh nghiệm
+                  <MuiBox
+                    component="br"
+                    sx={{
+                      display: {
+                        xs: 'none',
+                        lg: 'block',
+                      },
+                    }}
+                  />{' '}
+                  dày dặn
+                </>
+              }
+              subTitle="Hơn 10 năm kinh nghiệm chế tác được đúc kết trong từng sản phẩm"
             />
           </MuiBox>
         </Grid>
-        <Grid xs={12} md={3} lg={2}>
-          <Stack justifyContent="space-between" height="80%">
-            <TextBox
-              title="Kinh nghiệm dày dặn"
-              subTitle="Hơn 10 năm kinh nghiệm chế tác được đúc kết trong từng sản phẩm"
-            />
-            <TextBox
-              title="Sự tận tâm và am hiểu"
-              subTitle="Tinh Mộc cùng bạn lựa chọn các vật liệu gỗ phù hợp với sự tận tâm và am hiểu"
-              spaceLeft
-              maxWidth={{
-                md: 170,
-              }}
-              sx={{
-                textAlign: {
-                  sm: 'right',
-                },
-                ml: {
-                  sm: 'auto',
-                },
-                display: {
-                  xs: 'none',
-                  sm: 'block',
-                },
-              }}
-            />
-          </Stack>
-        </Grid>
-        <Grid xs={12} md={4}>
+
+        <Grid xs={12} md={6}>
           <MuiBox
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              mt: {
-                xs: 2,
-                sm: 0,
+              position: 'relative',
+              ml: {
+                md: 'auto',
               },
+              width: 'fit-content',
             }}
           >
             <MuiBox
               maxWidth={{
-                xs: 1,
-                sm: 'unset',
+                lg: 350,
+                xl: 470,
+              }}
+              sx={{
+                [theme.breakpoints.between(1500, 1650)]: {
+                  maxWidth: 430,
+                },
+                width: 1,
               }}
             >
               <Image
                 src="/assets/landing/about/company-1.jpg"
                 alt="About Tinh Moc"
-                sx={{ boxShadow: shadows('light') }}
+                minWidth={200}
+                sx={{
+                  boxShadow: shadows('light'),
+                  aspectRatio: { xs: 'auto 800 / 639', lg: 'auto 553 / 600' },
+                }}
               />
             </MuiBox>
             <TextBox
-              title="Sự tận tâm và am hiểu"
+              title={
+                <>
+                  Sự tận tâm và
+                  <MuiBox
+                    component="br"
+                    sx={{
+                      display: {
+                        xs: 'none',
+                        lg: 'block',
+                      },
+                    }}
+                  />{' '}
+                  am hiểu
+                </>
+              }
               subTitle="Tinh Mộc cùng bạn lựa chọn các vật liệu gỗ phù hợp với sự tận tâm và am hiểu"
-              maxWidth={1}
+              maxWidth={{ lg: 190, xl: 225 }}
               sx={{
-                display: {
-                  xs: 'block',
-                  sm: 'none',
+                position: { xs: 'static', lg: 'absolute' },
+                bottom: 0,
+                left: {
+                  lg: -20,
+
+                  xl: -70,
                 },
+                [theme.breakpoints.between(1500, 1650)]: { left: -40 },
+
+                transform: { xs: 'none', lg: 'translateX(-100%)' },
               }}
             />
           </MuiBox>
         </Grid>
 
         {/* ------------------- ROW 2 ------------------ */}
-        <Grid xs={12} md={6} sx={{ mt: { xs: 2, sm: 4 } }}>
+        <Grid xs={12} md={6} sx={{}}>
           <MuiBox
             sx={{
-              ml: { md: 4, lg: 10 },
+              mt: {
+                lg: 10,
+                xl: 12.25,
+              },
+
               display: 'flex',
               flexDirection: {
                 xs: 'column',
-                sm: 'row',
+                lg: 'row',
               },
+              justifyContent: 'flex-end',
             }}
           >
             <MuiBox
               sx={{
-                maxWidth: { md: 300, lg: 420 },
+                maxWidth: {
+                  lg: 360,
+                  xl: 410,
+                },
               }}
             >
               <Image
                 src="/assets/landing/about/company-4.jpg"
                 alt="About Tinh Moc"
-                sx={{ boxShadow: shadows('light') }}
-                ratio="4/3"
+                minWidth={200}
+                sx={{
+                  boxShadow: shadows('light'),
+                  aspectRatio: 'auto 800 / 639',
+                }}
               />
             </MuiBox>
             <TextBox
-              maxWidth={{ xs: 1, sm: 140, md: 100, lg: 120 }}
-              sx={{ pl: { xs: 0, sm: 2 } }}
+              maxWidth={{ xs: 1, lg: 100, xl: 160 }}
+              sx={{ pl: { xs: 0 }, ml: { lg: 2, xl: 7.75 } }}
               title="Sự kết hợp hoàn hảo"
               subTitle="Sự kết hợp hoàn hảo giữa nguồn vật liệu gỗ tự nhiên
               cao cấp và ứng dụng công nghệ cao"
@@ -135,28 +202,38 @@ export default function HomeIntroduce() {
         <Grid xs={12} md={6}>
           <MuiBox
             sx={{
-              mr: { md: 6, lg: 10 },
-              mt: { xs: 2, sm: 1, md: -1, lg: -4 },
+              ml: {
+                xs: 0,
+                lg: 10,
+                xl: 15,
+              },
+              mt: { xs: 0, lg: -1, xl: -3 },
               display: 'flex',
-              alignItems: { xs: 'flex-start', md: 'flex-end' },
+              alignItems: { xs: 'flex-start' },
               flexDirection: 'column',
             }}
           >
             <MuiBox
               sx={{
-                maxWidth: { md: 450, lg: 540 },
+                maxWidth: { lg: 400, xl: 545 },
               }}
             >
               <Image
                 src="/assets/landing/about/company-5.jpg"
                 alt="About Tinh Moc"
+                minWidth={200}
                 sx={{
                   boxShadow: shadows('light'),
+
+                  aspectRatio: { xs: 'auto 800 / 639', lg: 'auto 850 / 540' },
                 }}
               />
             </MuiBox>
             <TextBox
-              maxWidth={{ md: 450, lg: 540 }}
+              maxWidth={{ lg: 400, xl: 545 }}
+              sx={{
+                mt: { xl: 3.45 },
+              }}
               title="Đội ngũ chuyên nghiệp"
               subTitle="Đội ngũ chuyên viên kỹ thuật giàu kinh nghiệm đã góp phần mang lại những sản phẩm
               tinh tế, bền vững và mang đậm dấu ấn thủ công"
@@ -164,65 +241,13 @@ export default function HomeIntroduce() {
           </MuiBox>
         </Grid>
       </Grid>
-
-      <Grid container spacing={2} sx={{ mt: 8 }}>
-        <Grid xs={12} md={6}>
-          <MuiBox
-            sx={{
-              mx: { xs: 2, sm: 8, md: 5, lg: 10 },
-
-              // mt: 4,
-              alignContent: 'center',
-              height: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                textAlign: 'center',
-                mb: 2,
-                color: 'primary.main',
-                typography: {
-                  xs: 'h3',
-                  lg: 'h3',
-                },
-              }}
-            >
-              Chất lượng tạo nên sự uy tín
-            </Typography>
-            <Typography
-              sx={{
-                textAlign: 'center',
-                typography: {
-                  xs: 'body2',
-                  lg: 'body1',
-                },
-                color: 'white',
-                maxWidth: 500,
-                mx: 'auto',
-              }}
-            >
-              Tinh Mộc là một thương hiệu với hơn 10 năm kinh nghiệm trong lĩnh vực sản xuất và chế
-              tác các sản phẩm từ gỗ tự nhiên. Sản phẩm của Tinh Mộc được làm từ gỗ chất lượng cao,
-              sử dụng công nghệ hiện đại và quy trình khép kín. Đội ngũ chuyên viên kỹ thuật lành
-              nghề đã góp phần tạo ra những sản phẩm không chỉ bền vững mà còn mang tính thẩm mỹ
-              cao. Tinh Mộc cam kết đem đến cho khách hàng các sản phẩm vừa tinh tế vừa đáp ứng tiêu
-              chuẩn chất lượng vượt trội.
-            </Typography>
-          </MuiBox>
-        </Grid>
-        <Grid xs={12} md={6}>
-          <MuiBox sx={{ alignContent: 'center', height: 1 }}>
-            <Image src="/assets/landing/about.jpg" alt="About Tinh Moc" />
-          </MuiBox>
-        </Grid>
-      </Grid>
     </Container>
   );
 }
 
-type TextBoxProps = Omit<BoxProps, 'children'> & {
-  title: string;
-  subTitle: string;
+type TextBoxProps = Omit<BoxProps, 'children' | 'title'> & {
+  title: any;
+  subTitle: any;
   spaceLeft?: boolean;
   slots?: {
     titleProps?: Omit<TypographyProps, 'children'>;
@@ -246,10 +271,12 @@ function TextBox({ title, subTitle, slots, spaceLeft, ...boxProps }: TextBoxProp
         sx={{
           color: 'primary.main',
           pt: 1,
+          mb: { xs: 0, lg: 2 },
           typography: {
-            xs: 'h5',
+            xs: 'h3',
             sm: 'h3',
-            md: 'h5',
+            md: 'h4',
+            lg: 'h5',
             xl: 'h4',
           },
           ...slots?.titleProps?.sx,
@@ -262,7 +289,7 @@ function TextBox({ title, subTitle, slots, spaceLeft, ...boxProps }: TextBoxProp
         sx={{
           color: 'white',
           typography: {
-            xs: 'body2',
+            xs: 'body1',
             lg: 'body2',
           },
         }}

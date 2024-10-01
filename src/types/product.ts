@@ -50,9 +50,9 @@ export type IProductItem = {
   content: string;
   thumbnail: string;
   subContent: string;
-  // link3d: string;
-  // price: string;
-  // salePercent: number;
+  link3d: string;
+  price: string;
+  salePercent: number;
   priority: number;
   categoryId: string;
   createId: string;
@@ -60,7 +60,7 @@ export type IProductItem = {
   createdAt: string;
   updatedAt: string;
   isDeleted: boolean;
-  // images: string[];
+  images: string[];
   category: {
     id: string;
     name: string;

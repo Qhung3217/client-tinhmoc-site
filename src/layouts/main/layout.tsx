@@ -185,12 +185,12 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                         }}
                         sx={{
                           display: 'flex',
-                          '& .mnl__nav__ul': {
-                            height: 1,
-                          },
-                          '& .mnl__nav__item': {
-                            height: 1,
-                          },
+                          // '& .mnl__nav__ul': {
+                          //   height: 1,
+                          // },
+                          // '& .mnl__nav__item': {
+                          //   height: 1,
+                          // },
                           '& .mnl__nav__item.state--active .mnl__nav__item__title': {
                             fontWeight: '800',
                           },
@@ -236,9 +236,10 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                         [theme.breakpoints.up(layoutQuery)]: {
                           display: 'none',
                         },
-                        ...(!offsetTop && {
-                          display: 'none',
-                        }),
+                        ...(homePage &&
+                          !offsetTop && {
+                            display: 'none',
+                          }),
                       }}
                     />
                   </>

@@ -57,7 +57,15 @@ export function ProductItem({ product, sx }: Props) {
   );
 
   const renderContent = (
-    <Stack spacing={2} sx={{ p: 1 }}>
+    <Stack
+      spacing={2}
+      sx={{
+        p: 1,
+        background: '#1a1a1acc',
+        borderBottomLeftRadius: 4,
+        borderBottomRightRadius: 4,
+      }}
+    >
       <MuiBox width={1} minHeight={0}>
         <Link
           component={RouterLink}
@@ -98,7 +106,7 @@ export function ProductItem({ product, sx }: Props) {
         </Link>
         <Typography
           sx={{
-            '-webkit-line-clamp': '1',
+            '-webkit-line-clamp': '2',
             '-webkit-box-orient': 'vertical',
             display: '-webkit-box',
             overflow: 'hidden',

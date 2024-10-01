@@ -22,7 +22,7 @@ export default function HomeBrief() {
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         alignItems="center"
-        spacing={0.2}
+        spacing={0.6}
         sx={{
           height: { xs: 1, sm: 600 },
           position: 'relative',
@@ -50,7 +50,7 @@ export default function HomeBrief() {
         </MuiBox>
 
         <MuiBox sx={{ flexShrink: 0, width: { xs: 1, sm: '50%' }, height: 1 }}>
-          <MuiBox sx={{ pb: 0.1, maxHeight: 300, height: 1 }}>
+          <MuiBox sx={{ pb: 0.3, maxHeight: 300, height: 1 }}>
             <ImageBox
               src="https://images.unsplash.com/photo-1504624720567-64a41aa25d70?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29vZGVuJTIwY2hhaXIlMjBtb2Rlcm58ZW58MHwwfDB8fHww"
               title="Bàn"
@@ -61,7 +61,7 @@ export default function HomeBrief() {
               }}
             />
           </MuiBox>
-          <MuiBox sx={{ pt: 0.1, maxHeight: 300, height: 1 }}>
+          <MuiBox sx={{ pt: 0.3, maxHeight: 300, height: 1 }}>
             <ImageBox
               src="https://images.unsplash.com/photo-1617387247724-03782b322835?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHdvb2RlbiUyMGNoYWlyJTIwbW9kZXJufGVufDB8fDB8fHww"
               title="Ghế"
@@ -144,12 +144,14 @@ function ImageBox({ src, title, sx, ratio }: ImageBoxProps) {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: 1,
-          backgroundColor: 'rgba(255, 248, 232, 0.3)',
-          color: '#333',
+          backgroundColor: 'rgba(255, 248, 232, 0.2)',
+          boxShadow: 'inset 0px 0px 62px 0px rgba(255,248,232,1)',
+          color: '#777',
           typography: 'h4',
           textTransform: 'uppercase',
-          width: 1,
-          height: 1,
+          width: 70,
+          height: 70,
+          borderRadius: 999,
           alignContent: 'center',
           textAlign: 'center',
         },

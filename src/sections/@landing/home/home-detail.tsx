@@ -77,7 +77,8 @@ const POPUPS = [
 export default function HomeDetail() {
   const ref = useRef<any>();
   const [elementRef, isIntersecting] = useOnScreen({
-    rootMargin: '50px',
+    // rootMargin: '-40px',
+    threshold: 0.6,
   });
   const { width } = useClientRect(ref);
   const [modalValue, setModalValue] = useState<{
