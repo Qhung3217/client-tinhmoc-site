@@ -11,10 +11,8 @@ import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
 import { MuiBox } from 'src/components/@mui/mui-box';
 import { EmptyContent } from 'src/components/empty-content';
-import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
 import { ProductDetailsSkeleton } from '../product-skeleton';
-import ProductRelatedCarousel from '../product-related-carousel';
 import { ProductDetailsDescription } from '../product-details-description';
 
 // ----------------------------------------------------------------------
@@ -60,7 +58,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
       <MuiBox sx={{}}>
         <Image src={product?.thumbnail} alt={product?.title} sx={{ height: 400, width: 1 }} />
       </MuiBox>
-      <MuiBox>
+      {/* <MuiBox>
         <CustomBreadcrumbs
           links={[
             { name: 'Sản phẩm', href: paths.landing.product.root },
@@ -83,7 +81,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
             },
           }}
         />
-      </MuiBox>
+      </MuiBox> */}
 
       <MuiBox sx={{ py: 2 }}>
         <Typography variant="h3" textAlign="center">
@@ -94,7 +92,7 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
 
       <ProductDetailsDescription description={product?.content} />
 
-      <ProductRelatedCarousel category={product?.category?.name || ''} />
+      {/* <ProductRelatedCarousel category={product?.category?.name || ''} /> */}
     </Container>
   );
 }

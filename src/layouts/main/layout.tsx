@@ -64,38 +64,54 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
         ],
       },
     ] as any;
-    categoriesData.forEach((category, index) => {
-      nav.push({
-        title: category.name,
-        path: paths.landing.product.category(category.name),
-        // children: [
-        //   {
-        //     subheader: '',
-        //     items: [],
-        //   },
-        // ],
-      });
-      desktop.push({
-        items: [
-          {
-            title: category.name,
-            path: paths.landing.product.category(category.name),
-            // children: [],
-          },
-        ],
-      });
 
-      // category.categories.forEach((subCategory) => {
-      //   nav[index + 1].children[0].items.push({
-      //     title: subCategory.name,
-      //     path: paths.landing.product.subCategory(category.name, subCategory.name),
-      //   });
-      //   desktop[index + 1].items[0].children.push({
-      //     title: subCategory.name,
-      //     path: paths.landing.product.subCategory(category.name, subCategory.name),
-      //   });
-      // });
+    categoriesData.forEach((category, index) => {
+      if (category.name === 'Cửa') {
+        desktop.push({
+          items: [
+            {
+              title: category.name,
+              // path: paths.landing.product.category(category.name),
+              path: paths.landing.product.cua,
+              // children: [],
+            },
+          ],
+        });
+        nav.push({
+          title: category.name,
+          path: paths.landing.product.cua,
+        });
+      }
+      if (category.name === 'Kệ') {
+        desktop.push({
+          items: [
+            {
+              title: category.name,
+              path: paths.landing.product.ke,
+            },
+          ],
+        });
+        nav.push({
+          title: category.name,
+          path: paths.landing.product.ke,
+        });
+      }
+      if (category.name === 'Bàn ghế') {
+        desktop.push({
+          items: [
+            {
+              title: category.name,
+              path: paths.landing.product.ban_ghe,
+            },
+          ],
+        });
+        nav.push({
+          title: category.name,
+          path: paths.landing.product.ban_ghe,
+        });
+      }
     });
+
     return {
       mobile: nav,
       desktop,

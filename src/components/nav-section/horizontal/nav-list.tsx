@@ -4,7 +4,6 @@ import Paper from '@mui/material/Paper';
 import Popover from '@mui/material/Popover';
 import { useTheme } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
 import { isExternalLink } from 'src/routes/utils';
 import { usePathname, useSearchParams } from 'src/routes/hooks';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
@@ -35,41 +34,41 @@ export function NavList({
 
   const navItemRef = useRef<HTMLButtonElement | null>(null);
 
-  const _active = useActiveLink(data.path, !!data.children);
+  const active = useActiveLink(data.path, !!data.children);
 
-  const [active, setActive] = useState(_active);
+  // const [active, setActive] = useState(_active);
 
   const [openMenu, setOpenMenu] = useState(false);
 
-  useEffect(() => {
-    if (pathname.startsWith(paths.landing.product.root)) {
-      if (searchParams.size) {
-        const params = Object.fromEntries(searchParams.entries());
-        const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
-        const category = pathParams.get('category');
-        const subCategory = pathParams.get('subCategory');
-        let isActive = false;
-        if (category && subCategory) {
-          if ('category' in params && params.category === category) {
-            if ('subCategory' in params && params.subCategory === subCategory) {
-              isActive = true;
-            }
-          }
-        } else if (category) {
-          if ('category' in params && params.category === category) isActive = true;
-        } else if (subCategory) {
-          if ('subCategory' in params && params.subCategory === subCategory) {
-            isActive = true;
-          }
-        }
-        setActive(isActive);
-      } else {
-        setActive(false);
-      }
-    }
+  // useEffect(() => {
+  //   if (pathname.startsWith(paths.landing.product.root)) {
+  //     if (searchParams.size) {
+  //       const params = Object.fromEntries(searchParams.entries());
+  //       const pathParams = new URLSearchParams(data.path.substring(data.path.lastIndexOf('?')));
+  //       const category = pathParams.get('category');
+  //       const subCategory = pathParams.get('subCategory');
+  //       let isActive = false;
+  //       if (category && subCategory) {
+  //         if ('category' in params && params.category === category) {
+  //           if ('subCategory' in params && params.subCategory === subCategory) {
+  //             isActive = true;
+  //           }
+  //         }
+  //       } else if (category) {
+  //         if ('category' in params && params.category === category) isActive = true;
+  //       } else if (subCategory) {
+  //         if ('subCategory' in params && params.subCategory === subCategory) {
+  //           isActive = true;
+  //         }
+  //       }
+  //       setActive(isActive);
+  //     } else {
+  //       setActive(false);
+  //     }
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchParams]);
 
   useEffect(() => {
     if (openMenu) {

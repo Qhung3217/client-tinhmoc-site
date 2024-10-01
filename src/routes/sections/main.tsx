@@ -14,6 +14,9 @@ const ComingSoonPage = lazy(() => import('src/pages/coming-soon'));
 // Product
 const ProductListPage = lazy(() => import('src/pages/san-pham/list'));
 const ProductDetailPage = lazy(() => import('src/pages/san-pham/details'));
+const DoorPage = lazy(() => import('src/pages/chi-tiet/cua'));
+const TablePage = lazy(() => import('src/pages/chi-tiet/ban-ghe'));
+const ShelfPage = lazy(() => import('src/pages/chi-tiet/ke'));
 // Error
 const Page500 = lazy(() => import('src/pages/error/500'));
 const Page403 = lazy(() => import('src/pages/error/403'));
@@ -38,6 +41,18 @@ export const mainRoutes = [
           </MainLayout>
         ),
         children: [
+          {
+            path: '/cua',
+            element: <DoorPage />,
+          },
+          {
+            path: '/ban-ghe',
+            element: <TablePage />,
+          },
+          {
+            path: '/ke',
+            element: <ShelfPage />,
+          },
           {
             path: 'san-pham',
             children: [
