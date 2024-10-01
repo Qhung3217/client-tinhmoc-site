@@ -16,7 +16,10 @@ export function ProductSearch({ query, onSearch, loading }: Props) {
     <TextField
       fullWidth
       sx={{
-        maxWidth: 500,
+        maxWidth: 300,
+        '& input': {
+          color: 'white',
+        },
       }}
       autoComplete="off"
       value={query}

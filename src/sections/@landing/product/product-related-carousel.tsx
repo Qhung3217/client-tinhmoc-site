@@ -19,8 +19,9 @@ export default function ProductRelatedCarousel({ category }: Props) {
   } = useGetProducts(10, 0, '', [category]);
   // const mdUp = useResponsive('up', 'md');
   const carousel = useCarousel({
-    slidesToShow: { xs: 1, sm: 2, md: 4, lg: 5 },
+    slidesToShow: { xs: 1, sm: 2, md: 3 },
     // axis: mdUp ? 'y' : 'x',
+    slideSpacing: '20',
   });
   return (
     <MuiBox sx={{ pt: { xs: 5, md: 10 } }}>

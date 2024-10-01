@@ -3,18 +3,13 @@ import type { IProductListItem } from 'src/types/product';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import { Typography, type SxProps } from '@mui/material';
+import { Button, Typography, type SxProps } from '@mui/material';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { fCurrency } from 'src/utils/format-number';
-
-import { Label } from 'src/components/label';
 import { Image } from 'src/components/image';
 import { MuiBox } from 'src/components/@mui/mui-box';
-
-import { useGetSaleInfo } from './@utils';
 
 // ----------------------------------------------------------------------
 
@@ -24,52 +19,34 @@ type Props = {
 };
 
 export function ProductItem({ product, sx }: Props) {
-  const { slug, title, thumbnail, price, salePercent, createdAt, category } = product;
-
-  const { isSale, isNew, priceSale } = useGetSaleInfo({
-    createdAt,
-    price,
-    salePercent,
-  });
+  const { slug, title, thumbnail, subContent } = product;
 
   const linkTo = paths.landing.product.details(slug);
 
-  const renderLabels = (isNew || isSale) && (
-    <Stack
-      direction="row"
-      alignItems="center"
-      spacing={1}
+  const renderImg = (
+    <MuiBox
       sx={{
-        position: 'absolute',
-        zIndex: 9,
-        top: 16,
-        right: 9,
+        position: 'relative',
+        p: 0,
+        flexShrink: 0,
+        overflow: 'hidden',
+        borderRadius: 0.2,
       }}
     >
-      {isNew && (
-        <Label variant="filled" color="info">
-          Mới
-        </Label>
-      )}
-      {isSale && (
-        <Label variant="filled" color="error">
-          SALE
-        </Label>
-      )}
-    </Stack>
-  );
-
-  const renderImg = (
-    <MuiBox sx={{ position: 'relative', p: 0, flexShrink: 0 }}>
       <Image
         alt={title}
         src={`${thumbnail}`}
-        ratio="1/1"
+        ratio="4/3"
         effect="opacity"
         sx={{
-          borderRadius: 0.5,
+          transform: 'scale(1)',
+          transition: '200ms ease-out all',
+          '&:hover': {
+            transform: 'scale(1.05)',
+          },
+          borderRadius: 0.2,
           '& .mnl__image__wrapper': {
-            aspectRatio: '1/1',
+            aspectRatio: '4/3',
           },
           '& .lazy-load-image-background.opacity:not(.lazy-load-image-loaded) img': {
             display: 'none',
@@ -80,103 +57,82 @@ export function ProductItem({ product, sx }: Props) {
   );
 
   const renderContent = (
-    <Stack spacing={2} sx={{ pt: 0, justifyContent: 'space-between', height: 1 }}>
-      {renderImg}
-      <MuiBox
-        sx={{
-          flex: 1,
-          px: 2,
-        }}
-        width={1}
-        textAlign="center"
-        minHeight={0}
-      >
-        <Typography
-          variant="caption"
-          sx={{
-            fontWeight: 700,
-            textTransform: 'uppercase',
-
-            color: 'text.secondary',
-            mt: -1,
-          }}
-        >
-          {category.name}
-        </Typography>
-
+    <Stack spacing={2} sx={{ p: 1 }}>
+      <MuiBox width={1} minHeight={0}>
         <Link
           component={RouterLink}
           href={linkTo}
-          variant="subtitle2"
-          textAlign="center"
+          variant="subtitle1"
           sx={{
             '-webkit-line-clamp': '2',
             '-webkit-box-orient': 'vertical',
             display: '-webkit-box',
             overflow: 'hidden',
-            mt: 1,
-            color: '#f5f5f5',
-            fontWeight: 500,
+            color: '#f7f7f7',
+            fontWeight: 700,
+            position: 'relative',
+            pb: 0.5,
+            width: 'fit-content',
+            '&:hover': {
+              textDecoration: 'none',
+            },
+            '&::before': {
+              content: "''",
+              display: 'block',
+              position: 'absolute',
+              width: 1,
+              maxWidth: 25,
+              height: 2,
+              backgroundColor: 'primary.main',
+              borderRadius: 0.5,
+              bottom: 0,
+              left: 0,
+              transition: '200ms ease-out all',
+            },
+            '&:hover&::before': {
+              maxWidth: 1,
+            },
           }}
         >
           {title}
         </Link>
+        <Typography
+          sx={{
+            '-webkit-line-clamp': '1',
+            '-webkit-box-orient': 'vertical',
+            display: '-webkit-box',
+            overflow: 'hidden',
+            color: 'text.secondary',
+            mt: 1,
+          }}
+        >
+          {subContent}
+        </Typography>
       </MuiBox>
-      <Stack
-        direction="row"
-        spacing={0.5}
-        minHeight={0}
-        sx={{
-          typography: 'subtitle2',
-          fontWeight: 600,
-          flexShrink: '0',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 1,
-          px: 2,
-          pb: 2,
-        }}
-      >
-        <MuiBox component="span" color={isSale || priceSale === '' ? 'error.main' : 'inherit'}>
-          {priceSale === '' ? 'Liên hệ' : fCurrency(priceSale)}
-        </MuiBox>
-        {isSale && (
-          <MuiBox component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-            {fCurrency(price)}
-          </MuiBox>
-        )}
-      </Stack>
+      <MuiBox>
+        <Button
+          sx={{ borderRadius: 0.5, borderWidth: 2 }}
+          size="small"
+          variant="outlined"
+          color="primary"
+          component={RouterLink}
+          href={linkTo}
+        >
+          XEM CHI TIẾT
+        </Button>
+      </MuiBox>
     </Stack>
   );
 
   return (
     <Card
       sx={{
-        '& img': { transform: 'scale(1)' },
-        transition: (theme: any) =>
-          theme.transitions.create(['background-color', 'transform'], {
-            duration: theme.transitions.duration.standard,
-            easing: theme.transitions.easing.easeInOut,
-          }),
-
-        '&:hover': {
-          backgroundColor: 'primary.dark',
-          '& img': {
-            transform: 'scale(1.1)',
-          },
-        },
-        height: 1,
         borderRadius: 0,
-        borderInlineEnd: '1px solid rgba(255,255,255,0.2)',
-        borderBottom: '1px solid rgba(255,255,255,0.2)',
-        px: 1,
-        pt: 1,
-
+        backgroundColor: 'transparent',
         ...sx,
       }}
     >
-      {renderLabels}
-
+      {renderImg}
       {renderContent}
     </Card>
   );

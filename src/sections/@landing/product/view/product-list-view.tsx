@@ -1,11 +1,10 @@
 import type { Theme } from '@mui/material/styles';
 import type { IProductFilters, IProductFilterOptions } from 'src/types/product';
 
-import { isEqual } from 'lodash';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 
+import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { Link, Button } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -20,37 +19,30 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import { useGetProducts } from 'src/actions/product';
 
 import { Grid } from 'src/components/Grid/mui';
-import { Scrollbar } from 'src/components/scrollbar';
 import { MuiBox } from 'src/components/@mui/mui-box';
+import { Scrollbar } from 'src/components/scrollbar';
 import { EmptyContent } from 'src/components/empty-content';
 
 import ProductList from '../product-list';
-import { ProductSort } from '../product-sort';
-import { ProductSearch } from '../product-search';
 import { PRODUCT_SORT_OPTIONS } from '../@constant';
-import CategoryFilter from '../filters/category-filter';
 import { useCategoryContext } from '../../_common/category-context';
-import { ProductFiltersMobile } from '../filters/product-filters-mobile';
 
 // ----------------------------------------------------------------------
 
 const DF_FILTERS = {
   category: '',
-  subCategory: [],
+
   sort: PRODUCT_SORT_OPTIONS[0].value,
 };
 
 export default function ProductListView() {
   const {
     categoryList: { list: categoriesData },
-    categoryCountData: { list: categoryCountData },
   } = useCategoryContext();
 
   const { updateParams, updateParam } = useQueryParams(paths.landing.product.root);
 
-  const [sortBy, setSortBy] = useState(DF_FILTERS.sort);
-
-  const { category, subCategory, p, q } = useWatchParams(['category', 'subCategory', 'p', 'q']);
+  const { category, p, q } = useWatchParams(['category', 'p', 'q']);
 
   const smUp = useResponsive('up', 'sm');
 
@@ -63,19 +55,12 @@ export default function ProductListView() {
   const [filters, setFilters] = useState<IProductFilters>(() => ({
     ...DF_FILTERS,
     category: category || '',
-    subCategory: subCategory ? subCategory.split(',') : [],
   }));
 
   useEffect(() => {
-    if (
-      category &&
-      subCategory &&
-      category !== filters.category &&
-      !isEqual(subCategory, filters.subCategory)
-    ) {
+    if (category && category !== filters.category) {
       setFilters({
         ...filters,
-        subCategory: subCategory.split(','),
         category: category || '',
       });
 
@@ -88,17 +73,10 @@ export default function ProductListView() {
         category: category || '',
       });
       setPage(1);
-      return;
     }
-    if (subCategory && !isEqual(subCategory, filters.subCategory)) {
-      setFilters({
-        ...filters,
-        subCategory: subCategory.split(','),
-      });
-      setPage(1);
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, subCategory]);
+  }, [category]);
 
   const onFilter = useCallback(
     (key: keyof IProductFilters, value: any) => {
@@ -115,62 +93,24 @@ export default function ProductListView() {
       ...(filters.category && {
         category: filters.category.toString(),
       }),
-      ...(filters.subCategory.length && {
-        subCategory: filters.subCategory.join(','),
-      }),
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
-  const { data, productsLoading, productsEmpty } = useGetProducts(
-    20,
-    page - 1,
-    searchDebounce,
-    filters.subCategory.length ? filters.subCategory : [filters.category || ''],
-    sortBy
-  );
+  const { data, productsLoading, productsEmpty } = useGetProducts(10, page - 1, searchDebounce, [
+    filters.category || '',
+  ]);
 
-  const categoryCountList = useMemo(() => {
-    const other = categoryCountData.filter((cate) => cate.level === 1);
-
-    const all = {
-      id: 'all',
-      name: 'Tất cả',
-      count: other.reduce((total, item) => total + item.count, 0),
-    };
-    return [all, ...other];
-  }, [categoryCountData]);
-
-  const options = useMemo<IProductFilterOptions>(() => {
-    const result: IProductFilterOptions = {
+  const options = useMemo<IProductFilterOptions>(
+    () => ({
       category: [
-        {
-          title: '',
-          children: [],
-        },
+        { label: 'Tất cả', value: 'all' },
+        ...categoriesData.map((c) => ({ label: c.name, value: c.id })),
       ],
-    };
-    if (filters.category) {
-      const currentCate = categoriesData.find((cate) => cate.name === filters.category);
-      if (currentCate) {
-        result.category[0].title = currentCate.name;
-        result.category[0].children = currentCate.categories.map((ct) => ct.name);
-      }
-    } else {
-      result.category = categoriesData.map((c) => ({
-        title: c.name,
-        children: c.categories.map((ct) => ct.name),
-      }));
-    }
-
-    return result;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoriesData, filters.category, filters.subCategory]);
-
-  const handleSortBy = useCallback((newValue: string) => {
-    setSortBy(newValue);
-  }, []);
+    }),
+    [categoriesData]
+  );
 
   const handleSearch = useCallback((inputValue: string) => {
     setSearchQuery(inputValue);
@@ -200,123 +140,128 @@ export default function ProductListView() {
       alignItems={{ xs: 'flex-end', sm: 'center' }}
       direction={{ xs: 'column', sm: 'row' }}
     >
-      <ProductSearch query={searchQuery} onSearch={handleSearch} loading={productsLoading} />
-
-      <Stack direction="row" spacing={1} flexShrink={0}>
-        {!smUp && (
-          <ProductFiltersMobile
-            options={options}
-            filters={filters}
-            onFilters={onFilter}
-            onReset={() => handleReset()}
-          />
-        )}
-        <ProductSort sort={sortBy} onSort={handleSortBy} sortOptions={PRODUCT_SORT_OPTIONS} />
-      </Stack>
+      {/* <ProductSearch query={searchQuery} onSearch={handleSearch} loading={productsLoading} /> */}
     </Stack>
   );
   const renderNotFound = (
-    <EmptyContent filled sx={{ py: 10 }} title="Sản phẩm đang được cập nhật" />
+    <EmptyContent filled sx={{ py: 10, maxHeight: 400 }} title="Sản phẩm đang được cập nhật" />
   );
 
   return (
     <>
       <MuiBox
         sx={{
-          backgroundColor: (theme: Theme) => theme.palette.background.neutral,
-          // backgroundColor: '#28323d',
-          py: { xs: 3, md: 5 },
+          py: { xs: 6, md: 8 },
+          // backgroundColor: '#1a1a1a',
+          background:
+            'url(https://images.unsplash.com/photo-1662557499772-2c613eddadd2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) no-repeat center',
+          backgroundSize: {
+            xs: 'cover',
+            sm: 'unset',
+          },
+          position: 'relative',
+          '&::before': {
+            content: "''",
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(45deg, rgba(0,0,0,0.5046393557422969) 19%, rgba(0,0,0,0) 100%)',
+          },
         }}
       >
-        <Container>
-          <Typography variant="h3" sx={{ mb: { xs: 3, md: 5 } }}>
-            {filters.category}
+        <Container
+          sx={{
+            alignContent: 'flex-end',
+            minHeight: 150,
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
+          <Typography variant="h1" sx={{ color: 'primary.main' }}>
+            {filters.category || 'Tất cả'}
           </Typography>
-          <Scrollbar fillContent>
-            <Stack direction="row" spacing={3} minWidth={0} maxWidth={1} width={1}>
-              {categoryCountList.map((c) => (
-                <MuiBox key={c.id} minWidth="fit-content">
-                  <CategoryLink
-                    title={c.name}
-                    href={
-                      c.id === 'all'
-                        ? paths.landing.product.root
-                        : paths.landing.product.category(c.name)
-                    }
-                    onClick={() => {
-                      if (c.id === 'all') handleReset('');
-                      else handleReset(c.name);
-                    }}
-                    active={c.id === 'all' && !category ? true : c.name === category}
-                  />
-                  <Typography variant="caption" sx={{}}>
-                    {c.count} sản phẩm
-                  </Typography>
-                </MuiBox>
-              ))}
-            </Stack>
-          </Scrollbar>
         </Container>
       </MuiBox>
-      <Container sx={{ mb: 15, mt: 3 }}>
-        <Grid container>
-          <Grid
-            xs={0}
-            sm={4}
-            md={3}
-            sx={{
-              ...(!smUp && { display: 'none' }),
-            }}
-          >
-            <Stack
-              spacing={3}
-              sx={{
-                pr: 2,
-                position: 'sticky',
-                top: 80,
-                maxHeight: 'calc(100vh - var(--layout-header-desktop-height) *1.5)',
-              }}
-            >
-              <Scrollbar
-                fillContent
-                slotProps={{
-                  content: {
-                    pl: '8px !important',
-                  },
+      <MuiBox
+        sx={{
+          background: 'url(assets/landing/about/bg-intro-2.jpg) no-repeat',
+          backgroundAttachment: 'fixed',
+        }}
+      >
+        <Container
+          maxWidth={false}
+          sx={{
+            mb: 15,
+            mt: 3,
+            maxWidth: 1300,
+          }}
+        >
+          <Grid container>
+            <Grid xs={12} md={3}>
+              <Stack
+                spacing={2}
+                sx={{
+                  mt: 5,
+                  p: 1,
+                  pr: 2,
+                  pl: 0,
+                  backgroundColor: '#1a1a1acc',
+                  position: 'sticky',
+                  top: 80,
+                  maxHeight: 'calc(100vh - var(--layout-header-desktop-height) *1.5)',
+                  borderRadius: 0.2,
+                  width: { xs: 1, md: '90%' },
                 }}
               >
-                {options.category.map((cGroup) => (
-                  <CategoryFilter
-                    key={cGroup.title}
-                    title={cGroup.title}
-                    options={cGroup.children || []}
-                    filters={filters.subCategory}
-                    onFilters={onFilter}
-                  />
-                ))}
-              </Scrollbar>
-              <Button color="primary" variant="soft" onClick={() => handleReset()}>
-                Đặt lại bộ lọc
-              </Button>
-            </Stack>
-          </Grid>
-          <Grid xs={12} sm={8} md={9}>
-            <Stack spacing={2.5} sx={{ mb: { xs: 3, md: 5 } }}>
-              {renderFilters}
-            </Stack>
+                <Scrollbar
+                  fillContent
+                  slotProps={{
+                    content: {
+                      pl: '8px !important',
+                    },
+                  }}
+                >
+                  {options.category.map((cGroup) => (
+                    <MuiBox key={cGroup.value} minWidth="fit-content" sx={{ pb: 2 }}>
+                      <CategoryLink
+                        title={cGroup.label}
+                        href={
+                          cGroup.value === 'all'
+                            ? paths.landing.product.root
+                            : paths.landing.product.category(cGroup.label)
+                        }
+                        onClick={() => {
+                          if (cGroup.value === 'all') handleReset('');
+                          else handleReset(cGroup.label);
+                          window.scrollTo(0, 0);
+                        }}
+                        active={
+                          cGroup.value === 'all' && !category ? true : cGroup.label === category
+                        }
+                      />
+                    </MuiBox>
+                  ))}
+                </Scrollbar>
+              </Stack>
+            </Grid>
+            <Grid xs={12} md={9}>
+              <Stack spacing={2.5} sx={{ mb: { xs: 3, md: 5 } }}>
+                {renderFilters}
+              </Stack>
 
-            {productsEmpty && renderNotFound}
+              {productsEmpty && renderNotFound}
 
-            <ProductList
-              products={data.products}
-              loading={productsLoading}
-              totalPages={data.paginate.pageCount}
-              onPageChange={(pg) => setPage(pg)}
-              currentPage={page}
-            />
+              <ProductList
+                products={data.products}
+                loading={productsLoading}
+                totalPages={data.paginate.pageCount}
+                onPageChange={(pg) => setPage(pg)}
+                currentPage={page}
+              />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </MuiBox>
     </>
   );
 }
@@ -338,17 +283,23 @@ function CategoryLink({ title, href, onClick, active }: CategoryLinkProps) {
       onClick={onClick}
     >
       <Typography
-        variant="subtitle1"
+        variant="body1"
         sx={{
-          textTransform: 'uppercase',
-          transition: (theme) => theme.transitions.create('textDecoration'),
+          textTransform: 'Capitalize',
+          transition: (theme: Theme) => theme.transitions.create('textDecoration'),
+          pl: 1,
+          borderLeftWidth: 4,
+          borderLeftStyle: 'solid',
+          borderLeftColor: 'transparent',
           '&:hover': {
             textDecoration: 'underline',
             color: 'primary.main',
+            borderLeftColor: 'currentColor',
           },
           ...(active && {
             textDecoration: 'underline',
             color: 'primary.main',
+            borderLeftColor: 'currentColor',
           }),
         }}
       >
