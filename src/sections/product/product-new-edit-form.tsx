@@ -35,6 +35,7 @@ export type NewProductSchemaType = z.infer<typeof NewProductSchema>;
 export const NewProductSchema = z.object({
   title: z.string().min(1, { message: 'Tên sản phẩm là bắt buộc!' }),
   content: z.string().min(1, { message: 'Mô tả sản phẩm là bắt buộc!' }),
+  subContent: z.string(),
   price: z.string(),
   salePercent: z.number(),
   priority: z.number(),
@@ -76,6 +77,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
     () => ({
       title: currentProduct?.title || '',
       content: currentProduct?.content || '',
+      subContent: currentProduct?.subContent || '',
       thumbnail: currentProduct?.thumbnail || '',
       link3d: currentProduct?.link3d || '',
       slug: currentProduct?.slug || '',
@@ -265,6 +267,11 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
         <Stack spacing={1.5}>
           <Typography variant="subtitle2">Mô tả *</Typography>
           <Field.Editor name="content" sx={{ maxHeight: 480 }} />
+        </Stack>
+
+        <Stack spacing={1.5}>
+          <Typography variant="subtitle2">Mô tả ngắn</Typography>
+          <Field.Editor name="subContent" sx={{ maxHeight: 480 }} />
         </Stack>
 
         <Stack spacing={1.5}>
