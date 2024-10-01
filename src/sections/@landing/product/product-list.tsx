@@ -1,5 +1,8 @@
 import type { IProductListItem } from 'src/types/product';
 
+import { useMemo } from 'react';
+
+import Masonry from '@mui/lab/Masonry';
 import { Pagination, paginationClasses } from '@mui/material';
 
 import { MuiBox } from 'src/components/@mui/mui-box';
@@ -23,26 +26,32 @@ export default function ProductList({
 }: Props) {
   const renderLoading = <ProductItemSkeleton />;
 
-  const renderList = products.map((product, index) => (
-    <ProductItem key={product.id} product={product} />
-  ));
+  const renderList = useMemo(
+    () => products.map((product) => <ProductItem key={product.id} product={product} />),
+    [products]
+  );
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  if (products.length === 0) return <></>;
 
   return (
     <>
       <MuiBox
-        display="grid"
-        gridTemplateColumns={{
-          xs: 'repeat(1, 1fr)',
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(3, 1fr)',
-          lg: 'repeat(4, 1fr)',
-        }}
         sx={{
-          borderLeft: '1px solid rgba(255,255,255,0.2)',
-          borderTop: '1px solid rgba(255,255,255,0.2)',
+          width: 1,
+          maxWidth: 1,
+          overflow: 'hidden',
         }}
       >
-        {loading ? renderLoading : renderList}
+        <Masonry
+          columns={{
+            xs: 1,
+            sm: 2,
+          }}
+          spacing={1}
+          sequential
+        >
+          {loading ? renderLoading : renderList}
+        </Masonry>
       </MuiBox>
 
       {products.length > 0 && (
@@ -52,8 +61,14 @@ export default function ProductList({
           shape="rounded"
           page={currentPage}
           count={totalPages}
-          onChange={(event, newPage) => onPageChange(newPage)}
+          onChange={(event, newPage) => {
+            onPageChange(newPage);
+            window.scrollTo(0, 0);
+          }}
           sx={{
+            '& li *': {
+              color: 'white',
+            },
             mt: { xs: 5, md: 8 },
             [`& .${paginationClasses.ul}`]: { justifyContent: 'center' },
           }}

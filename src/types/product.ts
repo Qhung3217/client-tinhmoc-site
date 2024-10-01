@@ -4,12 +4,14 @@ import type { IDateValue } from './common';
 
 export type IProductFilters = {
   category: string | null;
-  subCategory: string[] | [];
   sort: string;
 };
 
 export type IProductFilterOptions = {
-  category: IProductFilterOptionItem[];
+  category: {
+    value: string;
+    label: string;
+  }[];
 };
 
 export type IProductFilterOptionItem = {
@@ -47,9 +49,10 @@ export type IProductItem = {
   normalizeTitle: string;
   content: string;
   thumbnail: string;
-  link3d: string;
-  price: string;
-  salePercent: number;
+  subContent: string;
+  // link3d: string;
+  // price: string;
+  // salePercent: number;
   priority: number;
   categoryId: string;
   createId: string;
@@ -57,7 +60,7 @@ export type IProductItem = {
   createdAt: string;
   updatedAt: string;
   isDeleted: boolean;
-  images: string[];
+  // images: string[];
   category: {
     id: string;
     name: string;
@@ -75,6 +78,7 @@ export type IProductListItem = {
   slug: string;
   title: string;
   thumbnail: string;
+  subContent: string;
   price: string;
   salePercent: number;
   priority: number;

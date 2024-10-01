@@ -11,7 +11,6 @@ export function ProductDetailsDescription({ description }: Props) {
     <Markdown
       children={description}
       sx={{
-        p: 3,
         '& p, li, ol': {
           typography: 'body2',
         },
