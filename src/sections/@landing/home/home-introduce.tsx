@@ -169,9 +169,11 @@ export default function HomeIntroduce() {
         <Grid xs={12} md={6}>
           <MuiBox
             sx={{
-              mx: 2,
+              mx: { xs: 2, sm: 8, md: 5, lg: 10 },
 
-              mt: 4,
+              // mt: 4,
+              alignContent: 'center',
+              height: 1,
             }}
           >
             <Typography
@@ -194,6 +196,9 @@ export default function HomeIntroduce() {
                   xs: 'body2',
                   lg: 'body1',
                 },
+                color: 'white',
+                maxWidth: 500,
+                mx: 'auto',
               }}
             >
               Tinh Mộc là một thương hiệu với hơn 10 năm kinh nghiệm trong lĩnh vực sản xuất và chế
@@ -253,7 +258,16 @@ function TextBox({ title, subTitle, slots, spaceLeft, ...boxProps }: TextBoxProp
       >
         {title}
       </Typography>
-      <Typography variant="caption" {...slots?.subTitleProps}>
+      <Typography
+        sx={{
+          color: 'white',
+          typography: {
+            xs: 'body2',
+            lg: 'body2',
+          },
+        }}
+        {...slots?.subTitleProps}
+      >
         {subTitle}
       </Typography>
     </MuiBox>

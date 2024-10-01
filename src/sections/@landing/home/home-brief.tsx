@@ -80,7 +80,6 @@ export default function HomeBrief() {
             top: '50%',
             left: '50%',
             transform: { xs: 'none', sm: 'translate(-50%,-50%)' },
-
             width: { xs: 1, sm: 200 },
             zIndex: 2,
             aspectRatio: { xs: 'unset', sm: '1/1' },
@@ -89,10 +88,10 @@ export default function HomeBrief() {
             p: { xs: 2, sm: 1 },
             textTransform: 'uppercase',
             textAlign: 'center',
-
             alignContent: 'center',
             boxShadow: shadows('light'),
             typography: { xs: 'subtitle2', sm: 'overline' },
+            color: 'white',
           }}
         >
           <MuiBox
