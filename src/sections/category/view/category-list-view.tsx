@@ -36,14 +36,10 @@ function flattenCategories(
   level = 0,
   parentId: string | null = null
 ): any[] {
-  let flattened: any[] = [];
+  const flattened: any[] = [];
 
   categories.forEach((category) => {
     flattened.push({ ...category, level, parentId, categories: [] });
-
-    if (category.categories && category.categories.length > 0) {
-      flattened = flattened.concat(flattenCategories(category.categories, level + 1, category.id));
-    }
   });
 
   return flattened;
