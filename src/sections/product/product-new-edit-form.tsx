@@ -271,7 +271,12 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
 
         <Stack spacing={1.5}>
           <Typography variant="subtitle2">Mô tả ngắn</Typography>
-          <Field.Editor name="subContent" sx={{ maxHeight: 480 }} />
+          <Field.Text
+            multiline // Thiết lập trường này thành textarea
+            rows={3}
+            name="subContent"
+            sx={{ maxHeight: 480 }}
+          />
         </Stack>
 
         <Stack spacing={1.5}>

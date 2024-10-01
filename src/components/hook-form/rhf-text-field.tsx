@@ -10,7 +10,14 @@ type Props = TextFieldProps & {
   name: string;
 };
 
-export function RHFTextField({ name, helperText, type, ...other }: Props) {
+export function RHFTextField({
+  name,
+  helperText,
+  type,
+  multiline = false,
+  rows = 1,
+  ...other
+}: Props) {
   const { control } = useFormContext();
 
   return (
@@ -22,6 +29,8 @@ export function RHFTextField({ name, helperText, type, ...other }: Props) {
           {...field}
           fullWidth
           type={type}
+          multiline={multiline}
+          rows={rows}
           value={type === 'number' && field.value === 0 ? '' : field.value}
           onChange={(event) => {
             if (type === 'number') {
