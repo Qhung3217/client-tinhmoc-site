@@ -240,6 +240,7 @@ export function ProductListView() {
             // { name: 'Sản phẩm', href: paths.dashboard.product.root },
             { name: 'Giới thiệu' },
           ]}
+          // eslint-disable-next-line react/jsx-no-useless-fragment
           action={<></>}
           sx={{ mb: { xs: 3, md: 5 } }}
         />

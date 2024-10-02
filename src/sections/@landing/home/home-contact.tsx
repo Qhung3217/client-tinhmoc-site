@@ -1,13 +1,15 @@
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useMemo, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Stack, styled, useTheme, Container, Typography } from '@mui/material';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+
+import { sendMail } from 'src/actions/mailer';
 
 import { Image } from 'src/components/image';
 import { Grid } from 'src/components/Grid/mui';
@@ -46,6 +48,10 @@ const TextFieldStyled = styled(Field.Text)({
 export default function HomeContact() {
   const isSubmitted = useBoolean();
   const theme = useTheme();
+  const [senderInfo, setSenderInfo] = useState({
+    name: '',
+    email: '',
+  });
 
   const defaultValues = useMemo(
     () => ({
@@ -65,21 +71,43 @@ export default function HomeContact() {
   const {
     reset,
     handleSubmit,
-    watch,
     formState: { isSubmitting },
   } = methods;
-  const formValues = watch();
+
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
+  useEffect(
+    () => () => {
+      setSenderInfo({
+        name: '',
+        email: '',
+      });
+      isSubmitted.onFalse();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   const onSubmit = handleSubmit(async (data) => {
     try {
+      await sendMail({
+        fullName: data.name,
+        phone: data.phone,
+        content: data.content,
+        email: data.email,
+      });
       isSubmitted.onTrue();
+      setSenderInfo({
+        name: data.name,
+        email: data.email,
+      });
       reset();
       toast.success('Yêu cầu của bạn đã được gửi!');
     } catch (error) {
       console.error(error);
+      toast.success('Đã có lỗi xảy ra!');
     }
   });
 
@@ -98,7 +126,7 @@ export default function HomeContact() {
       <Grid container>
         {isSubmitted.value ? (
           <Grid xs={12} md={6}>
-            <ThanksContent name={formValues.name} email={formValues.email} />
+            <ThanksContent name={senderInfo.name} email={senderInfo.email} />
           </Grid>
         ) : (
           <Grid
@@ -162,7 +190,7 @@ export default function HomeContact() {
                   <TextFieldStyled type="email" name="email" label="Email" />
                 </Grid>
                 <Grid xs={12}>
-                  <TextFieldStyled name="content" label="Nội dung" multiline minRows={2} />
+                  <TextFieldStyled name="content" label="Nội dung" multiline rows={4} />
                 </Grid>
                 <Grid xs={12}>
                   <LoadingButton
@@ -229,11 +257,11 @@ function ThanksContent({ name, email }: ThanksContantProps) {
       </MuiBox>
 
       <Typography>
-        Cảm ơn bạn <strong>{name}</strong> đã gửi yêu cầu hỗ trợ
+        Cảm ơn <strong>{name}</strong> đã gửi yêu cầu hỗ trợ
       </Typography>
       <Typography>Chúng tôi đã tiếp nhận và xử lý sớm trong thời gian làm việc</Typography>
       <Typography>
-        Bên cạnh đó, chúng tôi cũng đã gửi một email tới địa chỉ <strong>{email}</strong>
+        Một email đã được gửi tới địa chỉ <strong>{email}</strong>
       </Typography>
     </Stack>
   );

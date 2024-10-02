@@ -169,6 +169,7 @@ export default function HomeDetail() {
                 width: 1,
                 height: 1,
                 maxWidth: 150,
+                minHeght: 80,
               }}
             >
               <Image
