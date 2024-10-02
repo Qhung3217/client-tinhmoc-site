@@ -1,8 +1,12 @@
 import type { Theme, SxProps } from '@mui/material/styles';
 
+import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+
+import { paths } from 'src/routes/paths';
+import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -66,6 +70,19 @@ export function HomeFooter({ sx }: HomeFooterProps) {
                 <Counter />
               </MuiBox>
             </Stack>
+            <MuiBox sx={{ mt: 2 }}>
+              <Link
+                component={RouterLink}
+                href={paths.dashboard.product.root}
+                sx={{
+                  color: 'rgb(134, 134, 134)',
+                  typography: 'caption',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Dành cho quản trị viên
+              </Link>
+            </MuiBox>
           </MuiBox>
         </Stack>
       </Container>

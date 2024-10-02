@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +11,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
-import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -96,7 +94,7 @@ export function JwtSignInView() {
       <Field.Text name="email" label="Email" InputLabelProps={{ shrink: true }} />
 
       <Stack spacing={1.5}>
-        <Link
+        {/* <Link
           component={RouterLink}
           href="#"
           variant="body2"
@@ -104,7 +102,7 @@ export function JwtSignInView() {
           sx={{ alignSelf: 'flex-end' }}
         >
           Quên mật khẩu?
-        </Link>
+        </Link> */}
 
         <Field.Text
           name="password"

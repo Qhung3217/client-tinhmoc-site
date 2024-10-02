@@ -21,8 +21,8 @@ export function ProductEditView({ product }: Props) {
         heading="Chỉnh sửa sản phẩm"
         links={[
           { name: 'Quản trị', href: paths.dashboard.root },
-          { name: 'Sản phẩm', href: paths.dashboard.product.root },
-          { name: product?.slug },
+          { name: 'Giới thiệu', href: paths.dashboard.product.root },
+          { name: product?.category.name },
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />

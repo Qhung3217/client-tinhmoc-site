@@ -1,11 +1,8 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
-import { useMemo } from 'react';
-
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
-import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -22,6 +19,7 @@ import { HomeFooter } from './footer';
 import { NavMobile } from './nav/mobile';
 import { HeaderBase } from '../core/header-base';
 import { LayoutSection } from '../core/layout-section';
+import { navData, NAV_ITEMS } from '../config-nav-main';
 
 import type { NavMainProps } from './nav/types';
 
@@ -52,77 +50,11 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
 
   const layoutQuery: Breakpoint = 'md';
 
-  const navData = useMemo(() => {
-    const nav = [{ title: 'Trang chủ', path: '/' }] as any;
-    const desktop = [
-      {
-        items: [
-          {
-            title: 'Trang chủ',
-            path: '/',
-          },
-        ],
-      },
-    ] as any;
-
-    categoriesData.forEach((category, index) => {
-      if (category.name === 'Cửa') {
-        desktop.push({
-          items: [
-            {
-              title: category.name,
-              // path: paths.landing.product.category(category.name),
-              path: paths.landing.product.cua,
-              // children: [],
-            },
-          ],
-        });
-        nav.push({
-          title: category.name,
-          path: paths.landing.product.cua,
-        });
-      }
-      if (category.name === 'Kệ') {
-        desktop.push({
-          items: [
-            {
-              title: category.name,
-              path: paths.landing.product.ke,
-            },
-          ],
-        });
-        nav.push({
-          title: category.name,
-          path: paths.landing.product.ke,
-        });
-      }
-      if (category.name === 'Bàn ghế') {
-        desktop.push({
-          items: [
-            {
-              title: category.name,
-              path: paths.landing.product.ban_ghe,
-            },
-          ],
-        });
-        nav.push({
-          title: category.name,
-          path: paths.landing.product.ban_ghe,
-        });
-      }
-    });
-
-    return {
-      mobile: nav,
-      desktop,
-    };
-  }, [categoriesData]);
-
   const mdUp = useResponsive('up', layoutQuery);
 
   return (
     <>
-      <NavMobile data={navData.mobile} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
+      <NavMobile data={navData} open={mobileNavOpen.value} onClose={mobileNavOpen.onFalse} />
 
       <div
         style={{
@@ -170,7 +102,7 @@ export function MainLayout({ sx, data, children }: MainLayoutProps) {
                   <>
                     {mdUp && (
                       <NavSectionHorizontal
-                        data={navData.desktop}
+                        data={NAV_ITEMS}
                         enabledRootRedirect
                         cssVars={{
                           '--nav-item-gap': '4px',

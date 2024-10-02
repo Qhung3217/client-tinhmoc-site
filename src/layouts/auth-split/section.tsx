@@ -30,7 +30,7 @@ export function Section({
   layoutQuery,
   methods,
   title = 'Manage the job',
-  imgUrl = `${CONFIG.site.basePath}/logo/logo-single.svg`,
+  imgUrl = `${CONFIG.site.basePath}/logo/logo-single-big.png`,
   subtitle = '',
   ...other
 }: SectionProps) {
@@ -73,12 +73,7 @@ export function Section({
         )}
       </div>
 
-      <MuiBox
-        component="img"
-        alt="Dashboard illustration"
-        src={imgUrl}
-        sx={{ width: 432, height: 324 }}
-      />
+      <MuiBox component="img" alt="Dashboard illustration" src={imgUrl} sx={{ width: 432 }} />
     </MuiBox>
   );
 }

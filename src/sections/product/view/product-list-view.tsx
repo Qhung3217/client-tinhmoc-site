@@ -2,7 +2,6 @@ import type { ChangeEvent } from 'react';
 import type { UseSetStateReturn } from 'src/hooks/use-set-state';
 import type { IProductListItem, IProductTableFilters } from 'src/types/product';
 import type {
-  GridSlots,
   GridColDef,
   GridRowSelectionModel,
   GridColumnVisibilityModel,
@@ -23,7 +22,6 @@ import {
 
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-import { RouterLink } from 'src/routes/components';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useSetState } from 'src/hooks/use-set-state';
@@ -38,14 +36,8 @@ import { EmptyContent } from 'src/components/empty-content';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { CustomBreadcrumbs } from 'src/components/custom-breadcrumbs';
 
+import { RenderCellProduct } from '../product-table-row';
 import { ProductTableToolbar } from '../product-table-toolbar';
-import {
-  RenderCellSlug,
-  RenderCellProduct,
-  RenderCellCreateBy,
-  RenderCellPriority,
-  RenderCellCreatedAt,
-} from '../product-table-row';
 
 // ----------------------------------------------------------------------
 
@@ -139,18 +131,18 @@ export function ProductListView() {
 
   const columns: GridColDef[] = [
     { field: 'category', headerName: 'Category', filterable: false },
-    {
-      field: 'id',
-      headerName: 'Mã sản phẩm',
-      width: 160,
-      sortable: false,
-      filterable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => <RenderCellSlug params={params} />,
-    },
+    // {
+    //   field: 'id',
+    //   headerName: 'Mã sản phẩm',
+    //   width: 160,
+    //   sortable: false,
+    //   filterable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => <RenderCellSlug params={params} />,
+    // },
     {
       field: 'name',
-      headerName: 'Sản phẩm',
+      headerName: 'Giới thiệu',
       flex: 1,
       minWidth: 160,
       hideable: false,
@@ -161,18 +153,18 @@ export function ProductListView() {
         <RenderCellProduct params={params} onViewRow={() => handleViewRow(params.row.slug)} />
       ),
     },
-    {
-      field: 'priority',
-      headerName: 'Độ ưu tiên',
-      headerAlign: 'center',
-      width: 100,
-      editable: true,
-      align: 'center',
-      sortable: false,
-      filterable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => <RenderCellPriority params={params} />,
-    },
+    // {
+    //   field: 'priority',
+    //   headerName: 'Độ ưu tiên',
+    //   headerAlign: 'center',
+    //   width: 100,
+    //   editable: true,
+    //   align: 'center',
+    //   sortable: false,
+    //   filterable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => <RenderCellPriority params={params} />,
+    // },
     // {
     //   field: 'price',
     //   headerName: 'Giá',
@@ -195,24 +187,24 @@ export function ProductListView() {
     //   disableColumnMenu: true,
     //   renderCell: (params) => <RenderCellSalePercent params={params} />,
     // },
-    {
-      field: 'createdAt',
-      headerName: 'Ngày tạo',
-      width: 160,
-      sortable: false,
-      filterable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => <RenderCellCreatedAt params={params} />,
-    },
-    {
-      field: 'createBy',
-      headerName: 'Tạo bởi',
-      width: 110,
-      sortable: false,
-      filterable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => <RenderCellCreateBy params={params} />,
-    },
+    // {
+    //   field: 'createdAt',
+    //   headerName: 'Ngày tạo',
+    //   width: 160,
+    //   sortable: false,
+    //   filterable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => <RenderCellCreatedAt params={params} />,
+    // },
+    // {
+    //   field: 'createBy',
+    //   headerName: 'Tạo bởi',
+    //   width: 110,
+    //   sortable: false,
+    //   filterable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => <RenderCellCreateBy params={params} />,
+    // },
     {
       type: 'actions',
       field: 'actions',
@@ -225,25 +217,9 @@ export function ProductListView() {
       disableColumnMenu: true,
       getActions: (params) => [
         <GridActionsCellItem
-          showInMenu
-          icon={<Iconify icon="solar:eye-bold" />}
-          label="Xem"
-          onClick={() => handleViewRow(params.row.slug)}
-        />,
-        <GridActionsCellItem
-          showInMenu
           icon={<Iconify icon="solar:pen-bold" />}
           label="Sửa"
           onClick={() => handleEditRow(params.row.slug)}
-        />,
-        <GridActionsCellItem
-          showInMenu
-          icon={<Iconify icon="solar:trash-bin-trash-bold" />}
-          label="Xóa"
-          onClick={() => {
-            handleDeleteRow(params.row.id);
-          }}
-          sx={{ color: 'error.main' }}
         />,
       ],
     },
@@ -261,19 +237,10 @@ export function ProductListView() {
           heading="Danh sách"
           links={[
             { name: 'Quản trị', href: paths.dashboard.root },
-            { name: 'Sản phẩm', href: paths.dashboard.product.root },
-            { name: 'Danh sách' },
+            // { name: 'Sản phẩm', href: paths.dashboard.product.root },
+            { name: 'Giới thiệu' },
           ]}
-          action={
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.product.new}
-              variant="contained"
-              startIcon={<Iconify icon="mingcute:add-line" />}
-            >
-              Thêm sản phẩm
-            </Button>
-          }
+          action={<></>}
           sx={{ mb: { xs: 3, md: 5 } }}
         />
 
@@ -306,7 +273,7 @@ export function ProductListView() {
             columnVisibilityModel={columnVisibilityModel}
             onColumnVisibilityModelChange={(newModel) => setColumnVisibilityModel(newModel)}
             slots={{
-              toolbar: CustomToolbarMemoized as GridSlots['toolbar'],
+              // toolbar: CustomToolbarMemoized as GridSlots['toolbar'],
               noRowsOverlay: () => <EmptyContent />,
               noResultsOverlay: () => <EmptyContent title="No results found" />,
             }}

@@ -22,38 +22,38 @@ export const navData = [
   /**
    * Overview
    */
-  {
-    subheader: 'Overview',
-    items: [{ title: 'Tổng quan', path: paths.dashboard.root, icon: ICONS.dashboard }],
-  },
+  // {
+  //   subheader: 'Overview',
+  //   items: [{ title: 'Tổng quan', path: paths.dashboard.root, icon: ICONS.dashboard }],
+  // },
   /**
    * Management
    */
   {
-    subheader: 'Management',
+    subheader: 'Thiết lập',
     items: [
       {
-        title: 'Sản Phẩm',
+        title: 'Giới thiệu',
         path: paths.dashboard.product.root,
         icon: ICONS.product,
-        children: [
-          { title: 'Danh sách', path: paths.dashboard.product.root },
-          // { title: 'Chi tiết', path: paths.dashboard.product.demo.details },
-          { title: 'Tạo mới', path: paths.dashboard.product.new },
-          // { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
-        ],
+        // children: [
+        //   { title: 'Danh sách', path: paths.dashboard.product.root },
+        //   { title: 'Chi tiết', path: paths.dashboard.product.demo.details },
+        //   { title: 'Tạo mới', path: paths.dashboard.product.new },
+        //   { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
+        // ],
       },
-      {
-        title: 'Loại Sản Phẩm',
-        path: paths.dashboard.category.root,
-        icon: ICONS.product,
-        children: [
-          { title: 'Danh sách', path: paths.dashboard.category.root },
-          // { title: 'Chi tiết', path: paths.dashboard.product.demo.details },
-          { title: 'Tạo mới', path: paths.dashboard.category.new },
-          // { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
-        ],
-      },
+      // {
+      //   title: 'Loại Sản Phẩm',
+      //   path: paths.dashboard.category.root,
+      //   icon: ICONS.product,
+      //   children: [
+      //     { title: 'Danh sách', path: paths.dashboard.category.root },
+      //     // { title: 'Chi tiết', path: paths.dashboard.product.demo.details },
+      //     { title: 'Tạo mới', path: paths.dashboard.category.new },
+      //     // { title: 'Chỉnh sửa', path: paths.dashboard.product.demo.edit },
+      //   ],
+      // },
     ],
   },
 ];

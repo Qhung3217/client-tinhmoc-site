@@ -7,96 +7,16 @@ import type { NavItemBaseProps } from './main/nav/types';
 export const navData: NavItemBaseProps[] = [
   { title: 'Trang chủ', path: '/' },
   {
-    title: 'Cửa gỗ',
-    path: '/san-pham',
-    children: [
-      {
-        subheader: '',
-        items: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/san-pham',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Cửa nhựa',
-    path: '/basic/page',
-    children: [
-      {
-        subheader: '',
-        items: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: 'Cửa thép vân gỗ',
-    path: '/basic/page',
-    children: [
-      {
-        subheader: '',
-        items: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
+    title: 'Cửa',
+    path: '/cua',
   },
   {
     title: 'Bàn ghế',
-    path: '/basic/page',
-    children: [
-      {
-        subheader: '',
-        items: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
+    path: '/ban-ghe',
+  },
+  {
+    title: 'Kệ',
+    path: '/ke',
   },
 ];
 export const NAV_ITEMS: NavSectionDataProps = [
@@ -111,88 +31,8 @@ export const NAV_ITEMS: NavSectionDataProps = [
   {
     items: [
       {
-        title: 'Cửa gỗ',
-        path: '/san-pham',
-        children: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/san-pham',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    items: [
-      {
-        title: 'Cửa nhựa',
-        path: '/basic/page',
-        children: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    items: [
-      {
-        title: 'Cửa thép vân gỗ',
-        path: '/basic/page',
-        children: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    items: [
-      {
-        title: 'Cửa chống cháy',
-        path: '/basic/page',
-        children: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
+        title: 'Cửa',
+        path: '/cua',
       },
     ],
   },
@@ -200,21 +40,15 @@ export const NAV_ITEMS: NavSectionDataProps = [
     items: [
       {
         title: 'Bàn ghế',
-        path: '/basic/page',
-        children: [
-          {
-            title: 'Cửa gỗ HDF sơn',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa gỗ HDF venneer',
-            path: '/basic/page/1',
-          },
-          {
-            title: 'Cửa vòm gỗ',
-            path: '/basic/page/1',
-          },
-        ],
+        path: '/ban-ghe',
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        title: 'Kệ',
+        path: '/ke',
       },
     ],
   },
