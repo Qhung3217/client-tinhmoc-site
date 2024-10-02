@@ -2,14 +2,11 @@ import type { IProductItem } from 'src/types/product';
 
 import { Button } from '@mui/material';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-import { Image } from 'src/components/image';
 import { Iconify } from 'src/components/iconify';
-import { MuiBox } from 'src/components/@mui/mui-box';
 import { EmptyContent } from 'src/components/empty-content';
 
 import { ProductDetailsSkeleton } from '../product-skeleton';
@@ -55,9 +52,9 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
 
   return (
     <Container sx={{ mt: 5, mb: 10, color: 'white' }}>
-      <MuiBox sx={{}}>
+      {/* <MuiBox sx={{}}>
         <Image src={product?.thumbnail} alt={product?.title} sx={{ height: 400, width: 1 }} />
-      </MuiBox>
+      </MuiBox> */}
       {/* <MuiBox>
         <CustomBreadcrumbs
           links={[
@@ -83,12 +80,12 @@ export default function ProductDetailsView({ product, loading, error }: Props) {
         />
       </MuiBox> */}
 
-      <MuiBox sx={{ py: 2 }}>
+      {/* <MuiBox sx={{ py: 2 }}>
         <Typography variant="h3" textAlign="center">
           {product?.title}
         </Typography>
         <Typography>{product?.subContent}</Typography>
-      </MuiBox>
+      </MuiBox> */}
 
       <ProductDetailsDescription description={product?.content} />
 

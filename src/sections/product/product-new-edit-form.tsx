@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMemo, useEffect, useCallback } from 'react';
-import { LoadingIcon } from 'yet-another-react-lightbox';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -33,8 +32,8 @@ import { Form, Field } from 'src/components/hook-form';
 export type NewProductSchemaType = z.infer<typeof NewProductSchema>;
 
 export const NewProductSchema = z.object({
-  title: z.string().min(1, { message: 'Tên sản phẩm là bắt buộc!' }),
-  content: z.string().min(1, { message: 'Mô tả sản phẩm là bắt buộc!' }),
+  title: z.string().min(1, { message: 'Tiêu đề là bắt buộc!' }),
+  content: z.string().min(1, { message: 'Nội dung là bắt buộc!' }),
   subContent: z.string(),
   price: z.string(),
   salePercent: z.number(),
@@ -258,18 +257,18 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
       <Divider />
 
       <Stack spacing={3} sx={{ p: 3 }}>
-        <Field.Text name="slug" label="Mã sản phẩm *" />
-        <Field.Text name="title" label="Tên sản phẩm *" />
-        <Field.Text type="number" name="priority" label="Độ ưu tiên" />
+        {/* <Field.Text name="slug" label="Mã sản phẩm *" /> */}
+        <Field.Text name="title" label="Tiêu đề *" />
+        {/* <Field.Text type="number" name="priority" label="Độ ưu tiên" /> */}
         {/* <Field.Text name="price" label="Giá sản phẩm" />
         <Field.Text type="number" name="salePercent" label="Giảm giá" /> */}
 
         <Stack spacing={1.5}>
-          <Typography variant="subtitle2">Mô tả *</Typography>
+          <Typography variant="subtitle2">Nội dung *</Typography>
           <Field.Editor name="content" sx={{ maxHeight: 480 }} />
         </Stack>
 
-        <Stack spacing={1.5}>
+        {/* <Stack spacing={1.5}>
           <Typography variant="subtitle2">Mô tả ngắn</Typography>
           <Field.Text
             multiline // Thiết lập trường này thành textarea
@@ -277,7 +276,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
             name="subContent"
             sx={{ maxHeight: 480 }}
           />
-        </Stack>
+        </Stack> */}
 
         <Stack spacing={1.5}>
           <Typography variant="subtitle2">Ảnh bìa</Typography>
@@ -321,7 +320,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
           </Form>
         </Stack> */}
 
-        {categoriesLoading ? (
+        {/* {categoriesLoading ? (
           <LoadingIcon />
         ) : (
           <Field.Select
@@ -334,7 +333,7 @@ export function ProductNewEditForm({ currentProduct, mutate }: Props) {
               <option key={category.name} label={category.name} value={category.id} />
             ))}
           </Field.Select>
-        )}
+        )} */}
       </Stack>
     </Card>
   );
