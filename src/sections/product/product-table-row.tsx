@@ -1,8 +1,8 @@
 import type { GridCellParams } from '@mui/x-data-grid';
 
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
+import { Typography } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 
 import { fCurrency } from 'src/utils/format-number';
@@ -79,15 +79,9 @@ export function RenderCellProduct({
       <ListItemText
         disableTypography
         primary={
-          <Link
-            noWrap
-            color="inherit"
-            variant="subtitle2"
-            onClick={onViewRow}
-            sx={{ cursor: 'pointer' }}
-          >
+          <Typography noWrap variant="subtitle2">
             {params.row.title}
-          </Link>
+          </Typography>
         }
         secondary={
           <MuiBox component="div" sx={{ typography: 'body2', color: 'text.disabled' }}>
